@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from backend.routers import auth, dogs, matches, chat, location, audio
-from backend.database import engine, Base
-from backend.config import get_settings
+from routers import auth, dogs, matches, chat, location, audio
+from database import engine, Base
+from config import get_settings
 import uvicorn
 import logging
 import os
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     port = int(os.getenv("PORT", 10000))
     logger.info(f"Démarrage du serveur sur le port {port}")
     uvicorn.run(
-        "main:app",
+        "backend.main:app",
         host="0.0.0.0",
         port=port,
         reload=False,
