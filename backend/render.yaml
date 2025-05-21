@@ -4,7 +4,7 @@ services:
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port 10000
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
     autoDeploy: true
     envVars:
       - key: SECRET_KEY
@@ -12,4 +12,8 @@ services:
       - key: DATABASE_URL
         sync: false
       - key: CORS_ORIGINS
-        value: https://project-pet.vercel.app 
+        value: https://project-pet.vercel.app
+    healthCheckPath: /ping
+    envVars:
+      - key: PORT
+        value: 10000 
