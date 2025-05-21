@@ -28,9 +28,10 @@ const Navbar = () => {
 
   const navItems = [
     { path: '/', label: 'Accueil', icon: <FaHome className="w-5 h-5" /> },
-    { path: '/services', label: 'Services', icon: <MdHealthAndSafety className="w-5 h-5" /> },
+    { path: '/profile', label: 'Profil', icon: <FaUser className="w-5 h-5" /> },
+    { path: '/radar', label: 'Radar', icon: <MdGpsFixed className="w-5 h-5" /> },
     { path: '/pet-sound-chat', label: 'PetMeet', icon: <MdFavorite className="w-5 h-5" /> },
-    { path: '/map', label: 'Carte', icon: <MdGpsFixed className="w-5 h-5" /> }
+    { path: '/health', label: 'Santé', icon: <MdHealthAndSafety className="w-5 h-5" /> }
   ];
 
   return (
@@ -49,13 +50,13 @@ const Navbar = () => {
             </span>
           </Link>
           
-          <div className="hidden md:flex space-x-4">
+          <div className="hidden md:flex space-x-2">
             {navItems.map((item) => (
               <NavLink
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
-                  `relative px-4 py-2 rounded-lg transition-colors flex items-center ${
+                  `relative px-3 py-2 rounded-lg transition-colors flex items-center ${
                     isActive 
                       ? 'text-white bg-nature-600' 
                       : 'text-nature-600 hover:bg-nature-50'

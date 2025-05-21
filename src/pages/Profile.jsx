@@ -1,145 +1,182 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { FaUser, FaPaw, FaEdit, FaCamera, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
+import { MdPets } from 'react-icons/md';
 
 const Profile = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    race: '',
-    humeur: 'joyeux'
-  });
-  const [isApiAvailable, setIsApiAvailable] = useState(true);
-  const [message, setMessage] = useState('');
+  const [activeTab, setActiveTab] = useState('info');
+  const userEmail = localStorage.getItem('userEmail');
 
-  // Vérification de la disponibilité de l'API
-  useEffect(() => {
-    const checkApi = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/ping');
-        setIsApiAvailable(response.ok);
-      } catch (error) {
-        setIsApiAvailable(false);
-      }
-    };
-    checkApi();
-  }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage('');
-
-    try {
-      const response = await fetch('http://localhost:8000/dogs', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      });
-
-      console.log('Réponse du backend:', await response.json());
-
-      if (response.ok) {
-        setMessage('Chien ajouté avec succès !');
-        setFormData({
-          name: '',
-          race: '',
-          humeur: 'joyeux'
-        });
-      } else {
-        throw new Error('Erreur lors de l\'ajout du chien');
-      }
-    } catch (error) {
-      setMessage('Erreur: ' + error.message);
+  const pets = [
+    {
+      id: 1,
+      name: 'Max',
+      type: 'Chien',
+      breed: 'Labrador',
+      age: 3,
+      image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+    },
+    {
+      id: 2,
+      name: 'Luna',
+      type: 'Chat',
+      breed: 'Siamois',
+      age: 2,
+      image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
     }
-  };
-
-  if (!isApiAvailable) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-red-600 mb-4">API indisponible</h2>
-          <p className="text-gray-600">Veuillez vérifier que le serveur backend est en cours d'exécution.</p>
-        </div>
-      </div>
-    );
-  }
+  ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Ajouter un chien</h2>
-        
-        {message && (
-          <div className={`p-4 mb-4 rounded ${
-            message.includes('succès') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-          }`}>
-            {message}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-              Nom *
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="race" className="block text-sm font-medium text-gray-700 mb-1">
-              Race
-            </label>
-            <input
-              type="text"
-              id="race"
-              name="race"
-              value={formData.race}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+    <div className="min-h-screen bg-gray-50 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white rounded-2xl shadow-xl overflow-hidden"
+        >
+          {/* En-tête du profil */}
+          <div className="relative h-48 bg-nature-600">
+            <div className="absolute -bottom-16 left-8">
+              <div className="relative">
+                <div className="h-32 w-32 rounded-full border-4 border-white bg-white overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                    alt="Profile"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="absolute bottom-0 right-0 bg-nature-600 text-white p-2 rounded-full shadow-lg"
+                >
+                  <FaCamera className="w-5 h-5" />
+                </motion.button>
+              </div>
+            </div>
           </div>
 
-          <div>
-            <label htmlFor="humeur" className="block text-sm font-medium text-gray-700 mb-1">
-              Humeur
-            </label>
-            <select
-              id="humeur"
-              name="humeur"
-              value={formData.humeur}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="joyeux">Joyeux</option>
-              <option value="calme">Calme</option>
-              <option value="joueur">Joueur</option>
-              <option value="fatigué">Fatigué</option>
-              <option value="anxieux">Anxieux</option>
-            </select>
-          </div>
+          {/* Informations du profil */}
+          <div className="pt-20 pb-8 px-8">
+            <div className="flex justify-between items-start">
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">Jean Dupont</h1>
+                <p className="text-gray-600 mt-1">{userEmail}</p>
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center px-4 py-2 bg-nature-600 text-white rounded-lg hover:bg-nature-700 transition-colors"
+              >
+                <FaEdit className="w-5 h-5 mr-2" />
+                Modifier le profil
+              </motion.button>
+            </div>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
-          >
-            Ajouter le chien
-          </button>
-        </form>
+            {/* Onglets */}
+            <div className="mt-8 border-b border-gray-200">
+              <nav className="flex space-x-8">
+                {['info', 'pets', 'appointments'].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`pb-4 px-1 border-b-2 font-medium text-sm ${
+                      activeTab === tab
+                        ? 'border-nature-600 text-nature-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                  >
+                    {tab === 'info' && <FaUser className="inline-block mr-2" />}
+                    {tab === 'pets' && <MdPets className="inline-block mr-2" />}
+                    {tab === 'appointments' && <FaCalendarAlt className="inline-block mr-2" />}
+                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  </button>
+                ))}
+              </nav>
+            </div>
+
+            {/* Contenu des onglets */}
+            <div className="mt-8">
+              {activeTab === 'info' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div className="flex items-center">
+                      <FaMapMarkerAlt className="w-5 h-5 text-nature-600 mr-3" />
+                      <div>
+                        <p className="text-sm text-gray-500">Adresse</p>
+                        <p className="text-gray-900">123 Rue des Animaux, Paris</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <FaPhone className="w-5 h-5 text-nature-600 mr-3" />
+                      <div>
+                        <p className="text-sm text-gray-500">Téléphone</p>
+                        <p className="text-gray-900">+33 6 12 34 56 78</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <FaEnvelope className="w-5 h-5 text-nature-600 mr-3" />
+                      <div>
+                        <p className="text-sm text-gray-500">Email</p>
+                        <p className="text-gray-900">{userEmail}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'pets' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {pets.map((pet) => (
+                    <motion.div
+                      key={pet.id}
+                      whileHover={{ scale: 1.02 }}
+                      className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100"
+                    >
+                      <div className="h-48 overflow-hidden">
+                        <img
+                          src={pet.image}
+                          alt={pet.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="p-6">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h3 className="text-xl font-bold text-gray-900">{pet.name}</h3>
+                            <p className="text-gray-600">{pet.breed}</p>
+                          </div>
+                          <FaPaw className="w-6 h-6 text-nature-600" />
+                        </div>
+                        <div className="mt-4 space-y-2">
+                          <p className="text-sm text-gray-500">
+                            <span className="font-medium">Type:</span> {pet.type}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            <span className="font-medium">Âge:</span> {pet.age} ans
+                          </p>
+                        </div>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="mt-4 w-full bg-nature-600 text-white py-2 rounded-lg hover:bg-nature-700 transition-colors"
+                        >
+                          Voir le profil
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+
+              {activeTab === 'appointments' && (
+                <div className="text-center py-12">
+                  <p className="text-gray-500">Aucun rendez-vous à venir</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
