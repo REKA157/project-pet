@@ -7,8 +7,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Radar from './pages/Radar';
-import Meet from './pages/Meet';
-import Health from './pages/Health';
+import DogSwipe from './pages/DogSwipe';
 import AudioUpload from './pages/AudioUpload';
 import GeoTracker from './pages/GeoTracker';
 import VoiceAssistant from './pages/VoiceAssistant';
@@ -18,7 +17,6 @@ import FeedbackButton from './components/FeedbackButton';
 import { Toaster } from 'react-hot-toast';
 import NotificationListener from './components/NotificationListener';
 import Home from './pages/Home';
-import UploadAudio from './pages/UploadAudio';
 import SmartAssistant from './pages/SmartAssistant';
 import NotFound from './pages/NotFound';
 import LoadingSpinner from './components/LoadingSpinner';
@@ -42,9 +40,8 @@ const App = () => {
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/radar" element={<Radar />} />
-                  <Route path="/meet" element={<Meet />} />
-                  <Route path="/health" element={<Health />} />
-                  <Route path="/upload-audio" element={<UploadAudio />} />
+                  <Route path="/meet" element={<DogSwipe />} />
+                  <Route path="/upload-audio" element={<AudioUpload />} />
                   <Route path="/geotracker" element={<GeoTracker />} />
                   <Route path="/assistant" element={<SmartAssistant />} />
                 </Route>

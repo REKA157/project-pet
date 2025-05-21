@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const NotificationListener = () => {
     const [ws, setWs] = useState(null);
@@ -12,10 +12,14 @@ const NotificationListener = () => {
         if (!token) return;
 
         try {
-            const decoded = jwt_decode(token);
+            const decoded = jwtDecode(token);
             const userEmail = decoded.sub;
 
-            const websocket = new WebSocket(`ws://localhost:8000/ws/notifications/${userEmail}`);
+            const wsUrl = import.meta.env.PROD 
+                ? `wss://project-pet-backend.onrender.com/ws/notifications/${userEmail}`
+                : `ws://localhost:8000/ws/notifications/${userEmail}`;
+
+            const websocket = new WebSocket(wsUrl);
             
             websocket.onopen = () => {
                 console.log('Connecté aux notifications');
