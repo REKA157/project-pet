@@ -3,10 +3,7 @@ services:
     name: project-pet-backend
     env: python
     plan: free
-    buildCommand: |
-      pip install email-validator==1.3.1
-      pip install "pydantic[email]>=2.4"
-      pip install -r backend/requirements.txt
+    buildCommand: pip install -r backend/requirements.txt
     startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
     autoDeploy: true
     envVars:
