@@ -36,14 +36,14 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route element={<PrivateRoute />}>
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/radar" element={<Radar />} />
-                  <Route path="/meet" element={<DogSwipe />} />
-                  <Route path="/upload-audio" element={<AudioUpload />} />
-                  <Route path="/geotracker" element={<GeoTracker />} />
-                  <Route path="/assistant" element={<SmartAssistant />} />
+                <Route path="/" element={<PrivateRoute />}>
+                  <Route path="dashboard" element={<Dashboard />} />
+                  <Route path="profile" element={<Profile />} />
+                  <Route path="radar" element={<Radar />} />
+                  <Route path="meet" element={<DogSwipe />} />
+                  <Route path="upload-audio" element={<AudioUpload />} />
+                  <Route path="geotracker" element={<GeoTracker />} />
+                  <Route path="assistant" element={<SmartAssistant />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>
