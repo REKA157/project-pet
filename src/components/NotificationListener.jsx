@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { jwtDecode } from 'jwt-decode';
 
 const NotificationListener = () => {
     const [ws, setWs] = useState(null);
@@ -11,10 +10,28 @@ const NotificationListener = () => {
         const token = localStorage.getItem('token');
         if (!token) return;
 
-        try {
-            const decoded = jwtDecode(token);
-            const userEmail = decoded.sub;
+        // Mode démo : pas de WebSocket
+        if (token === 'demo-token') {
+            // Simuler quelques notifications pour le mode démo
+            const demoNotifications = [
+                {
+                    id: 1,
+                    message: 'Bienvenue dans le mode démo !',
+                    timestamp: new Date()
+                },
+                {
+                    id: 2,
+                    message: 'Votre chien a besoin d\'une promenade',
+                    timestamp: new Date()
+                }
+            ];
+            setNotifications(demoNotifications);
+            return;
+        }
 
+        // Mode production : connexion WebSocket
+        try {
+            const userEmail = localStorage.getItem('userEmail');
             const wsUrl = import.meta.env.PROD 
                 ? `wss://project-pet-backend.onrender.com/ws/notifications/${userEmail}`
                 : `ws://localhost:8000/ws/notifications/${userEmail}`;
@@ -28,14 +45,12 @@ const NotificationListener = () => {
             websocket.onmessage = (event) => {
                 const data = JSON.parse(event.data);
                 if (data.type === 'notification') {
-                    // Ajouter la notification à la liste
                     setNotifications(prev => [{
                         id: Date.now(),
                         message: data.message,
                         timestamp: new Date()
                     }, ...prev]);
 
-                    // Afficher le toast
                     toast(data.message, {
                         duration: 4000,
                         position: 'top-right',
@@ -58,7 +73,7 @@ const NotificationListener = () => {
                 websocket.close();
             };
         } catch (error) {
-            console.error('Erreur de décodage du token:', error);
+            console.error('Erreur de connexion:', error);
         }
     }, []);
 
