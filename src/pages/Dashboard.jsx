@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare } from 'react-icons/fa';
+import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare, FaTimes } from 'react-icons/fa';
 import { MdHealthAndSafety, MdLocalHospital, MdVaccines, MdDownload } from 'react-icons/md';
 
 const Dashboard = () => {
@@ -580,14 +580,250 @@ const Dashboard = () => {
           )}
 
           {activeMainTab === 'petmeet' && (
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold mb-4">PetMeet</h2>
-              <div className="space-y-4">
-                <div className="p-4 bg-pink-50 rounded-lg">
-                  <h3 className="font-semibold">Chiens à proximité</h3>
-                  <p className="text-sm text-gray-600">
-                    {nearestDog ? '1 chien trouvé' : 'Aucun chien à proximité'}
-                  </p>
+            <div className="space-y-6">
+              {/* En-tête PetMeet */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-2xl font-bold text-gray-900">PetMeet</h2>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm text-gray-600">Matchs récents :</span>
+                    <span className="px-3 py-1 rounded-full bg-pink-100 text-pink-800">3 nouveaux</span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-pink-50 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-gray-600">Profils vus aujourd'hui</p>
+                        <p className="text-lg font-semibold text-gray-900">12</p>
+                      </div>
+                      <FaUserFriends className="w-8 h-8 text-pink-600" />
+                    </div>
+                  </div>
+                  <div className="bg-pink-50 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-gray-600">Matchs</p>
+                        <p className="text-lg font-semibold text-gray-900">8</p>
+                      </div>
+                      <FaHeart className="w-8 h-8 text-pink-600" />
+                    </div>
+                  </div>
+                  <div className="bg-pink-50 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-gray-600">Prochains rendez-vous</p>
+                        <p className="text-lg font-semibold text-gray-900">2</p>
+                      </div>
+                      <FaCalendarAlt className="w-8 h-8 text-pink-600" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Profils à découvrir */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Profils à découvrir</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {/* Carte de profil 1 */}
+                  <div className="bg-white border rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div className="relative h-64 bg-gray-200">
+                      <img 
+                        src="https://images.unsplash.com/photo-1543466835-00a7907e9de1" 
+                        alt="Luna" 
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                        <h4 className="text-white text-xl font-bold">Luna</h4>
+                        <p className="text-white/90">Golden Retriever, 2 ans</p>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <span className="px-2 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Joueur</span>
+                        <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Calme</span>
+                      </div>
+                      <p className="text-gray-600 text-sm mb-4">Luna adore jouer dans le parc et faire de nouvelles rencontres. Elle est très sociable et s'entend bien avec les autres chiens.</p>
+                      <div className="flex justify-between">
+                        <button className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors">
+                          <FaTimes className="w-6 h-6" />
+                        </button>
+                        <button className="p-2 rounded-full bg-green-100 text-green-600 hover:bg-green-200 transition-colors">
+                          <FaHeart className="w-6 h-6" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Carte de profil 2 */}
+                  <div className="bg-white border rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div className="relative h-64 bg-gray-200">
+                      <img 
+                        src="https://images.unsplash.com/photo-1517849845537-4d257902454a" 
+                        alt="Max" 
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                        <h4 className="text-white text-xl font-bold">Max</h4>
+                        <p className="text-white/90">Labrador, 3 ans</p>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <span className="px-2 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Énergique</span>
+                        <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Intelligent</span>
+                      </div>
+                      <p className="text-gray-600 text-sm mb-4">Max est un chien très actif qui adore les longues promenades et les jeux de balle. Il est très bien éduqué et sociable.</p>
+                      <div className="flex justify-between">
+                        <button className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors">
+                          <FaTimes className="w-6 h-6" />
+                        </button>
+                        <button className="p-2 rounded-full bg-green-100 text-green-600 hover:bg-green-200 transition-colors">
+                          <FaHeart className="w-6 h-6" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Carte de profil 3 */}
+                  <div className="bg-white border rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                    <div className="relative h-64 bg-gray-200">
+                      <img 
+                        src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e" 
+                        alt="Bella" 
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                        <h4 className="text-white text-xl font-bold">Bella</h4>
+                        <p className="text-white/90">Border Collie, 1 an</p>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <span className="px-2 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Intelligent</span>
+                        <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Agile</span>
+                      </div>
+                      <p className="text-gray-600 text-sm mb-4">Bella est une chienne très intelligente qui excelle dans les sports canins. Elle adore les défis et les jeux d'agilité.</p>
+                      <div className="flex justify-between">
+                        <button className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors">
+                          <FaTimes className="w-6 h-6" />
+                        </button>
+                        <button className="p-2 rounded-full bg-green-100 text-green-600 hover:bg-green-200 transition-colors">
+                          <FaHeart className="w-6 h-6" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Matchs récents */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Matchs récents</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-16 h-16 rounded-full overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1543466835-00a7907e9de1" 
+                          alt="Luna" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Luna</h4>
+                        <p className="text-sm text-gray-600">Match il y a 2 heures</p>
+                        <button className="mt-2 text-sm text-pink-600 hover:text-pink-700">
+                          Envoyer un message
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-16 h-16 rounded-full overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1517849845537-4d257902454a" 
+                          alt="Max" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Max</h4>
+                        <p className="text-sm text-gray-600">Match il y a 5 heures</p>
+                        <button className="mt-2 text-sm text-pink-600 hover:text-pink-700">
+                          Envoyer un message
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-16 h-16 rounded-full overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e" 
+                          alt="Bella" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Bella</h4>
+                        <p className="text-sm text-gray-600">Match il y a 1 jour</p>
+                        <button className="mt-2 text-sm text-pink-600 hover:text-pink-700">
+                          Envoyer un message
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Prochains rendez-vous */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Prochains rendez-vous</h3>
+                <div className="space-y-4">
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 rounded-full overflow-hidden">
+                          <img 
+                            src="https://images.unsplash.com/photo-1543466835-00a7907e9de1" 
+                            alt="Luna" 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-900">Rendez-vous avec Luna</h4>
+                          <p className="text-sm text-gray-600">Parc Central</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-gray-600">Demain</p>
+                        <p className="text-sm text-gray-600">15:00</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 rounded-full overflow-hidden">
+                          <img 
+                            src="https://images.unsplash.com/photo-1517849845537-4d257902454a" 
+                            alt="Max" 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-900">Rendez-vous avec Max</h4>
+                          <p className="text-sm text-gray-600">Parc des Chiens</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-gray-600">Samedi</p>
+                        <p className="text-sm text-gray-600">10:00</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
