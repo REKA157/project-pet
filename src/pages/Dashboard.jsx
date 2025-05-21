@@ -1088,6 +1088,24 @@ const Dashboard = () => {
                   </div>
                 </div>
 
+                {/* Section d'enregistrement vocal */}
+                <div className="bg-gray-50 rounded-lg p-6 mb-8">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Analyse vocale en temps réel</h3>
+                  <div className="flex flex-col items-center space-y-4">
+                    <div className="w-24 h-24 bg-pink-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-pink-200 transition-colors">
+                      <FaMicrophone className="w-12 h-12 text-pink-500" />
+                    </div>
+                    <p className="text-gray-600 text-center">
+                      Appuyez et maintenez pour enregistrer les sons de votre animal
+                    </p>
+                    <div className="w-full max-w-md">
+                      <div className="h-2 bg-gray-200 rounded-full">
+                        <div className="h-full bg-pink-500 rounded-full animate-pulse" style={{ width: '0%' }}></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="bg-gray-50 rounded-lg p-6">
                   <h3 className="text-lg font-semibold text-gray-800 mb-4">Analyse en temps réel</h3>
                   <div className="space-y-4">
