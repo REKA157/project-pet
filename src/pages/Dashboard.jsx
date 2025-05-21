@@ -846,16 +846,138 @@ const Dashboard = () => {
           )}
 
           {activeMainTab === 'location' && (
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold mb-4">Localisation</h2>
-              <div className="space-y-4">
-                <div className="p-4 bg-green-50 rounded-lg">
-                  <h3 className="font-semibold">Position actuelle</h3>
-                  <p className="text-sm text-gray-600">
-                    {position
-                      ? `Latitude: ${position.latitude}, Longitude: ${position.longitude}`
-                      : 'Position non disponible'}
-                  </p>
+            <div className="space-y-6">
+              {/* En-tête de localisation */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-2xl font-bold text-gray-900">Localisation</h2>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm text-gray-600">Chiens à proximité :</span>
+                    <span className="px-3 py-1 rounded-full bg-green-100 text-green-800">3 dans un rayon de 1km</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Carte interactive */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <div className="relative h-[400px] bg-gray-100 rounded-lg overflow-hidden">
+                  {/* Carte de base */}
+                  <div className="absolute inset-0 bg-[url('https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/2.3522,48.8566,13,0/600x400?access_token=pk.eyJ1IjoiZXhhbXBsZSIsImEiOiJjMnBqMmpwMDAwMDAwMDAwMDAwMDAwMDAwIn0.2fY_9WxX9Z9Z9Z9Z9Z9Z9Z9Z')] bg-cover bg-center">
+                    {/* Marqueur de position actuelle */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                      <div className="relative">
+                        <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                          <FaMapMarkerAlt className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-blue-600"></div>
+                      </div>
+                    </div>
+
+                    {/* Marqueurs des chiens à proximité */}
+                    <div className="absolute top-1/3 left-1/3">
+                      <div className="relative">
+                        <div className="w-8 h-8 bg-pink-600 rounded-full flex items-center justify-center shadow-lg">
+                          <FaPaw className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-pink-600"></div>
+                      </div>
+                    </div>
+
+                    <div className="absolute top-2/3 left-2/3">
+                      <div className="relative">
+                        <div className="w-8 h-8 bg-pink-600 rounded-full flex items-center justify-center shadow-lg">
+                          <FaPaw className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-pink-600"></div>
+                      </div>
+                    </div>
+
+                    <div className="absolute top-1/4 left-3/4">
+                      <div className="relative">
+                        <div className="w-8 h-8 bg-pink-600 rounded-full flex items-center justify-center shadow-lg">
+                          <FaPaw className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-pink-600"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Contrôles de la carte */}
+                  <div className="absolute bottom-4 right-4 flex flex-col space-y-2">
+                    <button className="w-10 h-10 bg-white rounded-lg shadow-lg flex items-center justify-center hover:bg-gray-50">
+                      <span className="text-xl">+</span>
+                    </button>
+                    <button className="w-10 h-10 bg-white rounded-lg shadow-lg flex items-center justify-center hover:bg-gray-50">
+                      <span className="text-xl">-</span>
+                    </button>
+                    <button className="w-10 h-10 bg-white rounded-lg shadow-lg flex items-center justify-center hover:bg-gray-50">
+                      <FaMapMarkerAlt className="w-5 h-5 text-gray-600" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Légende */}
+                <div className="mt-4 flex items-center space-x-4">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 bg-blue-600 rounded-full"></div>
+                    <span className="text-sm text-gray-600">Votre position</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 bg-pink-600 rounded-full"></div>
+                    <span className="text-sm text-gray-600">Chiens à proximité</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Liste des chiens à proximité */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Chiens à proximité</h3>
+                <div className="space-y-4">
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 rounded-full overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1543466835-00a7907e9de1" 
+                          alt="Luna" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Luna</h4>
+                        <p className="text-sm text-gray-600">Golden Retriever • 250m</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 rounded-full overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1517849845537-4d257902454a" 
+                          alt="Max" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Max</h4>
+                        <p className="text-sm text-gray-600">Labrador • 450m</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 rounded-full overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e" 
+                          alt="Bella" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Bella</h4>
+                        <p className="text-sm text-gray-600">Border Collie • 750m</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
