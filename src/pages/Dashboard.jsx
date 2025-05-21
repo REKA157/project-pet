@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare, FaTimes, FaCamera, FaVideo } from 'react-icons/fa';
+import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare, FaTimes, FaCamera, FaVideo, FaBrain } from 'react-icons/fa';
 import { MdHealthAndSafety, MdLocalHospital, MdVaccines, MdDownload } from 'react-icons/md';
 
 const Dashboard = () => {
@@ -260,7 +260,7 @@ const Dashboard = () => {
     { id: 'health', label: 'Santé', icon: FaHeartbeat },
     { id: 'petmeet', label: 'PetMeet', icon: FaUserFriends },
     { id: 'location', label: 'Localisation', icon: FaMapMarkerAlt },
-    { id: 'translator', label: 'Traducteur', icon: FaLanguage }
+    { id: 'translator', label: 'PetSense', icon: FaBrain }
   ];
 
   const getCurrentColorConfig = () => {
@@ -1055,12 +1055,93 @@ const Dashboard = () => {
           )}
 
           {activeMainTab === 'translator' && (
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold mb-4">Traducteur</h2>
-              <div className="space-y-4">
-                <div className="p-4 bg-indigo-50 rounded-lg">
-                  <h3 className="font-semibold">Traduction en temps réel</h3>
-                  <p className="text-sm text-gray-600">En attente d'activation du microphone</p>
+            <div className="space-y-6">
+              <div className="bg-white rounded-lg shadow p-6">
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">PetSense - IA d'Analyse Comportementale</h2>
+                <p className="text-gray-600 mb-6">
+                  Notre intelligence artificielle analyse les sons et comportements de votre animal pour faciliter la communication et la compréhension mutuelle.
+                </p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                  <div className="bg-pink-50 rounded-lg p-6">
+                    <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mb-4">
+                      <FaHeart className="text-pink-500 text-xl" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Détection des émotions</h3>
+                    <p className="text-gray-600">Analyse des signaux émotionnels et des expressions faciales de votre animal</p>
+                  </div>
+                  
+                  <div className="bg-pink-50 rounded-lg p-6">
+                    <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mb-4">
+                      <FaMicrophone className="text-pink-500 text-xl" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Analyse des vocalisations</h3>
+                    <p className="text-gray-600">Décodage des sons et des variations vocales pour comprendre les besoins</p>
+                  </div>
+                  
+                  <div className="bg-pink-50 rounded-lg p-6">
+                    <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mb-4">
+                      <FaBrain className="text-pink-500 text-xl" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Interprétation comportementale</h3>
+                    <p className="text-gray-600">Analyse des mouvements et postures pour décoder les intentions</p>
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Analyse en temps réel</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
+                          <FaMicrophone className="text-pink-500" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-800">Niveau sonore</p>
+                          <p className="text-sm text-gray-500">Modéré</p>
+                        </div>
+                      </div>
+                      <div className="w-32 h-2 bg-gray-200 rounded-full">
+                        <div className="w-1/2 h-full bg-pink-500 rounded-full"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
+                          <FaHeart className="text-pink-500" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-800">État émotionnel</p>
+                          <p className="text-sm text-gray-500">Content</p>
+                        </div>
+                      </div>
+                      <div className="w-32 h-2 bg-gray-200 rounded-full">
+                        <div className="w-3/4 h-full bg-pink-500 rounded-full"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
+                          <FaBrain className="text-pink-500" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-800">Niveau d'activité</p>
+                          <p className="text-sm text-gray-500">Élevé</p>
+                        </div>
+                      </div>
+                      <div className="w-32 h-2 bg-gray-200 rounded-full">
+                        <div className="w-4/5 h-full bg-pink-500 rounded-full"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  <button className="w-full bg-pink-500 text-white py-3 px-6 rounded-lg hover:bg-pink-600 transition-colors">
+                    Démarrer l'analyse
+                  </button>
                 </div>
               </div>
             </div>
