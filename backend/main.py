@@ -31,15 +31,9 @@ app = FastAPI(
 )
 
 # Configuration CORS
-origins = [
-    "http://localhost:5173",
-    "http://localhost:3000",
-    "https://project-pet.vercel.app"
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=settings.CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -57,9 +51,9 @@ app.include_router(audio.router, prefix="/api", tags=["audio"])
 async def root():
     return {"message": "Bienvenue sur l'API Project PET"}
 
-@app.get("/ping")
-async def ping():
-    return {"message": "pong"}
+@app.get("/api/health")
+async def health_check():
+    return {"status": "healthy"}
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):
