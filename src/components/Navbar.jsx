@@ -29,10 +29,12 @@ const Navbar = () => {
   const navItems = [
     { path: '/', label: 'Accueil', icon: <FaHome className="w-5 h-5" /> },
     { path: '/app/dashboard', label: 'Dashboard', icon: <FaPaw className="w-5 h-5" /> },
-    { path: '/profile', label: 'Profil', icon: <FaUser className="w-5 h-5" /> },
-    { path: '/radar', label: 'Radar', icon: <MdGpsFixed className="w-5 h-5" /> },
-    { path: '/pet-sound-chat', label: 'PetMeet', icon: <MdFavorite className="w-5 h-5" /> },
-    { path: '/health', label: 'Santé', icon: <MdHealthAndSafety className="w-5 h-5" /> }
+    { path: '/app/profile', label: 'Profil', icon: <FaUser className="w-5 h-5" /> },
+    { path: '/app/radar', label: 'Radar', icon: <MdGpsFixed className="w-5 h-5" /> },
+    { path: '/app/meet', label: 'PetMeet', icon: <MdFavorite className="w-5 h-5" /> },
+    { path: '/app/upload-audio', label: 'Analyse Audio', icon: <MdMic className="w-5 h-5" /> },
+    { path: '/app/geotracker', label: 'Géolocalisation', icon: <MdGpsFixed className="w-5 h-5" /> },
+    { path: '/app/assistant', label: 'Assistant', icon: <MdAssistant className="w-5 h-5" /> }
   ];
 
   return (
