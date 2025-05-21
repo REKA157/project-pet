@@ -5,12 +5,20 @@ import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaChec
 import { MdHealthAndSafety, MdLocalHospital, MdVaccines } from 'react-icons/md';
 
 const Dashboard = () => {
+  console.log('Dashboard component rendering');
+  
   const [activeMainTab, setActiveMainTab] = useState('overview');
   const [activeSubTab, setActiveSubTab] = useState('overview');
   const [dogMood, setDogMood] = useState('joueur');
   const [position, setPosition] = useState(null);
   const [nearestDog, setNearestDog] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    console.log('Dashboard mounted');
+    console.log('Current route:', window.location.pathname);
+    console.log('Token:', localStorage.getItem('token'));
+  }, []);
 
   // Données de santé simulées
   const [healthData, setHealthData] = useState({
@@ -239,7 +247,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="dashboard-container">
       {/* En-tête */}
       <div className="bg-white rounded-lg shadow p-6">
         <div className="flex justify-between items-center">
@@ -331,97 +339,222 @@ const Dashboard = () => {
 
           {activeMainTab === 'health' && (
             <div className="space-y-6">
-              {/* Sous-onglets de santé */}
-              <div className="bg-white rounded-lg shadow p-4">
-                <nav className="flex space-x-4">
-                  <button
-                    onClick={() => setActiveSubTab('overview')}
-                    className={`px-4 py-2 rounded-md ${
-                      activeSubTab === 'overview'
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-600 hover:bg-gray-100'
-                    }`}
-                  >
-                    Vue d'ensemble
-                  </button>
-                  <button
-                    onClick={() => setActiveSubTab('history')}
-                    className={`px-4 py-2 rounded-md ${
-                      activeSubTab === 'history'
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-600 hover:bg-gray-100'
-                    }`}
-                  >
-                    Historique
-                  </button>
-                  <button
-                    onClick={() => setActiveSubTab('medications')}
-                    className={`px-4 py-2 rounded-md ${
-                      activeSubTab === 'medications'
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-600 hover:bg-gray-100'
-                    }`}
-                  >
-                    Médicaments
-                  </button>
-                </nav>
+              {/* En-tête de l'onglet Santé */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Santé de Rex</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-nature-50 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-gray-600">Dernier check-up</p>
+                        <p className="text-lg font-semibold text-gray-900">15 Mars 2024</p>
+                      </div>
+                      <MdHealthAndSafety className="w-8 h-8 text-nature-600" />
+                    </div>
+                  </div>
+                  <div className="bg-nature-50 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-gray-600">Prochain vaccin</p>
+                        <p className="text-lg font-semibold text-gray-900">15 Avril 2024</p>
+                      </div>
+                      <MdHealthAndSafety className="w-8 h-8 text-nature-600" />
+                    </div>
+                  </div>
+                  <div className="bg-nature-50 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-gray-600">État général</p>
+                        <p className="text-lg font-semibold text-gray-900">Excellent</p>
+                      </div>
+                      <MdHealthAndSafety className="w-8 h-8 text-nature-600" />
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Contenu des sous-onglets de santé */}
-              {activeSubTab === 'overview' && (
-                <div className="bg-white rounded-lg shadow p-6">
-                  <h2 className="text-xl font-semibold mb-4">Vue d'ensemble de la santé</h2>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 bg-blue-50 rounded-lg">
-                      <h3 className="font-semibold mb-2">État général</h3>
-                      <p className="text-sm text-gray-600">Excellent</p>
+              {/* Rendez-vous médicaux */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-xl font-semibold text-gray-900">Rendez-vous médicaux</h3>
+                  <button className="bg-nature-600 text-white px-4 py-2 rounded-lg hover:bg-nature-700 transition-colors">
+                    Nouveau RDV
+                  </button>
+                </div>
+                <div className="space-y-4">
+                  <div className="border rounded-lg p-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="font-semibold text-gray-900">Vaccination annuelle</p>
+                        <p className="text-sm text-gray-600">Dr. Martin - Clinique Vétérinaire</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-gray-600">15 Avril 2024</p>
+                        <p className="text-sm text-gray-600">14:30</p>
+                      </div>
                     </div>
-                    <div className="p-4 bg-green-50 rounded-lg">
-                      <h3 className="font-semibold mb-2">Dernier examen</h3>
-                      <p className="text-sm text-gray-600">{healthData.lastCheckup}</p>
+                  </div>
+                  <div className="border rounded-lg p-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="font-semibold text-gray-900">Contrôle dentaire</p>
+                        <p className="text-sm text-gray-600">Dr. Dubois - Cabinet Dentaire</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-gray-600">20 Avril 2024</p>
+                        <p className="text-sm text-gray-600">10:00</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              )}
+              </div>
 
-              {activeSubTab === 'history' && (
-                <div className="bg-white rounded-lg shadow p-6">
-                  <h2 className="text-xl font-semibold mb-4">Historique médical</h2>
-                  <div className="space-y-4">
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <h3 className="font-semibold">Vaccination</h3>
-                      <p className="text-sm text-gray-600">Date: {healthData.nextVaccination}</p>
+              {/* Téléconsultation */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-xl font-semibold text-gray-900">Téléconsultation</h3>
+                  <button className="bg-nature-600 text-white px-4 py-2 rounded-lg hover:bg-nature-700 transition-colors">
+                    Demander une consultation
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="border rounded-lg p-4">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-nature-100 rounded-full flex items-center justify-center">
+                        <MdHealthAndSafety className="w-6 h-6 text-nature-600" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900">Dr. Martin</p>
+                        <p className="text-sm text-gray-600">Disponible maintenant</p>
+                      </div>
                     </div>
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <h3 className="font-semibold">Check-up</h3>
-                      <p className="text-sm text-gray-600">Date: {healthData.lastCheckup}</p>
+                  </div>
+                  <div className="border rounded-lg p-4">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-nature-100 rounded-full flex items-center justify-center">
+                        <MdHealthAndSafety className="w-6 h-6 text-nature-600" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900">Dr. Dubois</p>
+                        <p className="text-sm text-gray-600">Disponible dans 30 min</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              )}
+              </div>
 
-              {activeSubTab === 'medications' && (
-                <div className="bg-white rounded-lg shadow p-6">
-                  <h2 className="text-xl font-semibold mb-4">Médicaments</h2>
-                  <div className="space-y-4">
-                    {healthReminders
-                      .filter(reminder => reminder.type === 'Médicament')
-                      .map(reminder => (
-                        <div key={reminder.id} className="p-4 bg-gray-50 rounded-lg">
-                          <h3 className="font-semibold">{reminder.description}</h3>
-                          <p className="text-sm text-gray-600">Heure: {reminder.time}</p>
-                          <span className={`px-3 py-1 rounded-full text-sm ${
-                            reminder.status === 'completed'
-                              ? 'bg-green-200 text-green-800'
-                              : 'bg-yellow-200 text-yellow-800'
-                          }`}>
-                            {reminder.status === 'completed' ? 'Terminé' : 'En attente'}
-                          </span>
+              {/* Dossier médical */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-xl font-semibold text-gray-900">Dossier médical</h3>
+                  <button className="bg-nature-600 text-white px-4 py-2 rounded-lg hover:bg-nature-700 transition-colors">
+                    Télécharger le dossier
+                  </button>
+                </div>
+                <div className="space-y-4">
+                  <div className="border rounded-lg p-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="font-semibold text-gray-900">Vaccinations</p>
+                        <p className="text-sm text-gray-600">Dernière mise à jour: 15 Mars 2024</p>
+                      </div>
+                      <button className="text-nature-600 hover:text-nature-700">
+                        <MdDownload className="w-6 h-6" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="border rounded-lg p-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="font-semibold text-gray-900">Analyses sanguines</p>
+                        <p className="text-sm text-gray-600">Dernière mise à jour: 1 Mars 2024</p>
+                      </div>
+                      <button className="text-nature-600 hover:text-nature-700">
+                        <MdDownload className="w-6 h-6" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="border rounded-lg p-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="font-semibold text-gray-900">Radiographies</p>
+                        <p className="text-sm text-gray-600">Dernière mise à jour: 20 Février 2024</p>
+                      </div>
+                      <button className="text-nature-600 hover:text-nature-700">
+                        <MdDownload className="w-6 h-6" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Données de santé existantes */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Données de santé</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="text-lg font-medium text-gray-900 mb-3">Vitalité</h4>
+                    <div className="space-y-3">
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span className="text-sm text-gray-600">Niveau d'énergie</span>
+                          <span className="text-sm font-medium text-gray-900">85%</span>
                         </div>
-                      ))}
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="bg-nature-600 h-2 rounded-full" style={{ width: '85%' }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span className="text-sm text-gray-600">Qualité du sommeil</span>
+                          <span className="text-sm font-medium text-gray-900">90%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="bg-nature-600 h-2 rounded-full" style={{ width: '90%' }}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-medium text-gray-900 mb-3">Activité physique</h4>
+                    <div className="space-y-3">
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span className="text-sm text-gray-600">Exercice quotidien</span>
+                          <span className="text-sm font-medium text-gray-900">75%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="bg-nature-600 h-2 rounded-full" style={{ width: '75%' }}></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span className="text-sm text-gray-600">Jeux et activités</span>
+                          <span className="text-sm font-medium text-gray-900">80%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="bg-nature-600 h-2 rounded-full" style={{ width: '80%' }}></div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              )}
+              </div>
+
+              {/* Prédictions IA existantes */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Prédictions IA</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-nature-50 rounded-lg p-4">
+                    <h4 className="text-lg font-medium text-gray-900 mb-2">Santé</h4>
+                    <p className="text-gray-600">État de santé optimal, continuez les bonnes habitudes !</p>
+                  </div>
+                  <div className="bg-nature-50 rounded-lg p-4">
+                    <h4 className="text-lg font-medium text-gray-900 mb-2">Comportement</h4>
+                    <p className="text-gray-600">Niveau d'activité normal, pas de signes d'anxiété détectés.</p>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 
