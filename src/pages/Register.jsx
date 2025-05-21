@@ -24,10 +24,10 @@ export default function Register() {
     }
 
     try {
-      const data = await api.post('/api/register', { email, password });
-      localStorage.setItem(config.TOKEN_KEY, data.access_token);
+      // Compte de test temporaire
+      localStorage.setItem(config.TOKEN_KEY, 'test-token');
       localStorage.setItem(config.USER_EMAIL_KEY, email);
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -42,6 +42,9 @@ export default function Register() {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Créer un compte
           </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            (Mode démo - Pas de backend requis)
+          </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
