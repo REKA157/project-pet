@@ -8,7 +8,10 @@ import logging
 import os
 
 # Configuration du logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
 logger = logging.getLogger(__name__)
 
 # Récupération des paramètres
@@ -64,12 +67,13 @@ async def global_exception_handler(request, exc):
     )
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 8000))
+    port = int(os.getenv("PORT", 10000))
+    logger.info(f"Démarrage du serveur sur le port {port}")
     uvicorn.run(
-        "backend.main:app",
+        "main:app",
         host="0.0.0.0",
         port=port,
-        reload=True,
+        reload=False,
         workers=1,
         log_level="info"
     ) 
