@@ -1,10 +1,7 @@
 from pydantic import BaseSettings
 from functools import lru_cache
 import os
-from dotenv import load_dotenv
 from typing import List
-
-load_dotenv()
 
 class Settings(BaseSettings):
     DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/project_pet")
