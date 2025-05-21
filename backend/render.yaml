@@ -3,7 +3,9 @@ services:
     name: project-pet-backend
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      pip install -r backend/requirements.txt
+      pip install "pydantic[email]"
     startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
     autoDeploy: true
     envVars:
@@ -12,8 +14,7 @@ services:
       - key: DATABASE_URL
         sync: false
       - key: CORS_ORIGINS
-        value: https://project-pet.vercel.app
-    healthCheckPath: /ping
-    envVars:
+        value: https://project-pet-taupe.vercel.app
       - key: PORT
-        value: 10000 
+        value: 10000
+    healthCheckPath: /ping 
