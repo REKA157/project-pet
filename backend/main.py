@@ -9,13 +9,14 @@ import os
 
 # Configuration du logging
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
 # Récupération des paramètres
 settings = get_settings()
+logger.info(f"Configuration chargée: {settings}")
 
 # Création des tables
 try:
@@ -38,8 +39,11 @@ origins = [
     "http://localhost:5173",
     "https://project-pet.vercel.app",
     "https://*.vercel.app",
-    "https://*.railway.app"
+    "https://*.railway.app",
+    "https://project-pet-production.up.railway.app"
 ]
+
+logger.info(f"Origines CORS configurées: {origins}")
 
 app.add_middleware(
     CORSMiddleware,
@@ -59,10 +63,12 @@ app.include_router(audio.router, prefix="/api", tags=["audio"])
 
 @app.get("/")
 async def root():
+    logger.info("Accès à la route racine")
     return {"message": "Bienvenue sur l'API Project PET"}
 
 @app.get("/api/health")
 async def health_check():
+    logger.info("Vérification de la santé de l'API")
     return {"status": "healthy"}
 
 @app.exception_handler(Exception)
@@ -82,5 +88,5 @@ if __name__ == "__main__":
         port=port,
         reload=False,
         workers=1,
-        log_level="info"
+        log_level="debug"
     ) 
