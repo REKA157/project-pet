@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaVideo, FaCalendarAlt, FaUserMd, FaGraduationCap, FaExternalLinkAlt, FaHeart, FaArrowRight } from 'react-icons/fa';
+import { FaVideo, FaCalendarAlt, FaUserMd, FaGraduationCap, FaExternalLinkAlt, FaHeart, FaArrowRight, FaUsers } from 'react-icons/fa';
 import { MdPets, MdForum, MdHealthAndSafety, MdSecurity } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import ExternalLink from '../components/ExternalLink';
