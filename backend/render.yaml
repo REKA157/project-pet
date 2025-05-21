@@ -5,7 +5,7 @@ services:
     buildCommand: |
       pip install --upgrade pip
       pip install -r backend/requirements.txt
-    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port 10000
     autoDeploy: true
     healthCheckPath: /api/health
     envVars:
@@ -14,6 +14,4 @@ services:
       - key: DATABASE_URL
         sync: false
       - key: CORS_ORIGINS
-        sync: false
-      - key: PORT
-        value: 10000 
+        sync: false 
