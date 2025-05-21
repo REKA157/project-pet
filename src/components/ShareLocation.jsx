@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaShare, FaMapMarkerAlt, FaClock, FaUserFriends, FaBell, FaUserPlus, FaCheck, FaTimes, FaLock, FaHistory, FaComments, FaEllipsisV } from 'react-icons/fa';
+import { FaShare, FaMapMarkerAlt, FaClock, FaUserFriends, FaBell, FaUserPlus, FaCheck, FaTimes, FaLock, FaHistory, FaComments, FaEllipsisV, FaStar, FaChartBar, FaHeart } from 'react-icons/fa';
 
 const ShareLocation = ({ userLocation, onShare }) => {
   const [shareDuration, setShareDuration] = useState(30); // minutes
@@ -24,6 +24,15 @@ const ShareLocation = ({ userLocation, onShare }) => {
   });
   const [shareHistory, setShareHistory] = useState([]);
   const chatEndRef = useRef(null);
+  const [showStats, setShowStats] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [showFavorites, setShowFavorites] = useState(false);
+  const [shareStats, setShareStats] = useState({
+    totalShares: 0,
+    averageDuration: 0,
+    mostActiveContacts: [],
+    totalTimeShared: 0
+  });
 
   // Simuler des contacts pour l'exemple
   const contacts = [
@@ -138,6 +147,49 @@ const ShareLocation = ({ userLocation, onShare }) => {
     }));
   };
 
+  const toggleFavorite = (contact) => {
+    setFavorites(prev => {
+      const isFavorite = prev.some(c => c.id === contact.id);
+      if (isFavorite) {
+        return prev.filter(c => c.id !== contact.id);
+      } else {
+        return [...prev, contact];
+      }
+    });
+  };
+
+  const calculateStats = () => {
+    const stats = {
+      totalShares: shareHistory.length,
+      averageDuration: shareHistory.reduce((acc, share) => acc + share.duration, 0) / shareHistory.length || 0,
+      totalTimeShared: shareHistory.reduce((acc, share) => acc + share.duration, 0),
+      mostActiveContacts: []
+    };
+
+    // Calculer les contacts les plus actifs
+    const contactActivity = {};
+    shareHistory.forEach(share => {
+      share.contacts.forEach(contact => {
+        contactActivity[contact.id] = (contactActivity[contact.id] || 0) + 1;
+      });
+    });
+
+    stats.mostActiveContacts = Object.entries(contactActivity)
+      .map(([id, count]) => ({
+        id: parseInt(id),
+        count,
+        ...contacts.find(c => c.id === parseInt(id))
+      }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 3);
+
+    setShareStats(stats);
+  };
+
+  useEffect(() => {
+    calculateStats();
+  }, [shareHistory]);
+
   return (
     <div className="bg-white rounded-xl p-4 shadow-lg">
       <div className="flex items-center justify-between mb-4">
@@ -174,6 +226,22 @@ const ShareLocation = ({ userLocation, onShare }) => {
             className="text-nature-600 hover:text-nature-700"
           >
             <FaUserPlus className="w-5 h-5" />
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setShowStats(!showStats)}
+            className="text-nature-600 hover:text-nature-700"
+          >
+            <FaChartBar className="w-5 h-5" />
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setShowFavorites(!showFavorites)}
+            className="text-nature-600 hover:text-nature-700"
+          >
+            <FaHeart className="w-5 h-5" />
           </motion.button>
           <div className="relative">
             <motion.button
@@ -308,6 +376,113 @@ const ShareLocation = ({ userLocation, onShare }) => {
                 </motion.button>
               </div>
             </form>
+          </motion.div>
+        )}
+
+        {showStats && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-16 right-4 w-80 bg-white rounded-lg shadow-lg z-10 p-4"
+          >
+            <h4 className="font-medium text-gray-900 mb-3">Statistiques de partage</h4>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <p className="text-sm text-gray-600">Total des partages</p>
+                  <p className="text-2xl font-semibold text-nature-600">{shareStats.totalShares}</p>
+                </div>
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <p className="text-sm text-gray-600">Durée moyenne</p>
+                  <p className="text-2xl font-semibold text-nature-600">{Math.round(shareStats.averageDuration)} min</p>
+                </div>
+              </div>
+              
+              <div>
+                <p className="text-sm font-medium text-gray-700 mb-2">Contacts les plus actifs</p>
+                <div className="space-y-2">
+                  {shareStats.mostActiveContacts.map(contact => (
+                    <div key={contact.id} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                      <div className="flex items-center">
+                        <span className="text-2xl mr-2">{contact.avatar}</span>
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">{contact.name}</p>
+                          <p className="text-xs text-gray-500">{contact.count} partages</p>
+                        </div>
+                      </div>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => toggleFavorite(contact)}
+                        className={`text-xl ${
+                          favorites.some(f => f.id === contact.id)
+                            ? 'text-red-500'
+                            : 'text-gray-400'
+                        }`}
+                      >
+                        <FaHeart />
+                      </motion.button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {showFavorites && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-16 right-4 w-80 bg-white rounded-lg shadow-lg z-10 p-4"
+          >
+            <h4 className="font-medium text-gray-900 mb-3">Contacts favoris</h4>
+            <div className="space-y-2">
+              {favorites.length === 0 ? (
+                <p className="text-sm text-gray-500 text-center py-4">
+                  Aucun contact favori pour le moment
+                </p>
+              ) : (
+                favorites.map(contact => (
+                  <motion.div
+                    key={contact.id}
+                    whileHover={{ scale: 1.02 }}
+                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                  >
+                    <div className="flex items-center">
+                      <span className="text-2xl mr-2">{contact.avatar}</span>
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">{contact.name}</p>
+                        <p className="text-xs text-gray-500">Vu il y a {contact.lastSeen}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => toggleFavorite(contact)}
+                        className="text-red-500"
+                      >
+                        <FaHeart />
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => {
+                          setSelectedContacts(prev => [...prev, contact]);
+                          setShowContacts(false);
+                        }}
+                        className="text-nature-600"
+                      >
+                        <FaShare />
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                ))
+              )}
+            </div>
           </motion.div>
         )}
 
