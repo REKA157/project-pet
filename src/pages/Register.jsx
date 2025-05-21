@@ -24,10 +24,10 @@ export default function Register() {
     }
 
     try {
-      // Compte de test temporaire
-      localStorage.setItem(config.TOKEN_KEY, 'test-token');
+      // Mode démo : stocker un token de test
+      localStorage.setItem('token', 'demo-token');
       localStorage.setItem(config.USER_EMAIL_KEY, email);
-      navigate("/dashboard");
+      navigate('/app/dashboard');
     } catch (err) {
       setError(err.message);
     } finally {
