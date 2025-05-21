@@ -256,66 +256,20 @@ const Dashboard = () => {
       {/* Navigation principale */}
       <div className="bg-white rounded-lg shadow">
         <nav className="flex space-x-4 p-4">
-          <button
-            onClick={() => setActiveMainTab('overview')}
-            className={`px-4 py-2 rounded-md ${
-              activeMainTab === 'overview'
-                ? 'bg-blue-600 text-white'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            Vue d'ensemble
-          </button>
-          <button
-            onClick={() => setActiveMainTab('health')}
-            className={`px-4 py-2 rounded-md ${
-              activeMainTab === 'health'
-                ? 'bg-blue-600 text-white'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            Santé
-          </button>
-          <button
-            onClick={() => setActiveMainTab('petmeet')}
-            className={`px-4 py-2 rounded-md ${
-              activeMainTab === 'petmeet'
-                ? 'bg-blue-600 text-white'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            PetMeet
-          </button>
-          <button
-            onClick={() => setActiveMainTab('location')}
-            className={`px-4 py-2 rounded-md ${
-              activeMainTab === 'location'
-                ? 'bg-blue-600 text-white'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            Localisation
-          </button>
-          <button
-            onClick={() => setActiveMainTab('chat')}
-            className={`px-4 py-2 rounded-md ${
-              activeMainTab === 'chat'
-                ? 'bg-blue-600 text-white'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            Chat
-          </button>
-          <button
-            onClick={() => setActiveMainTab('translator')}
-            className={`px-4 py-2 rounded-md ${
-              activeMainTab === 'translator'
-                ? 'bg-blue-600 text-white'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            Traducteur
-          </button>
+          {mainTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveMainTab(tab.id)}
+              className={`px-4 py-2 rounded-md flex items-center space-x-2 ${
+                activeMainTab === tab.id
+                  ? 'bg-blue-600 text-white'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              <tab.icon className="w-5 h-5" />
+              <span>{tab.label}</span>
+            </button>
+          ))}
         </nav>
       </div>
 
@@ -377,15 +331,153 @@ const Dashboard = () => {
 
           {activeMainTab === 'health' && (
             <div className="space-y-6">
-              {/* Contenu de l'onglet Santé */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-xl font-semibold mb-4">Suivi de santé</h2>
-                {/* Ajoutez ici le contenu spécifique à l'onglet Santé */}
+              {/* Sous-onglets de santé */}
+              <div className="bg-white rounded-lg shadow p-4">
+                <nav className="flex space-x-4">
+                  <button
+                    onClick={() => setActiveSubTab('overview')}
+                    className={`px-4 py-2 rounded-md ${
+                      activeSubTab === 'overview'
+                        ? 'bg-blue-600 text-white'
+                        : 'text-gray-600 hover:bg-gray-100'
+                    }`}
+                  >
+                    Vue d'ensemble
+                  </button>
+                  <button
+                    onClick={() => setActiveSubTab('history')}
+                    className={`px-4 py-2 rounded-md ${
+                      activeSubTab === 'history'
+                        ? 'bg-blue-600 text-white'
+                        : 'text-gray-600 hover:bg-gray-100'
+                    }`}
+                  >
+                    Historique
+                  </button>
+                  <button
+                    onClick={() => setActiveSubTab('medications')}
+                    className={`px-4 py-2 rounded-md ${
+                      activeSubTab === 'medications'
+                        ? 'bg-blue-600 text-white'
+                        : 'text-gray-600 hover:bg-gray-100'
+                    }`}
+                  >
+                    Médicaments
+                  </button>
+                </nav>
+              </div>
+
+              {/* Contenu des sous-onglets de santé */}
+              {activeSubTab === 'overview' && (
+                <div className="bg-white rounded-lg shadow p-6">
+                  <h2 className="text-xl font-semibold mb-4">Vue d'ensemble de la santé</h2>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 bg-blue-50 rounded-lg">
+                      <h3 className="font-semibold mb-2">État général</h3>
+                      <p className="text-sm text-gray-600">Excellent</p>
+                    </div>
+                    <div className="p-4 bg-green-50 rounded-lg">
+                      <h3 className="font-semibold mb-2">Dernier examen</h3>
+                      <p className="text-sm text-gray-600">{healthData.lastCheckup}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeSubTab === 'history' && (
+                <div className="bg-white rounded-lg shadow p-6">
+                  <h2 className="text-xl font-semibold mb-4">Historique médical</h2>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-gray-50 rounded-lg">
+                      <h3 className="font-semibold">Vaccination</h3>
+                      <p className="text-sm text-gray-600">Date: {healthData.nextVaccination}</p>
+                    </div>
+                    <div className="p-4 bg-gray-50 rounded-lg">
+                      <h3 className="font-semibold">Check-up</h3>
+                      <p className="text-sm text-gray-600">Date: {healthData.lastCheckup}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeSubTab === 'medications' && (
+                <div className="bg-white rounded-lg shadow p-6">
+                  <h2 className="text-xl font-semibold mb-4">Médicaments</h2>
+                  <div className="space-y-4">
+                    {healthReminders
+                      .filter(reminder => reminder.type === 'Médicament')
+                      .map(reminder => (
+                        <div key={reminder.id} className="p-4 bg-gray-50 rounded-lg">
+                          <h3 className="font-semibold">{reminder.description}</h3>
+                          <p className="text-sm text-gray-600">Heure: {reminder.time}</p>
+                          <span className={`px-3 py-1 rounded-full text-sm ${
+                            reminder.status === 'completed'
+                              ? 'bg-green-200 text-green-800'
+                              : 'bg-yellow-200 text-yellow-800'
+                          }`}>
+                            {reminder.status === 'completed' ? 'Terminé' : 'En attente'}
+                          </span>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeMainTab === 'petmeet' && (
+            <div className="bg-white rounded-lg shadow p-6">
+              <h2 className="text-xl font-semibold mb-4">PetMeet</h2>
+              <div className="space-y-4">
+                <div className="p-4 bg-pink-50 rounded-lg">
+                  <h3 className="font-semibold">Chiens à proximité</h3>
+                  <p className="text-sm text-gray-600">
+                    {nearestDog ? '1 chien trouvé' : 'Aucun chien à proximité'}
+                  </p>
+                </div>
               </div>
             </div>
           )}
 
-          {/* Ajoutez ici les autres onglets */}
+          {activeMainTab === 'location' && (
+            <div className="bg-white rounded-lg shadow p-6">
+              <h2 className="text-xl font-semibold mb-4">Localisation</h2>
+              <div className="space-y-4">
+                <div className="p-4 bg-green-50 rounded-lg">
+                  <h3 className="font-semibold">Position actuelle</h3>
+                  <p className="text-sm text-gray-600">
+                    {position
+                      ? `Latitude: ${position.latitude}, Longitude: ${position.longitude}`
+                      : 'Position non disponible'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeMainTab === 'chat' && (
+            <div className="bg-white rounded-lg shadow p-6">
+              <h2 className="text-xl font-semibold mb-4">Chat</h2>
+              <div className="space-y-4">
+                <div className="p-4 bg-purple-50 rounded-lg">
+                  <h3 className="font-semibold">Messages récents</h3>
+                  <p className="text-sm text-gray-600">Aucun message non lu</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeMainTab === 'translator' && (
+            <div className="bg-white rounded-lg shadow p-6">
+              <h2 className="text-xl font-semibold mb-4">Traducteur</h2>
+              <div className="space-y-4">
+                <div className="p-4 bg-indigo-50 rounded-lg">
+                  <h3 className="font-semibold">Traduction en temps réel</h3>
+                  <p className="text-sm text-gray-600">En attente d'activation du microphone</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Barre latérale */}
