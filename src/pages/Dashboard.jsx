@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare } from 'react-icons/fa';
-import { MdHealthAndSafety, MdLocalHospital, MdVaccines } from 'react-icons/md';
+import { MdHealthAndSafety, MdLocalHospital, MdVaccines, MdDownload } from 'react-icons/md';
 
 const Dashboard = () => {
   console.log('Dashboard component rendering');
@@ -200,9 +200,14 @@ const Dashboard = () => {
           });
         },
         (error) => {
-          console.error('Erreur de géolocalisation:', error);
-        }
+          console.warn('Géolocalisation non disponible:', error.message);
+          setPosition(null);
+        },
+        { timeout: 5000, enableHighAccuracy: true }
       );
+    } else {
+      console.warn('La géolocalisation n\'est pas supportée par votre navigateur');
+      setPosition(null);
     }
   }, []);
 
@@ -210,13 +215,29 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchNearestDog = async () => {
       try {
+        // En mode démo, on simule un chien proche
+        if (localStorage.getItem('token') === 'demo-token') {
+          setNearestDog({
+            name: 'Max',
+            breed: 'Labrador',
+            distance: '500m'
+          });
+          setLoading(false);
+          return;
+        }
+
         const response = await fetch('http://localhost:8000/api/dogs/nearby');
         const data = await response.json();
         if (data.data && data.data.length > 0) {
           setNearestDog(data.data[0]);
         }
       } catch (error) {
-        console.error('Erreur lors de la récupération des chiens:', error);
+        console.warn('Mode démo : simulation des données de chien proche');
+        setNearestDog({
+          name: 'Max',
+          breed: 'Labrador',
+          distance: '500m'
+        });
       } finally {
         setLoading(false);
       }
@@ -358,7 +379,7 @@ const Dashboard = () => {
                         <p className="text-sm text-gray-600">Prochain vaccin</p>
                         <p className="text-lg font-semibold text-gray-900">15 Avril 2024</p>
                       </div>
-                      <MdHealthAndSafety className="w-8 h-8 text-nature-600" />
+                      <MdVaccines className="w-8 h-8 text-nature-600" />
                     </div>
                   </div>
                   <div className="bg-nature-50 rounded-lg p-4">
@@ -367,7 +388,7 @@ const Dashboard = () => {
                         <p className="text-sm text-gray-600">État général</p>
                         <p className="text-lg font-semibold text-gray-900">Excellent</p>
                       </div>
-                      <MdHealthAndSafety className="w-8 h-8 text-nature-600" />
+                      <MdLocalHospital className="w-8 h-8 text-nature-600" />
                     </div>
                   </div>
                 </div>
@@ -382,7 +403,7 @@ const Dashboard = () => {
                   </button>
                 </div>
                 <div className="space-y-4">
-                  <div className="border rounded-lg p-4">
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                     <div className="flex justify-between items-center">
                       <div>
                         <p className="font-semibold text-gray-900">Vaccination annuelle</p>
@@ -394,7 +415,7 @@ const Dashboard = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="border rounded-lg p-4">
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                     <div className="flex justify-between items-center">
                       <div>
                         <p className="font-semibold text-gray-900">Contrôle dentaire</p>
@@ -418,7 +439,7 @@ const Dashboard = () => {
                   </button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="border rounded-lg p-4">
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                     <div className="flex items-center space-x-4">
                       <div className="w-12 h-12 bg-nature-100 rounded-full flex items-center justify-center">
                         <MdHealthAndSafety className="w-6 h-6 text-nature-600" />
@@ -429,7 +450,7 @@ const Dashboard = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="border rounded-lg p-4">
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                     <div className="flex items-center space-x-4">
                       <div className="w-12 h-12 bg-nature-100 rounded-full flex items-center justify-center">
                         <MdHealthAndSafety className="w-6 h-6 text-nature-600" />
@@ -452,43 +473,43 @@ const Dashboard = () => {
                   </button>
                 </div>
                 <div className="space-y-4">
-                  <div className="border rounded-lg p-4">
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                     <div className="flex justify-between items-center">
                       <div>
                         <p className="font-semibold text-gray-900">Vaccinations</p>
                         <p className="text-sm text-gray-600">Dernière mise à jour: 15 Mars 2024</p>
                       </div>
                       <button className="text-nature-600 hover:text-nature-700">
-                        <MdDownload className="w-6 h-6" />
+                        <FaDownload className="w-6 h-6" />
                       </button>
                     </div>
                   </div>
-                  <div className="border rounded-lg p-4">
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                     <div className="flex justify-between items-center">
                       <div>
                         <p className="font-semibold text-gray-900">Analyses sanguines</p>
                         <p className="text-sm text-gray-600">Dernière mise à jour: 1 Mars 2024</p>
                       </div>
                       <button className="text-nature-600 hover:text-nature-700">
-                        <MdDownload className="w-6 h-6" />
+                        <FaDownload className="w-6 h-6" />
                       </button>
                     </div>
                   </div>
-                  <div className="border rounded-lg p-4">
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                     <div className="flex justify-between items-center">
                       <div>
                         <p className="font-semibold text-gray-900">Radiographies</p>
                         <p className="text-sm text-gray-600">Dernière mise à jour: 20 Février 2024</p>
                       </div>
                       <button className="text-nature-600 hover:text-nature-700">
-                        <MdDownload className="w-6 h-6" />
+                        <FaDownload className="w-6 h-6" />
                       </button>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Données de santé existantes */}
+              {/* Données de santé */}
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Données de santé</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -541,7 +562,7 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              {/* Prédictions IA existantes */}
+              {/* Prédictions IA */}
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Prédictions IA</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
