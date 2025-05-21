@@ -34,9 +34,16 @@ app = FastAPI(
 )
 
 # Configuration CORS
+origins = [
+    "http://localhost:5173",
+    "https://project-pet.vercel.app",
+    "https://*.vercel.app",
+    "https://*.railway.app"
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # En production, spécifiez les origines exactes
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
