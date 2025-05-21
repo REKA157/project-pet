@@ -284,7 +284,23 @@ const Dashboard = () => {
 
       {/* Navigation principale */}
       <div className="bg-white rounded-lg shadow">
-        <nav className="flex space-x-4 p-4">
+        {/* Version mobile */}
+        <div className="lg:hidden">
+          <select
+            value={activeMainTab}
+            onChange={(e) => setActiveMainTab(e.target.value)}
+            className="w-full p-3 text-gray-700 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            {mainTabs.map((tab) => (
+              <option key={tab.id} value={tab.id}>
+                {tab.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Version desktop */}
+        <nav className="hidden lg:flex space-x-4 p-4">
           {mainTabs.map((tab) => (
             <button
               key={tab.id}
@@ -309,40 +325,40 @@ const Dashboard = () => {
           {activeMainTab === 'overview' && (
             <div className="space-y-6">
               {/* Données de santé */}
-              <div className="bg-white rounded-lg shadow p-6">
+              <div className="bg-white rounded-lg shadow p-4 sm:p-6">
                 <h2 className="text-xl font-semibold mb-4">Données de santé</h2>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="p-4 bg-blue-50 rounded-lg">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                  <div className="p-3 sm:p-4 bg-blue-50 rounded-lg">
                     <div className="text-sm text-gray-600">Dernier check-up</div>
-                    <div className="text-lg font-semibold">{healthData.lastCheckup}</div>
+                    <div className="text-base sm:text-lg font-semibold">{healthData.lastCheckup}</div>
                   </div>
-                  <div className="p-4 bg-green-50 rounded-lg">
+                  <div className="p-3 sm:p-4 bg-green-50 rounded-lg">
                     <div className="text-sm text-gray-600">Prochain vaccin</div>
-                    <div className="text-lg font-semibold">{healthData.nextVaccination}</div>
+                    <div className="text-base sm:text-lg font-semibold">{healthData.nextVaccination}</div>
                   </div>
-                  <div className="p-4 bg-yellow-50 rounded-lg">
+                  <div className="p-3 sm:p-4 bg-yellow-50 rounded-lg">
                     <div className="text-sm text-gray-600">Poids</div>
-                    <div className="text-lg font-semibold">{healthData.weight} kg</div>
+                    <div className="text-base sm:text-lg font-semibold">{healthData.weight} kg</div>
                   </div>
-                  <div className="p-4 bg-purple-50 rounded-lg">
+                  <div className="p-3 sm:p-4 bg-purple-50 rounded-lg">
                     <div className="text-sm text-gray-600">Niveau d'activité</div>
-                    <div className="text-lg font-semibold">{healthData.activityLevel}</div>
+                    <div className="text-base sm:text-lg font-semibold">{healthData.activityLevel}</div>
                   </div>
                 </div>
               </div>
 
               {/* Prédictions IA */}
-              <div className="bg-white rounded-lg shadow p-6">
+              <div className="bg-white rounded-lg shadow p-4 sm:p-6">
                 <h2 className="text-xl font-semibold mb-4">Prédictions IA</h2>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {aiPredictions.healthRisks.map((risk) => (
-                    <div key={risk.id} className="p-4 bg-red-50 rounded-lg">
-                      <div className="flex justify-between items-center">
+                    <div key={risk.id} className="p-3 sm:p-4 bg-red-50 rounded-lg">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                         <div>
                           <h3 className="font-semibold">{risk.type}</h3>
                           <p className="text-sm text-gray-600">Probabilité: {risk.probability}%</p>
                         </div>
-                        <span className="px-3 py-1 rounded-full bg-red-200 text-red-800">
+                        <span className="px-3 py-1 rounded-full bg-red-200 text-red-800 self-start sm:self-auto">
                           {risk.severity}
                         </span>
                       </div>
