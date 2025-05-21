@@ -28,6 +28,7 @@ const Navbar = () => {
 
   const navItems = [
     { path: '/', label: 'Accueil', icon: <FaHome className="w-5 h-5" /> },
+    { path: '/app/dashboard', label: 'Dashboard', icon: <FaPaw className="w-5 h-5" /> },
     { path: '/profile', label: 'Profil', icon: <FaUser className="w-5 h-5" /> },
     { path: '/radar', label: 'Radar', icon: <MdGpsFixed className="w-5 h-5" /> },
     { path: '/pet-sound-chat', label: 'PetMeet', icon: <MdFavorite className="w-5 h-5" /> },

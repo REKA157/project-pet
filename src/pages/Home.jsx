@@ -78,14 +78,16 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
               className="flex justify-center space-x-8"
             >
-              <motion.button 
-                whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-white text-nature-700 px-10 py-5 rounded-full font-semibold hover:bg-nature-50 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-3 text-lg"
-              >
-                <span>Commencer</span>
-                <FaArrowRight className="w-5 h-5" />
-              </motion.button>
+              <Link to="/app/dashboard">
+                <motion.button 
+                  whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-white text-nature-700 px-10 py-5 rounded-full font-semibold hover:bg-nature-50 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-3 text-lg"
+                >
+                  <span>Commencer</span>
+                  <FaArrowRight className="w-5 h-5" />
+                </motion.button>
+              </Link>
               <Link to="/pet-sound-chat">
                 <motion.button 
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
