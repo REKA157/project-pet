@@ -240,17 +240,13 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-6">
-      {/* En-tête du Dashboard */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Tableau de bord</h1>
-        <div className="flex items-center space-x-4">
-          <div className="flex-1">
-            <p className="text-gray-600">Bienvenue sur votre espace personnel</p>
-            <p className="text-sm text-gray-500">Dernière mise à jour: {new Date().toLocaleDateString()}</p>
-          </div>
+      {/* En-tête */}
+      <div className="bg-white rounded-lg shadow p-6">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-gray-900">Tableau de bord</h1>
           <div className="flex items-center space-x-2">
-            <span className="text-sm text-gray-600">Humeur actuelle:</span>
-            <span className="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+            <span className="text-sm text-gray-600">Humeur actuelle :</span>
+            <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-800">
               {dogMood}
             </span>
           </div>
@@ -258,13 +254,13 @@ const Dashboard = () => {
       </div>
 
       {/* Navigation principale */}
-      <div className="bg-white rounded-lg shadow-md p-4">
-        <nav className="flex space-x-4">
+      <div className="bg-white rounded-lg shadow">
+        <nav className="flex space-x-4 p-4">
           <button
             onClick={() => setActiveMainTab('overview')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+            className={`px-4 py-2 rounded-md ${
               activeMainTab === 'overview'
-                ? 'bg-nature-600 text-white'
+                ? 'bg-blue-600 text-white'
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >
@@ -272,7 +268,7 @@ const Dashboard = () => {
           </button>
           <button
             onClick={() => setActiveMainTab('health')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+            className={`px-4 py-2 rounded-md ${
               activeMainTab === 'health'
                 ? 'bg-blue-600 text-white'
                 : 'text-gray-600 hover:bg-gray-100'
@@ -282,9 +278,9 @@ const Dashboard = () => {
           </button>
           <button
             onClick={() => setActiveMainTab('petmeet')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+            className={`px-4 py-2 rounded-md ${
               activeMainTab === 'petmeet'
-                ? 'bg-pink-600 text-white'
+                ? 'bg-blue-600 text-white'
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >
@@ -292,9 +288,9 @@ const Dashboard = () => {
           </button>
           <button
             onClick={() => setActiveMainTab('location')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+            className={`px-4 py-2 rounded-md ${
               activeMainTab === 'location'
-                ? 'bg-green-600 text-white'
+                ? 'bg-blue-600 text-white'
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >
@@ -302,9 +298,9 @@ const Dashboard = () => {
           </button>
           <button
             onClick={() => setActiveMainTab('chat')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+            className={`px-4 py-2 rounded-md ${
               activeMainTab === 'chat'
-                ? 'bg-purple-600 text-white'
+                ? 'bg-blue-600 text-white'
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >
@@ -312,9 +308,9 @@ const Dashboard = () => {
           </button>
           <button
             onClick={() => setActiveMainTab('translator')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+            className={`px-4 py-2 rounded-md ${
               activeMainTab === 'translator'
-                ? 'bg-indigo-600 text-white'
+                ? 'bg-blue-600 text-white'
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >
@@ -327,133 +323,115 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Colonne principale */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Vue d'ensemble */}
           {activeMainTab === 'overview' && (
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-4">Vue d'ensemble</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h3 className="font-medium text-blue-800">Santé</h3>
-                  <p className="text-sm text-blue-600">Prochain rendez-vous: {healthData.nextVaccination}</p>
-                </div>
-                <div className="bg-pink-50 p-4 rounded-lg">
-                  <h3 className="font-medium text-pink-800">PetMeet</h3>
-                  <p className="text-sm text-pink-600">Chiens à proximité: {nearestDog ? '1' : '0'}</p>
-                </div>
-                <div className="bg-green-50 p-4 rounded-lg">
-                  <h3 className="font-medium text-green-800">Localisation</h3>
-                  <p className="text-sm text-green-600">
-                    {position ? 'Position actuelle disponible' : 'Position non disponible'}
-                  </p>
-                </div>
-                <div className="bg-purple-50 p-4 rounded-lg">
-                  <h3 className="font-medium text-purple-800">Chat</h3>
-                  <p className="text-sm text-purple-600">Messages non lus: 0</p>
+            <div className="space-y-6">
+              {/* Données de santé */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <h2 className="text-xl font-semibold mb-4">Données de santé</h2>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="p-4 bg-blue-50 rounded-lg">
+                    <div className="text-sm text-gray-600">Dernier check-up</div>
+                    <div className="text-lg font-semibold">{healthData.lastCheckup}</div>
+                  </div>
+                  <div className="p-4 bg-green-50 rounded-lg">
+                    <div className="text-sm text-gray-600">Prochain vaccin</div>
+                    <div className="text-lg font-semibold">{healthData.nextVaccination}</div>
+                  </div>
+                  <div className="p-4 bg-yellow-50 rounded-lg">
+                    <div className="text-sm text-gray-600">Poids</div>
+                    <div className="text-lg font-semibold">{healthData.weight} kg</div>
+                  </div>
+                  <div className="p-4 bg-purple-50 rounded-lg">
+                    <div className="text-sm text-gray-600">Niveau d'activité</div>
+                    <div className="text-lg font-semibold">{healthData.activityLevel}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
 
-          {/* Santé */}
-          {activeMainTab === 'health' && (
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-4">Santé</h2>
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h3 className="font-medium text-blue-800">Dernier check-up</h3>
-                    <p className="text-sm text-blue-600">{healthData.lastCheckup}</p>
-                  </div>
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h3 className="font-medium text-blue-800">Poids</h3>
-                    <p className="text-sm text-blue-600">{healthData.weight} kg</p>
-                  </div>
-                </div>
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h3 className="font-medium text-blue-800">Risques de santé</h3>
-                  <div className="space-y-2">
-                    {aiPredictions.healthRisks.map((risk) => (
-                      <div key={risk.id} className="bg-white p-3 rounded">
-                        <p className="font-medium">{risk.type}</p>
-                        <p className="text-sm text-gray-600">Probabilité: {risk.probability}%</p>
+              {/* Prédictions IA */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <h2 className="text-xl font-semibold mb-4">Prédictions IA</h2>
+                <div className="space-y-4">
+                  {aiPredictions.healthRisks.map((risk) => (
+                    <div key={risk.id} className="p-4 bg-red-50 rounded-lg">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <h3 className="font-semibold">{risk.type}</h3>
+                          <p className="text-sm text-gray-600">Probabilité: {risk.probability}%</p>
+                        </div>
+                        <span className="px-3 py-1 rounded-full bg-red-200 text-red-800">
+                          {risk.severity}
+                        </span>
                       </div>
-                    ))}
-                  </div>
+                      <ul className="mt-2 space-y-1">
+                        {risk.recommendations.map((rec, index) => (
+                          <li key={index} className="text-sm text-gray-600">• {rec}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           )}
 
-          {/* Autres onglets... */}
+          {activeMainTab === 'health' && (
+            <div className="space-y-6">
+              {/* Contenu de l'onglet Santé */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <h2 className="text-xl font-semibold mb-4">Suivi de santé</h2>
+                {/* Ajoutez ici le contenu spécifique à l'onglet Santé */}
+              </div>
+            </div>
+          )}
+
+          {/* Ajoutez ici les autres onglets */}
         </div>
 
-        {/* Colonne latérale */}
+        {/* Barre latérale */}
         <div className="space-y-6">
           {/* Rappels */}
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold mb-4">Rappels</h2>
             <div className="space-y-4">
               {healthReminders.map((reminder) => (
                 <div
                   key={reminder.id}
-                  className={`p-4 rounded-lg ${
-                    reminder.status === 'completed' ? 'bg-green-50' : 'bg-yellow-50'
-                  }`}
+                  className="p-4 bg-gray-50 rounded-lg flex items-center justify-between"
                 >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium">{reminder.description}</p>
-                      <p className="text-sm text-gray-600">{reminder.time}</p>
-                    </div>
-                    <span
-                      className={`px-2 py-1 rounded text-xs font-medium ${
-                        reminder.status === 'completed'
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-yellow-100 text-yellow-800'
-                      }`}
-                    >
-                      {reminder.status === 'completed' ? 'Terminé' : 'En attente'}
-                    </span>
+                  <div>
+                    <div className="font-semibold">{reminder.type}</div>
+                    <div className="text-sm text-gray-600">{reminder.description}</div>
+                    <div className="text-xs text-gray-500">{reminder.time}</div>
                   </div>
+                  <span
+                    className={`px-3 py-1 rounded-full ${
+                      reminder.status === 'completed'
+                        ? 'bg-green-200 text-green-800'
+                        : 'bg-yellow-200 text-yellow-800'
+                    }`}
+                  >
+                    {reminder.status === 'completed' ? 'Terminé' : 'En attente'}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Nutrition */}
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold mb-4">Nutrition</h2>
             <div className="space-y-4">
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h3 className="font-medium text-green-800">Calories</h3>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-green-600">
-                    {nutritionData.dailyCalories} / {nutritionData.recommendedCalories} kcal
-                  </span>
-                  <div className="w-24 h-2 bg-green-200 rounded-full">
-                    <div
-                      className="h-full bg-green-600 rounded-full"
-                      style={{
-                        width: `${(nutritionData.dailyCalories / nutritionData.recommendedCalories) * 100}%`,
-                      }}
-                    />
-                  </div>
+              <div className="p-4 bg-blue-50 rounded-lg">
+                <div className="text-sm text-gray-600">Calories quotidiennes</div>
+                <div className="text-lg font-semibold">
+                  {nutritionData.dailyCalories} / {nutritionData.recommendedCalories} kcal
                 </div>
               </div>
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h3 className="font-medium text-blue-800">Eau</h3>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-blue-600">
-                    {nutritionData.waterIntake} / {nutritionData.recommendedWater} ml
-                  </span>
-                  <div className="w-24 h-2 bg-blue-200 rounded-full">
-                    <div
-                      className="h-full bg-blue-600 rounded-full"
-                      style={{
-                        width: `${(nutritionData.waterIntake / nutritionData.recommendedWater) * 100}%`,
-                      }}
-                    />
-                  </div>
+              <div className="p-4 bg-green-50 rounded-lg">
+                <div className="text-sm text-gray-600">Consommation d'eau</div>
+                <div className="text-lg font-semibold">
+                  {nutritionData.waterIntake} / {nutritionData.recommendedWater} ml
                 </div>
               </div>
             </div>
