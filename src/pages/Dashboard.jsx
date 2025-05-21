@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare, FaTimes } from 'react-icons/fa';
+import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare, FaTimes, FaCamera, FaVideo } from 'react-icons/fa';
 import { MdHealthAndSafety, MdLocalHospital, MdVaccines, MdDownload } from 'react-icons/md';
 
 const Dashboard = () => {
@@ -488,6 +488,65 @@ const Dashboard = () => {
                     Télécharger le dossier
                   </button>
                 </div>
+
+                {/* Section téléchargement de médias */}
+                <div className="mb-6">
+                  <h4 className="text-lg font-medium text-gray-900 mb-3">Médias médicaux</h4>
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                    <div className="flex flex-col items-center">
+                      <FaCamera className="w-12 h-12 text-gray-400 mb-3" />
+                      <p className="text-gray-600 mb-2">Glissez-déposez vos photos ou vidéos ici</p>
+                      <p className="text-sm text-gray-500 mb-4">ou</p>
+                      <label className="bg-nature-600 text-white px-4 py-2 rounded-lg hover:bg-nature-700 transition-colors cursor-pointer">
+                        Parcourir les fichiers
+                        <input type="file" className="hidden" accept="image/*,video/*" multiple />
+                      </label>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-500 mt-2">Formats acceptés : JPG, PNG, MP4, MOV (max 10MB)</p>
+                </div>
+
+                {/* Médias récemment téléchargés */}
+                <div className="mb-6">
+                  <h4 className="text-lg font-medium text-gray-900 mb-3">Médias récents</h4>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="relative group">
+                      <img 
+                        src="https://images.unsplash.com/photo-1543466835-00a7907e9de1" 
+                        alt="Photo médicale" 
+                        className="w-full h-32 object-cover rounded-lg"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <button className="text-white p-2 hover:text-nature-400">
+                          <FaDownload className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="relative group">
+                      <img 
+                        src="https://images.unsplash.com/photo-1517849845537-4d257902454a" 
+                        alt="Photo médicale" 
+                        className="w-full h-32 object-cover rounded-lg"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <button className="text-white p-2 hover:text-nature-400">
+                          <FaDownload className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="relative group">
+                      <div className="w-full h-32 bg-gray-100 rounded-lg flex items-center justify-center">
+                        <FaVideo className="w-8 h-8 text-gray-400" />
+                      </div>
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <button className="text-white p-2 hover:text-nature-400">
+                          <FaDownload className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="space-y-4">
                   <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                     <div className="flex justify-between items-center">
