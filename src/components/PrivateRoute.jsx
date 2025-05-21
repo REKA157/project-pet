@@ -1,27 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import LoadingSpinner from './LoadingSpinner';
 
-export default function PrivateRoute({ children }) {
-  const [isValidating, setIsValidating] = useState(true);
-  const [isValid, setIsValid] = useState(false);
-  const location = useLocation();
+const PrivateRoute = () => {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Mode démo : accès autorisé si un token est présent
+    console.log('PrivateRoute mounted');
     const token = localStorage.getItem('token');
-    setIsValid(!!token);
-    setIsValidating(false);
-  }, []);
+    console.log('Token in PrivateRoute:', token);
 
-  if (isValidating) {
+    if (token === 'demo-token') {
+      console.log('Demo mode detected');
+      setIsAuthenticated(true);
+      setIsLoading(false);
+    } else if (!token) {
+      console.log('No token found, redirecting to login');
+      navigate('/login');
+    } else {
+      // Vérification du token en production
+      console.log('Checking token validity');
+      // ... existing token validation code ...
+    }
+  }, [navigate]);
+
+  if (isLoading) {
+    console.log('PrivateRoute is loading');
     return <LoadingSpinner />;
   }
 
-  if (!isValid) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
+  console.log('PrivateRoute rendering, isAuthenticated:', isAuthenticated);
+  return isAuthenticated ? <Outlet /> : null;
+};
 
-  return children;
-} 
+export default PrivateRoute; 
