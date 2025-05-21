@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaVideo, FaCalendarAlt, FaUserMd, FaGraduationCap, FaExternalLinkAlt, FaHeart, FaArrowRight } from 'react-icons/fa';
-import { MdPets, MdForum, MdHealthAndSafety } from 'react-icons/md';
+import { MdPets, MdForum, MdHealthAndSafety, MdSecurity } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import ExternalLink from '../components/ExternalLink';
 import AIFeatures from '../components/AIFeatures';
