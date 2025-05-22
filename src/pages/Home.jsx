@@ -5,6 +5,7 @@ import { MdPets, MdForum, MdHealthAndSafety, MdSecurity } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import ExternalLink from '../components/ExternalLink';
 import AIFeatures from '../components/AIFeatures';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const services = [
@@ -34,6 +35,8 @@ function Home() {
     }
   ];
 
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -41,64 +44,33 @@ function Home() {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] opacity-10 bg-cover bg-center animate-subtle-zoom"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-nature-900/50 to-nature-900/80"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="inline-block mb-6"
-            >
-              <span className="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full text-sm font-medium tracking-wide uppercase">
-                🐾 La santé de votre animal, notre priorité
-              </span>
-            </motion.div>
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              className="text-7xl font-bold mb-8 leading-tight tracking-tight"
-            >
-              Des soins vétérinaires<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-rose-500 to-rose-600 animate-gradient">
-                innovants
-              </span> pour votre animal
-            </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-              className="text-2xl text-nature-200 mb-16 max-w-3xl mx-auto leading-relaxed font-light"
-            >
-              Accédez à des services vétérinaires de qualité, en présentiel ou à distance, 
-              avec une équipe de professionnels dédiée au bien-être de votre animal.
-            </motion.p>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-              className="flex justify-center space-x-8"
-            >
-              <Link to="/app/dashboard">
-                <motion.button 
-                  whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-white text-nature-700 px-10 py-5 rounded-full font-semibold hover:bg-nature-50 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-3 text-lg"
-                >
-                  <span>Commencer</span>
-                  <FaArrowRight className="w-5 h-5" />
-                </motion.button>
-              </Link>
-              <Link to="/pet-sound-chat">
-                <motion.button 
-                  whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-gradient-to-r from-rose-500 via-rose-600 to-rose-700 text-white px-10 py-5 rounded-full font-semibold hover:from-rose-600 hover:via-rose-700 hover:to-rose-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-3 text-lg"
-                >
-                  <FaHeart className="w-6 h-6" />
-                  <span>Découvrir PetMeet</span>
-                </motion.button>
-              </Link>
-            </motion.div>
+          <div className="text-center space-y-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-primary">
+              Un animal heureux, un animal compris.
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              VetCare vous aide à suivre la santé de votre compagnon, comprendre ses émotions avec PetSense et lui faire rencontrer des amis compatibles grâce à PetMeet
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <button
+                onClick={() => navigate('/app/petsense')}
+                className="px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+              >
+                Lancer PetSense
+              </button>
+              <button
+                onClick={() => navigate('/app/petmeet')}
+                className="px-8 py-3 bg-secondary text-white rounded-lg hover:bg-secondary-dark transition-colors"
+              >
+                Explorer PetMeet
+              </button>
+              <button
+                onClick={() => navigate('/app/veterinaires')}
+                className="px-8 py-3 bg-accent text-white rounded-lg hover:bg-accent-dark transition-colors"
+              >
+                Trouver un vétérinaire
+              </button>
+            </div>
           </div>
         </div>
       </div>
