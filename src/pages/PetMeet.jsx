@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaHeart, FaMapMarkerAlt, FaCalendarAlt, FaFilter, FaSearch, FaMap, FaStar, FaUserFriends, FaDog, FaCat, FaInfoCircle, FaBell, FaComments, FaClock, FaChartBar, FaMapMarkedAlt, FaBellRing, FaCamera, FaShare, FaThumbsUp, FaRegThumbsUp, FaImage, FaMagic, FaRobot, FaHistory, FaCheck, FaTimes, FaPaw, FaSmile, FaSadTear, FaAngry, FaSurprise } from 'react-icons/fa';
+import { FaHeart, FaMapMarkerAlt, FaCalendarAlt, FaFilter, FaSearch, FaMap, FaStar, FaUserFriends, FaDog, FaCat, FaInfoCircle, FaBell, FaComments, FaClock, FaChartBar, FaMapMarkedAlt, FaBellRing, FaCamera, FaShare, FaThumbsUp, FaRegThumbsUp, FaImage, FaMagic, FaRobot, FaHistory, FaCheck, FaTimes, FaPaw, FaSmile, FaSadTear, FaAngry, FaSurprise, FaMicrophone, FaVideo, FaChartLine, FaBrain } from 'react-icons/fa';
 import { MdPets, MdFavorite, MdFavoriteBorder, MdAccessTime, MdEvent, MdPerson, MdLocationOn, MdTrendingUp, MdPhotoLibrary } from 'react-icons/md';
 import ChatModal from '../components/ChatModal';
 import MapComponent from '../components/MapComponent';
@@ -200,6 +200,45 @@ const PetMeet = () => {
   const [currentEmotion, setCurrentEmotion] = useState(null);
   const [emotionHistory, setEmotionHistory] = useState([]);
   const [showCompatibilityDetails, setShowCompatibilityDetails] = useState(false);
+
+  const [showPetSense, setShowPetSense] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const [wellnessScore, setWellnessScore] = useState(85);
+  const [behavioralData, setBehavioralData] = useState({
+    daily: [65, 70, 75, 80, 85, 82, 88],
+    weekly: [70, 75, 80, 85, 82, 88, 90],
+    monthly: [65, 70, 75, 80, 85, 82, 88, 90, 85, 88, 92, 95]
+  });
+  const [videoAnalysis, setVideoAnalysis] = useState({
+    posture: 'normal',
+    activity: 'moderate',
+    stress: 'low'
+  });
+
+  useEffect(() => {
+    const fetchPetMeetData = async () => {
+      try {
+        // En mode démo, on utilise les données simulées
+        if (localStorage.getItem('token') === 'demo-token') {
+          console.log('Mode démo : utilisation des données simulées');
+          return;
+        }
+
+        // Tentative de connexion au serveur
+        const response = await fetch('http://localhost:8000/api/petmeet/data');
+        const data = await response.json();
+        if (data) {
+          // Mise à jour des données si nécessaire
+          console.log('Données PetMeet reçues:', data);
+        }
+      } catch (error) {
+        console.warn('Mode démo : utilisation des données simulées suite à une erreur de connexion');
+        // On continue avec les données simulées
+      }
+    };
+
+    fetchPetMeetData();
+  }, []);
 
   useEffect(() => {
     // Simuler la géolocalisation de l'utilisateur
@@ -421,6 +460,118 @@ const PetMeet = () => {
     </div>
   );
 
+  const renderPetSense = () => (
+    <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+      <h3 className="text-xl font-bold text-gray-900 mb-4">PetSense</h3>
+      
+      {/* Score de bien-être */}
+      <div className="bg-gradient-to-r from-pink-500 to-purple-500 rounded-lg p-6 mb-6">
+        <div className="flex justify-between items-center">
+          <div>
+            <h4 className="text-white text-lg font-semibold mb-1">Score de bien-être</h4>
+            <p className="text-white/80 text-sm">Basé sur l'activité, les sons et l'humeur</p>
+          </div>
+          <div className="text-4xl font-bold text-white">{wellnessScore}</div>
+        </div>
+        <div className="mt-4 w-full h-2 bg-white/20 rounded-full">
+          <div 
+            className="h-full bg-white rounded-full transition-all duration-500"
+            style={{ width: `${wellnessScore}%` }}
+          ></div>
+        </div>
+      </div>
+
+      {/* Analyse d'aboiement */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div className="bg-pink-50 rounded-lg p-4">
+          <h4 className="font-semibold text-gray-900 mb-4">Analyse d'aboiement</h4>
+          <button 
+            onClick={() => setIsRecording(!isRecording)}
+            className={`w-full py-3 rounded-lg flex items-center justify-center space-x-2 transition-colors ${
+              isRecording 
+                ? 'bg-red-500 text-white hover:bg-red-600' 
+                : 'bg-pink-500 text-white hover:bg-pink-600'
+            }`}
+          >
+            <FaMicrophone className="w-5 h-5" />
+            <span>{isRecording ? 'Arrêter l\'enregistrement' : 'Démarrer l\'analyse'}</span>
+          </button>
+          {isRecording && (
+            <div className="mt-4">
+              <div className="flex items-center justify-between text-sm text-gray-600">
+                <span>Enregistrement en cours...</span>
+                <span className="animate-pulse">●</span>
+              </div>
+              <div className="mt-2 h-1 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-full bg-pink-500 rounded-full animate-pulse"></div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Analyse vidéo */}
+        <div className="bg-blue-50 rounded-lg p-4">
+          <h4 className="font-semibold text-gray-900 mb-4">Analyse vidéo</h4>
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">Posture</span>
+              <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                {videoAnalysis.posture}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">Activité</span>
+              <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                {videoAnalysis.activity}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">Niveau de stress</span>
+              <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                {videoAnalysis.stress}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Suivi comportemental */}
+      <div className="bg-gray-50 rounded-lg p-4">
+        <h4 className="font-semibold text-gray-900 mb-4">Suivi comportemental</h4>
+        <div className="space-y-4">
+          <div>
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm text-gray-600">Évolution sur 7 jours</span>
+              <span className="text-sm text-pink-600">+15%</span>
+            </div>
+            <div className="h-32 bg-white rounded-lg p-2">
+              {/* Graphique simplifié */}
+              <div className="h-full flex items-end space-x-1">
+                {behavioralData.daily.map((value, index) => (
+                  <div 
+                    key={index}
+                    className="flex-1 bg-pink-500 rounded-t"
+                    style={{ height: `${value}%` }}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex justify-between items-center">
+            <div className="flex items-center space-x-2">
+              <FaBrain className="w-5 h-5 text-purple-500" />
+              <span className="text-sm text-gray-600">Apprentissage IA</span>
+            </div>
+            <button className="text-sm text-pink-600 hover:text-pink-700">
+              Voir les détails
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="container mx-auto px-4 py-8">
       {/* En-tête PetMeet */}
@@ -498,6 +649,17 @@ const PetMeet = () => {
           >
             <FaCalendarAlt className="w-5 h-5" />
             <span>Rendez-vous</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('petsense')}
+            className={`px-4 py-2 rounded-lg flex items-center space-x-2 ${
+              activeTab === 'petsense'
+                ? 'bg-pink-500 text-white'
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            <FaBrain className="w-5 h-5" />
+            <span>PetSense</span>
           </button>
         </div>
       </div>
@@ -717,6 +879,12 @@ const PetMeet = () => {
               </div>
             </div>
           </div>
+        </div>
+      )}
+
+      {activeTab === 'petsense' && (
+        <div className="space-y-6">
+          {renderPetSense()}
         </div>
       )}
 
