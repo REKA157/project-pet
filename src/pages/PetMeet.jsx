@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaHeart, FaMapMarkerAlt, FaCalendarAlt, FaFilter, FaSearch, FaMap, FaStar, FaUserFriends, FaDog, FaCat, FaInfoCircle, FaBell, FaComments, FaClock, FaChartBar, FaMapMarkedAlt, FaBellRing, FaCamera, FaShare, FaThumbsUp, FaRegThumbsUp, FaImage, FaMagic, FaRobot, FaHistory, FaCheck, FaTimes } from 'react-icons/fa';
+import { FaHeart, FaMapMarkerAlt, FaCalendarAlt, FaFilter, FaSearch, FaMap, FaStar, FaUserFriends, FaDog, FaCat, FaInfoCircle, FaBell, FaComments, FaClock, FaChartBar, FaMapMarkedAlt, FaBellRing, FaCamera, FaShare, FaThumbsUp, FaRegThumbsUp, FaImage, FaMagic, FaRobot, FaHistory, FaCheck, FaTimes, FaPaw } from 'react-icons/fa';
 import { MdPets, MdFavorite, MdFavoriteBorder, MdAccessTime, MdEvent, MdPerson, MdLocationOn, MdTrendingUp, MdPhotoLibrary } from 'react-icons/md';
 import ChatModal from '../components/ChatModal';
 import MapComponent from '../components/MapComponent';
@@ -279,9 +279,9 @@ const PetMeet = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="container mx-auto px-4 py-8">
       {/* En-tête PetMeet */}
-      <div className="bg-white rounded-xl shadow-sm p-6">
+      <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-900">PetMeet</h2>
           <div className="flex items-center space-x-2">
@@ -320,38 +320,41 @@ const PetMeet = () => {
         </div>
       </div>
 
-      {/* Navigation des onglets */}
-      <div className="bg-white rounded-xl shadow-sm p-4">
+      {/* Navigation par onglets */}
+      <div className="bg-white rounded-xl shadow-sm p-4 mb-6">
         <div className="flex space-x-4">
           <button
             onClick={() => setActiveTab('discover')}
-            className={`px-4 py-2 rounded-lg ${
+            className={`px-4 py-2 rounded-lg flex items-center space-x-2 ${
               activeTab === 'discover'
-                ? 'bg-pink-600 text-white'
+                ? 'bg-pink-500 text-white'
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >
-            Découvrir
+            <FaPaw className="w-5 h-5" />
+            <span>Découvrir</span>
           </button>
           <button
             onClick={() => setActiveTab('matches')}
-            className={`px-4 py-2 rounded-lg ${
+            className={`px-4 py-2 rounded-lg flex items-center space-x-2 ${
               activeTab === 'matches'
-                ? 'bg-pink-600 text-white'
+                ? 'bg-pink-500 text-white'
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >
-            Matchs
+            <FaHeart className="w-5 h-5" />
+            <span>Matchs</span>
           </button>
           <button
             onClick={() => setActiveTab('appointments')}
-            className={`px-4 py-2 rounded-lg ${
+            className={`px-4 py-2 rounded-lg flex items-center space-x-2 ${
               activeTab === 'appointments'
-                ? 'bg-pink-600 text-white'
+                ? 'bg-pink-500 text-white'
                 : 'text-gray-600 hover:bg-gray-100'
             }`}
           >
-            Rendez-vous
+            <FaCalendarAlt className="w-5 h-5" />
+            <span>Rendez-vous</span>
           </button>
         </div>
       </div>
@@ -465,8 +468,9 @@ const PetMeet = () => {
               <div>
                 <h4 className="font-semibold text-gray-900">Luna</h4>
                 <p className="text-sm text-gray-600">Match il y a 2 heures</p>
-                <button className="mt-2 text-sm text-pink-600 hover:text-pink-700">
-                  Envoyer un message
+                <button className="mt-2 text-sm text-pink-600 hover:text-pink-700 flex items-center space-x-1">
+                  <FaComments className="w-4 h-4" />
+                  <span>Envoyer un message</span>
                 </button>
               </div>
             </div>
@@ -483,8 +487,9 @@ const PetMeet = () => {
               <div>
                 <h4 className="font-semibold text-gray-900">Max</h4>
                 <p className="text-sm text-gray-600">Match il y a 5 heures</p>
-                <button className="mt-2 text-sm text-pink-600 hover:text-pink-700">
-                  Envoyer un message
+                <button className="mt-2 text-sm text-pink-600 hover:text-pink-700 flex items-center space-x-1">
+                  <FaComments className="w-4 h-4" />
+                  <span>Envoyer un message</span>
                 </button>
               </div>
             </div>
@@ -501,8 +506,9 @@ const PetMeet = () => {
               <div>
                 <h4 className="font-semibold text-gray-900">Bella</h4>
                 <p className="text-sm text-gray-600">Match il y a 1 jour</p>
-                <button className="mt-2 text-sm text-pink-600 hover:text-pink-700">
-                  Envoyer un message
+                <button className="mt-2 text-sm text-pink-600 hover:text-pink-700 flex items-center space-x-1">
+                  <FaComments className="w-4 h-4" />
+                  <span>Envoyer un message</span>
                 </button>
               </div>
             </div>
@@ -524,7 +530,10 @@ const PetMeet = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900">Rendez-vous avec Luna</h4>
-                  <p className="text-sm text-gray-600">Parc Central</p>
+                  <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <FaMapMarkerAlt className="w-4 h-4" />
+                    <span>Parc Central</span>
+                  </div>
                 </div>
               </div>
               <div className="text-right">
@@ -545,7 +554,10 @@ const PetMeet = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900">Rendez-vous avec Max</h4>
-                  <p className="text-sm text-gray-600">Parc des Chiens</p>
+                  <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <FaMapMarkerAlt className="w-4 h-4" />
+                    <span>Parc des Chiens</span>
+                  </div>
                 </div>
               </div>
               <div className="text-right">
