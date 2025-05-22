@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare, FaTimes, FaCamera, FaVideo, FaBrain, FaFilePdf, FaSmile, FaSadTear, FaAngry, FaSurprise, FaSyringe, FaNotesMedical } from 'react-icons/fa';
+import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare, FaTimes, FaCamera, FaVideo, FaBrain, FaFilePdf, FaSmile, FaSadTear, FaAngry, FaSurprise, FaSyringe, FaNotesMedical, FaThumbsUp } from 'react-icons/fa';
 import { MdHealthAndSafety, MdLocalHospital, MdVaccines, MdDownload, MdPets, MdFavorite, MdFavoriteBorder, MdAccessTime, MdEvent, MdPerson, MdLocationOn, MdTrendingUp, MdPhotoLibrary } from 'react-icons/md';
 import ChatModal from '../components/ChatModal';
 import MapComponent from '../components/MapComponent';
@@ -1202,110 +1202,139 @@ const Dashboard = () => {
 
           {activeMainTab === 'translator' && (
             <div className="space-y-6">
-              <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">PetSense - IA d'Analyse Comportementale</h2>
-                <p className="text-gray-600 mb-6">
-                  Notre intelligence artificielle analyse les sons et comportements de votre animal pour faciliter la communication et la compréhension mutuelle.
-                </p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                  <div className="bg-pink-50 rounded-lg p-6">
-                    <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mb-4">
-                      <FaHeart className="text-pink-500 text-xl" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Détection des émotions</h3>
-                    <p className="text-gray-600">Analyse des signaux émotionnels et des expressions faciales de votre animal</p>
+              {/* Bannière PetSense Pro */}
+              <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl p-6 text-white">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h2 className="text-2xl font-bold mb-2">PetSense Pro</h2>
+                    <p className="text-white/90">Accédez à toutes les fonctionnalités premium</p>
                   </div>
-                  
-                  <div className="bg-pink-50 rounded-lg p-6">
-                    <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mb-4">
-                      <FaMicrophone className="text-pink-500 text-xl" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Analyse des vocalisations</h3>
-                    <p className="text-gray-600">Décodage des sons et des variations vocales pour comprendre les besoins</p>
-                  </div>
-                  
-                  <div className="bg-pink-50 rounded-lg p-6">
-                    <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mb-4">
-                      <FaBrain className="text-pink-500 text-xl" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Interprétation comportementale</h3>
-                    <p className="text-gray-600">Analyse des mouvements et postures pour décoder les intentions</p>
+                  <div className="text-right">
+                    <p className="text-3xl font-bold">4,99€<span className="text-sm font-normal">/mois</span></p>
+                    <button className="mt-2 bg-white text-purple-600 px-4 py-2 rounded-lg hover:bg-white/90 transition-colors">
+                      S'abonner
+                    </button>
                   </div>
                 </div>
+              </div>
 
-                {/* Section d'enregistrement vocal */}
-                <div className="bg-gray-50 rounded-lg p-6 mb-8">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Analyse vocale en temps réel</h3>
-                  <div className="flex flex-col items-center space-y-4">
-                    <div className="w-24 h-24 bg-pink-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-pink-200 transition-colors">
-                      <FaMicrophone className="w-12 h-12 text-pink-500" />
+              {/* Fonctionnalités Premium */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Alertes intelligentes */}
+                <div className="bg-white rounded-xl shadow-sm p-6">
+                  <div className="flex items-center space-x-4 mb-4">
+                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                      <FaBell className="w-6 h-6 text-purple-600" />
                     </div>
-                    <p className="text-gray-600 text-center">
-                      Appuyez et maintenez pour enregistrer les sons de votre animal
-                    </p>
-                    <div className="w-full max-w-md">
-                      <div className="h-2 bg-gray-200 rounded-full">
-                        <div className="h-full bg-pink-500 rounded-full animate-pulse" style={{ width: '0%' }}></div>
-                      </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">Alertes intelligentes</h3>
+                      <p className="text-sm text-gray-600">Détection précoce des changements de comportement</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-purple-50 rounded-lg">
+                      <p className="text-sm text-purple-800">3 changements de comportement détectés cette semaine</p>
+                    </div>
+                    <div className="p-3 bg-purple-50 rounded-lg">
+                      <p className="text-sm text-purple-800">Niveau de stress en augmentation</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-gray-50 rounded-lg p-6">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Analyse en temps réel</h3>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
-                          <FaMicrophone className="text-pink-500" />
-                        </div>
-                        <div>
-                          <p className="font-medium text-gray-800">Niveau sonore</p>
-                          <p className="text-sm text-gray-500">Modéré</p>
-                        </div>
-                      </div>
-                      <div className="w-32 h-2 bg-gray-200 rounded-full">
-                        <div className="w-1/2 h-full bg-pink-500 rounded-full"></div>
-                      </div>
+                {/* Export PDF */}
+                <div className="bg-white rounded-xl shadow-sm p-6">
+                  <div className="flex items-center space-x-4 mb-4">
+                    <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
+                      <FaFilePdf className="w-6 h-6 text-pink-600" />
                     </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
-                          <FaHeart className="text-pink-500" />
-                        </div>
-                        <div>
-                          <p className="font-medium text-gray-800">État émotionnel</p>
-                          <p className="text-sm text-gray-500">Content</p>
-                        </div>
-                      </div>
-                      <div className="w-32 h-2 bg-gray-200 rounded-full">
-                        <div className="w-3/4 h-full bg-pink-500 rounded-full"></div>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
-                          <FaBrain className="text-pink-500" />
-                        </div>
-                        <div>
-                          <p className="font-medium text-gray-800">Niveau d'activité</p>
-                          <p className="text-sm text-gray-500">Élevé</p>
-                        </div>
-                      </div>
-                      <div className="w-32 h-2 bg-gray-200 rounded-full">
-                        <div className="w-4/5 h-full bg-pink-500 rounded-full"></div>
-                      </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">Rapports vétérinaires</h3>
+                      <p className="text-sm text-gray-600">Export PDF détaillé pour votre vétérinaire</p>
                     </div>
                   </div>
-                </div>
-
-                <div className="mt-6">
-                  <button className="w-full bg-pink-500 text-white py-3 px-6 rounded-lg hover:bg-pink-600 transition-colors">
-                    Démarrer l'analyse
+                  <button className="w-full bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700 transition-colors">
+                    Générer le rapport
                   </button>
+                </div>
+
+                {/* Suivi croisé */}
+                <div className="bg-white rounded-xl shadow-sm p-6">
+                  <div className="flex items-center space-x-4 mb-4">
+                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                      <FaChartLine className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">Suivi croisé</h3>
+                      <p className="text-sm text-gray-600">Analyse comportementale et santé combinée</p>
+                    </div>
+                  </div>
+                  <div className="h-32 bg-gray-50 rounded-lg p-4">
+                    <div className="h-full flex items-end space-x-2">
+                      {[65, 75, 82, 78, 85, 88, 90].map((value, index) => (
+                        <div 
+                          key={index}
+                          className="flex-1 bg-blue-500 rounded-t"
+                          style={{ height: `${value}%` }}
+                        ></div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Collier connecté */}
+                <div className="bg-white rounded-xl shadow-sm p-6">
+                  <div className="flex items-center space-x-4 mb-4">
+                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                      <FaPaw className="w-6 h-6 text-green-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">Collier connecté</h3>
+                      <p className="text-sm text-gray-600">Suivi en temps réel de l'activité</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Activité aujourd'hui</span>
+                      <span className="text-sm font-medium text-gray-900">85%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-green-500 h-2 rounded-full" style={{ width: '85%' }}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Roadmap */}
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Roadmap PetSense Pro</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <FaCheckCircle className="w-4 h-4 text-green-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900">Version 1.0</h4>
+                      <p className="text-sm text-gray-600">Fonctionnalités de base et suivi santé</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                      <FaStar className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900">Version 2.0</h4>
+                      <p className="text-sm text-gray-600">IA avancée et prédictions comportementales</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                      <FaRobot className="w-4 h-4 text-purple-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900">Version 3.0</h4>
+                      <p className="text-sm text-gray-600">Intégration complète avec les vétérinaires</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
