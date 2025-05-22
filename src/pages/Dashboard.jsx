@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare, FaTimes, FaCamera, FaVideo, FaBrain } from 'react-icons/fa';
-import { MdHealthAndSafety, MdLocalHospital, MdVaccines, MdDownload } from 'react-icons/md';
+import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare, FaTimes, FaCamera, FaVideo, FaBrain, FaFilePdf, FaSmile, FaSadTear, FaAngry, FaSurprise, FaSyringe, FaNotesMedical } from 'react-icons/fa';
+import { MdHealthAndSafety, MdLocalHospital, MdVaccines, MdDownload, MdPets, MdFavorite, MdFavoriteBorder, MdAccessTime, MdEvent, MdPerson, MdLocationOn, MdTrendingUp, MdPhotoLibrary } from 'react-icons/md';
+import ChatModal from '../components/ChatModal';
+import MapComponent from '../components/MapComponent';
 
 const Dashboard = () => {
   console.log('Dashboard component rendering');
@@ -22,14 +24,24 @@ const Dashboard = () => {
 
   // Données de santé simulées
   const [healthData, setHealthData] = useState({
-    lastCheckup: '2024-02-15',
-    nextVaccination: '2024-04-15',
-    weight: 12.5,
-    activityLevel: 'Modéré',
-    dietStatus: 'Équilibré',
-    hydrationLevel: 'Bon',
-    sleepQuality: 'Excellent',
-    stressLevel: 'Faible'
+    weight: [
+      { date: '2024-03-01', value: 12.5 },
+      { date: '2024-03-08', value: 12.8 },
+      { date: '2024-03-15', value: 13.0 }
+    ],
+    activity: [
+      { date: '2024-03-15', value: 85 },
+      { date: '2024-03-14', value: 75 },
+      { date: '2024-03-13', value: 90 }
+    ],
+    vaccinations: [
+      { name: 'Rage', date: '2024-03-15', nextDue: '2025-03-15' },
+      { name: 'CHPL', date: '2024-02-01', nextDue: '2024-08-01' }
+    ],
+    alerts: [
+      { type: 'stress', message: '3 jours consécutifs de stress détecté', severity: 'high' },
+      { type: 'weight', message: 'Prise de poids rapide détectée', severity: 'medium' }
+    ]
   });
 
   // Données de prédiction IA
@@ -134,6 +146,14 @@ const Dashboard = () => {
       description: 'Repas spécial',
       status: 'pending'
     }
+  ]);
+
+  const [petSenseScore, setPetSenseScore] = useState(85);
+  const [emotionHistory, setEmotionHistory] = useState([
+    { date: '2024-03-15', emotion: 'joy', confidence: 82, healthEvent: 'Vaccination' },
+    { date: '2024-03-14', emotion: 'stress', confidence: 75, healthEvent: null },
+    { date: '2024-03-13', emotion: 'joy', confidence: 88, healthEvent: null },
+    { date: '2024-03-12', emotion: 'sadness', confidence: 65, healthEvent: 'Visite vétérinaire' }
   ]);
 
   // Configuration des couleurs pour chaque service
@@ -267,6 +287,177 @@ const Dashboard = () => {
     return colorConfig[activeMainTab] || colorConfig.overview;
   };
 
+  const renderEmotionalAnalysis = () => (
+    <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-xl font-bold text-gray-900">Analyse émotionnelle</h3>
+        <button className="text-sm text-pink-600 hover:text-pink-700 flex items-center space-x-1">
+          <FaFilePdf className="w-4 h-4" />
+          <span>Exporter</span>
+        </button>
+      </div>
+
+      {/* Score PetSense */}
+      <div className="bg-gradient-to-r from-pink-500 to-purple-500 rounded-lg p-6 mb-6">
+        <div className="flex justify-between items-center">
+          <div>
+            <h4 className="text-white text-lg font-semibold mb-1">Score PetSense</h4>
+            <p className="text-white/80 text-sm">Basé sur l'analyse comportementale et émotionnelle</p>
+          </div>
+          <div className="text-4xl font-bold text-white">{petSenseScore}</div>
+        </div>
+        <div className="mt-4 w-full h-2 bg-white/20 rounded-full">
+          <div 
+            className="h-full bg-white rounded-full transition-all duration-500"
+            style={{ width: `${petSenseScore}%` }}
+          ></div>
+        </div>
+      </div>
+
+      {/* Historique émotionnel */}
+      <div className="mb-6">
+        <h4 className="font-semibold text-gray-900 mb-4">Historique émotionnel</h4>
+        <div className="space-y-4">
+          {emotionHistory.map((entry, index) => (
+            <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-4">
+                {entry.emotion === 'joy' && <FaSmile className="w-6 h-6 text-yellow-400" />}
+                {entry.emotion === 'sadness' && <FaSadTear className="w-6 h-6 text-blue-400" />}
+                {entry.emotion === 'stress' && <FaAngry className="w-6 h-6 text-red-400" />}
+                <div>
+                  <p className="font-medium text-gray-900">
+                    {entry.emotion === 'joy' ? 'Joie' : 
+                     entry.emotion === 'sadness' ? 'Tristesse' : 'Stress'}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    Confiance : {entry.confidence}%
+                  </p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-600">
+                  {new Date(entry.date).toLocaleDateString()}
+                </p>
+                {entry.healthEvent && (
+                  <p className="text-sm text-pink-600">
+                    {entry.healthEvent}
+                  </p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Feedback utilisateur */}
+      <div className="bg-pink-50 rounded-lg p-4">
+        <h4 className="font-semibold text-gray-900 mb-2">Aidez-nous à améliorer l'IA</h4>
+        <p className="text-sm text-gray-600 mb-4">
+          Votre feedback nous aide à affiner les analyses émotionnelles
+        </p>
+        <div className="flex space-x-2">
+          <button className="flex-1 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 flex items-center justify-center space-x-2">
+            <FaThumbsUp className="w-4 h-4" />
+            <span>Précis</span>
+          </button>
+          <button className="flex-1 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 flex items-center justify-center space-x-2">
+            <FaTimes className="w-4 h-4" />
+            <span>Imprécis</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderHealthOverview = () => (
+    <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+      <h3 className="text-xl font-bold text-gray-900 mb-4">Vue d'ensemble santé</h3>
+
+      {/* Alertes */}
+      {healthData.alerts.length > 0 && (
+        <div className="mb-6">
+          <div className="flex items-center space-x-2 mb-4">
+            <FaExclamationTriangle className="w-5 h-5 text-red-500" />
+            <h4 className="font-semibold text-gray-900">Alertes</h4>
+          </div>
+          <div className="space-y-2">
+            {healthData.alerts.map((alert, index) => (
+              <div key={index} className={`p-3 rounded-lg ${
+                alert.severity === 'high' ? 'bg-red-50 text-red-700' : 'bg-yellow-50 text-yellow-700'
+              }`}>
+                <p className="text-sm">{alert.message}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Graphiques de suivi */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div className="bg-gray-50 rounded-lg p-4">
+          <div className="flex items-center space-x-2 mb-4">
+            <FaWeight className="w-5 h-5 text-blue-500" />
+            <h4 className="font-semibold text-gray-900">Évolution du poids</h4>
+          </div>
+          <div className="h-32 bg-white rounded-lg p-2">
+            <div className="h-full flex items-end space-x-1">
+              {healthData.weight.map((entry, index) => (
+                <div 
+                  key={index}
+                  className="flex-1 bg-blue-500 rounded-t"
+                  style={{ height: `${(entry.value / 15) * 100}%` }}
+                ></div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gray-50 rounded-lg p-4">
+          <div className="flex items-center space-x-2 mb-4">
+            <FaChartLine className="w-5 h-5 text-green-500" />
+            <h4 className="font-semibold text-gray-900">Niveau d'activité</h4>
+          </div>
+          <div className="h-32 bg-white rounded-lg p-2">
+            <div className="h-full flex items-end space-x-1">
+              {healthData.activity.map((entry, index) => (
+                <div 
+                  key={index}
+                  className="flex-1 bg-green-500 rounded-t"
+                  style={{ height: `${entry.value}%` }}
+                ></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Vaccinations */}
+      <div className="bg-gray-50 rounded-lg p-4">
+        <div className="flex items-center space-x-2 mb-4">
+          <FaSyringe className="w-5 h-5 text-purple-500" />
+          <h4 className="font-semibold text-gray-900">Vaccinations</h4>
+        </div>
+        <div className="space-y-3">
+          {healthData.vaccinations.map((vaccine, index) => (
+            <div key={index} className="flex justify-between items-center p-3 bg-white rounded-lg">
+              <div>
+                <p className="font-medium text-gray-900">{vaccine.name}</p>
+                <p className="text-sm text-gray-600">
+                  Prochain rappel : {new Date(vaccine.nextDue).toLocaleDateString()}
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-600">
+                  Fait le {new Date(vaccine.date).toLocaleDateString()}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="space-y-6" data-testid="dashboard-container">
       {/* En-tête */}
@@ -324,155 +515,8 @@ const Dashboard = () => {
         <div className="lg:col-span-2 space-y-6">
           {activeMainTab === 'overview' && (
             <div className="space-y-6">
-              {/* Données de santé */}
-              <div className="bg-white rounded-lg shadow p-4 sm:p-6">
-                <h2 className="text-xl font-semibold mb-4">Données de santé</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-                  <div className="p-3 sm:p-4 bg-blue-50 rounded-lg">
-                    <div className="text-sm text-gray-600">Dernier check-up</div>
-                    <div className="text-base sm:text-lg font-semibold">{healthData.lastCheckup}</div>
-                  </div>
-                  <div className="p-3 sm:p-4 bg-green-50 rounded-lg">
-                    <div className="text-sm text-gray-600">Prochain vaccin</div>
-                    <div className="text-base sm:text-lg font-semibold">{healthData.nextVaccination}</div>
-                  </div>
-                  <div className="p-3 sm:p-4 bg-yellow-50 rounded-lg">
-                    <div className="text-sm text-gray-600">Poids</div>
-                    <div className="text-base sm:text-lg font-semibold">{healthData.weight} kg</div>
-                  </div>
-                  <div className="p-3 sm:p-4 bg-purple-50 rounded-lg">
-                    <div className="text-sm text-gray-600">Niveau d'activité</div>
-                    <div className="text-base sm:text-lg font-semibold">{healthData.activityLevel}</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Prédictions IA */}
-              <div className="bg-white rounded-xl shadow-sm p-6">
-                <div className="flex justify-between items-center mb-6">
-                  <h3 className="text-xl font-semibold text-gray-900">Prédictions IA</h3>
-                  <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                    Mise à jour il y a 5 min
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  {/* État de santé général */}
-                  <div className="bg-nature-50 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-lg font-medium text-gray-900">État de santé</h4>
-                      <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                        <FaHeartbeat className="w-6 h-6 text-green-600" />
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      <div>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm text-gray-600">Vitalité générale</span>
-                          <span className="text-sm font-medium text-gray-900">92%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-green-500 h-2 rounded-full" style={{ width: '92%' }}></div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm text-gray-600">Niveau d'énergie</span>
-                          <span className="text-sm font-medium text-gray-900">85%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-green-500 h-2 rounded-full" style={{ width: '85%' }}></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Comportement et bien-être */}
-                  <div className="bg-nature-50 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-lg font-medium text-gray-900">Bien-être</h4>
-                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                        <FaBrain className="w-6 h-6 text-blue-600" />
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      <div>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm text-gray-600">Niveau de stress</span>
-                          <span className="text-sm font-medium text-gray-900">15%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-blue-500 h-2 rounded-full" style={{ width: '15%' }}></div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm text-gray-600">Qualité du sommeil</span>
-                          <span className="text-sm font-medium text-gray-900">88%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-blue-500 h-2 rounded-full" style={{ width: '88%' }}></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Alertes et recommandations */}
-                <div className="space-y-4">
-                  <h4 className="text-lg font-medium text-gray-900 mb-3">Alertes et recommandations</h4>
-                  
-                  {/* Alerte principale */}
-                  <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0">
-                        <FaExclamationTriangle className="w-5 h-5 text-yellow-400" />
-                      </div>
-                      <div className="ml-3">
-                        <h5 className="text-sm font-medium text-yellow-800">Attention : Activité physique insuffisante</h5>
-                        <p className="text-sm text-yellow-700 mt-1">
-                          Votre chien n'a pas atteint son objectif d'activité quotidienne. Recommandation : 30 minutes de jeu supplémentaire aujourd'hui.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Recommandations */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-white border rounded-lg p-4">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                          <FaAppleAlt className="w-5 h-5 text-green-600" />
-                        </div>
-                        <h5 className="font-medium text-gray-900">Nutrition</h5>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        Augmenter légèrement la portion de nourriture de 10% pour compenser l'activité physique.
-                      </p>
-                    </div>
-
-                    <div className="bg-white border rounded-lg p-4">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                          <FaChartLine className="w-5 h-5 text-blue-600" />
-                        </div>
-                        <h5 className="font-medium text-gray-900">Activité</h5>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        Planifier une séance de jeu plus longue ce soir pour atteindre l'objectif quotidien.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Tendances */}
-                  <div className="bg-white border rounded-lg p-4">
-                    <h5 className="font-medium text-gray-900 mb-3">Tendances sur 7 jours</h5>
-                    <div className="h-32 bg-gray-50 rounded-lg flex items-center justify-center">
-                      <p className="text-sm text-gray-500">Graphique des tendances à venir</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {renderEmotionalAnalysis()}
+              {renderHealthOverview()}
             </div>
           )}
 
