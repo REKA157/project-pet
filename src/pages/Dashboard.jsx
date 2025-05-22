@@ -283,6 +283,10 @@ const Dashboard = () => {
     { id: 'translator', label: 'PetSense', icon: FaBrain }
   ];
 
+  useEffect(() => {
+    console.log('Active tab changed:', activeMainTab);
+  }, [activeMainTab]);
+
   const getCurrentColorConfig = () => {
     return colorConfig[activeMainTab] || colorConfig.overview;
   };
@@ -802,6 +806,7 @@ const Dashboard = () => {
 
           {activeMainTab === 'petmeet' && (
             <div className="space-y-6">
+              {console.log('Rendering PetMeet tab')}
               {/* En-tête PetMeet */}
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <div className="flex justify-between items-center mb-4">
