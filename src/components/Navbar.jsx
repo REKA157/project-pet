@@ -31,8 +31,7 @@ const Navbar = () => {
     { path: '/app/dashboard', label: 'Dashboard', icon: <FaPaw className="w-4 h-4 sm:w-5 sm:h-5" /> },
     { path: '/app/profile', label: 'Profil', icon: <FaUser className="w-4 h-4 sm:w-5 sm:h-5" /> },
     { path: '/app/radar', label: 'Radar', icon: <MdGpsFixed className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/meet', label: 'PetMeet', icon: <MdFavorite className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/upload-audio', label: 'Audio', icon: <MdMic className="w-4 h-4 sm:w-5 sm:h-5" /> },
+    { path: '/app/petmeet', label: 'PetMeet', icon: <MdFavorite className="w-4 h-4 sm:w-5 sm:h-5" /> },
     { path: '/app/geotracker', label: 'Géo', icon: <MdGpsFixed className="w-4 h-4 sm:w-5 sm:h-5" /> },
     { path: '/app/assistant', label: 'Assistant', icon: <MdAssistant className="w-4 h-4 sm:w-5 sm:h-5" /> }
   ];
@@ -86,10 +85,13 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
             {userEmail ? (
               <>
-                <span className="text-gray-600 flex items-center text-sm lg:text-base">
+                <Link to="/app/profile" className="text-gray-600 flex items-center text-sm lg:text-base hover:text-nature-700 transition-colors">
                   <FaUser className="w-4 h-4 lg:w-5 lg:h-5 mr-1 lg:mr-2" />
                   {userEmail}
-                </span>
+                </Link>
+                <div className="text-gray-600 flex items-center text-sm lg:text-base">
+                  🌐
+                </div>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -168,10 +170,12 @@ const Navbar = () => {
               ))}
               {userEmail ? (
                 <>
-                    <div className="px-3 py-2 text-gray-600 flex items-center text-sm">
-                      <FaUser className="w-4 h-4 mr-2" />
+                    <Link to="/app/profile" onClick={() => setIsOpen(false)}>
+                      <div className="px-3 py-2 text-gray-600 hover:bg-nature-50 rounded-lg flex items-center text-sm">
+                        <FaUser className="w-4 h-4 mr-2" />
                       {userEmail}
                     </div>
+                    </Link>
                   <button
                       onClick={() => {
                         handleLogout();
