@@ -13,7 +13,7 @@ i18n
     fallbackLng: "en", // fallback language is used when lng not found
 
     backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json' // adjusted path to load from public/locales
+      loadPath: 'locales/{{lng}}/{{ns}}.json' // Adjusted path (removed leading slash)
     },
 
     interpolation: {
