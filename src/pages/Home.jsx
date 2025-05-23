@@ -69,18 +69,20 @@ function Home() {
                 >
                   Lancer PetSense
                 </button>
-                <button
+                <motion.button
                   onClick={() => navigate('/app/petmeet')}
-                  className="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full hover:from-green-600 hover:to-green-700 transition-colors"
+                  className="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
                   Explorer PetMeet
-                </button>
-                <button
+                </motion.button>
+                <motion.button
                   onClick={() => navigate('/app/veterinaires')}
-                  className="px-8 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-colors"
+                  className="px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
                   Trouver un vétérinaire
-                </button>
+                </motion.button>
               </div>
             </div>
             
