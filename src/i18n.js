@@ -4,18 +4,6 @@ import i18nextHttpBackend from 'i18next-http-backend';
 
 // the translations
 // (tip: often other resources are loaded from a backend server or a file system, like cdn)
-const resources = {
-  fr: {
-    translation: {
-      "welcome": "Bienvenue"
-    }
-  },
-  en: {
-    translation: {
-      "welcome": "Welcome"
-    }
-  }
-};
 
 i18n
   .use(i18nextHttpBackend) // passes i18n down to react-i18next

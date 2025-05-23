@@ -65,7 +65,7 @@ function Home() {
               <p className="text-lg md:text-xl text-black">
                 {t('home.hero.description')}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-8">
+              <div className="flex flex-col gap-4 justify-center md:justify-start mt-8">
                 <motion.button
                   onClick={() => navigate('/app/dashboard?tab=translator')}
                   className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl"

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const userEmail = localStorage.getItem('userEmail');
@@ -30,6 +31,7 @@ const Navbar = () => {
 
   const handleLanguageChange = (lng) => {
     i18n.changeLanguage(lng);
+    setShowLanguageDropdown(false);
   };
 
   const navItems = [
@@ -63,7 +65,7 @@ const Navbar = () => {
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
-                  `relative px-2 lg:px-3 py-2 rounded-lg transition-colors flex items-center text-sm lg:text-base ${
+                  `relative px-2 lg:px-3 py-2 rounded-lg transition-colors flex items-center text-sm lg:text-base hover:scale-100 ${
                     isActive 
                       ? 'text-white bg-nature-600' 
                       : 'text-nature-600 hover:bg-nature-50'
@@ -94,16 +96,30 @@ const Navbar = () => {
                   <FaUser className="w-4 h-4 lg:w-5 lg:h-5 mr-1 lg:mr-2" />
                   {userEmail}
                 </Link>
-                <div className="flex items-center space-x-1">
-                  <img src="/images/fr.png" alt="Français" className="h-5 w-7 cursor-pointer" title="Français" onClick={() => handleLanguageChange('fr')} />
-                  <img src="/images/en.png" alt="English" className="h-5 w-7 cursor-pointer" title="English" onClick={() => handleLanguageChange('en')} />
-                  <img src="/images/es.png" alt="Español" className="h-5 w-7 cursor-pointer" title="Español" onClick={() => handleLanguageChange('es')} />
-                  <img src="/images/ru.png" alt="Русский" className="h-5 w-7 cursor-pointer" title="Русский" onClick={() => handleLanguageChange('ru')} />
-                  <img src="/images/de.png" alt="Deutsch" className="h-5 w-7 cursor-pointer" title="Deutsch" onClick={() => handleLanguageChange('de')} />
-                  <img src="/images/ar.png" alt="العربية" className="h-5 w-7 cursor-pointer" title="العربية" onClick={() => handleLanguageChange('ar')} />
-                  <img src="/images/pt.png" alt="Português" className="h-5 w-7 cursor-pointer" title="Português" onClick={() => handleLanguageChange('pt')} />
-                  <img src="/images/it.png" alt="Italiano" className="h-5 w-7 cursor-pointer" title="Italiano" onClick={() => handleLanguageChange('it')} />
-                  <img src="/images/gr.png" alt="Grec" className="h-5 w-7 cursor-pointer" title="Grec" onClick={() => handleLanguageChange('el')} />
+                <div className="relative">
+                  <button 
+                    className="text-gray-600 hover:text-nature-700 transition-colors flex items-center text-sm lg:text-base"
+                    onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+                  >
+                    🌐 <span className="ml-1">{i18n.language.toUpperCase()}</span>
+                  </button>
+                  {showLanguageDropdown && (
+                    <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-50">
+                      <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="language-menu">
+                        {['fr', 'en', 'es', 'ru', 'de', 'ar', 'pt', 'it', 'el'].map((lng) => (
+                          <button
+                            key={lng}
+                            onClick={() => handleLanguageChange(lng)}
+                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                            role="menuitem"
+                          >
+                            <img src={`/images/${lng}.png`} alt={lng.toUpperCase()} className="h-4 w-6 mr-2" />
+                            {lng.toUpperCase()}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -217,16 +233,30 @@ const Navbar = () => {
                   </>
                 )}
                 {/* Language flags for mobile */}
-                <div className="flex items-center justify-center space-x-2 mt-4">
-                  <img src="/images/fr.png" alt="Français" className="h-5 w-7 cursor-pointer" title="Français" onClick={() => {handleLanguageChange('fr'); setIsOpen(false);}} />
-                  <img src="/images/en.png" alt="English" className="h-5 w-7 cursor-pointer" title="English" onClick={() => {handleLanguageChange('en'); setIsOpen(false);}} />
-                  <img src="/images/es.png" alt="Español" className="h-5 w-7 cursor-pointer" title="Español" onClick={() => {handleLanguageChange('es'); setIsOpen(false);}} />
-                  <img src="/images/ru.png" alt="Русский" className="h-5 w-7 cursor-pointer" title="Русский" onClick={() => {handleLanguageChange('ru'); setIsOpen(false);}} />
-                  <img src="/images/de.png" alt="Deutsch" className="h-5 w-7 cursor-pointer" title="Deutsch" onClick={() => {handleLanguageChange('de'); setIsOpen(false);}} />
-                  <img src="/images/ar.png" alt="العربية" className="h-5 w-7 cursor-pointer" title="العربية" onClick={() => {handleLanguageChange('ar'); setIsOpen(false);}} />
-                  <img src="/images/pt.png" alt="Português" className="h-5 w-7 cursor-pointer" title="Português" onClick={() => {handleLanguageChange('pt'); setIsOpen(false);}} />
-                  <img src="/images/it.png" alt="Italiano" className="h-5 w-7 cursor-pointer" title="Italiano" onClick={() => {handleLanguageChange('it'); setIsOpen(false);}} />
-                  <img src="/images/gr.png" alt="Grec" className="h-5 w-7 cursor-pointer" title="Grec" onClick={() => {handleLanguageChange('el'); setIsOpen(false);}} />
+                <div className="relative mx-auto mt-4">
+                  <button 
+                    className="text-gray-600 hover:text-nature-700 transition-colors flex items-center text-sm"
+                    onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+                  >
+                    🌐 <span className="ml-1">{i18n.language.toUpperCase()}</span>
+                  </button>
+                  {showLanguageDropdown && (
+                    <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-40 bg-white rounded-md shadow-lg z-50">
+                      <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="language-menu">
+                        {['fr', 'en', 'es', 'ru', 'de', 'ar', 'pt', 'it', 'el'].map((lng) => (
+                          <button
+                            key={lng}
+                            onClick={() => { handleLanguageChange(lng); setIsOpen(false); }}
+                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                            role="menuitem"
+                          >
+                            <img src={`/images/${lng}.png`} alt={lng.toUpperCase()} className="h-4 w-6 mr-2" />
+                            {lng.toUpperCase()}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>
