@@ -60,10 +60,10 @@ function Home() {
             {/* Center column - Text and buttons */}
             <div className="flex-1 text-center md:text-left space-y-6">
               <h1 className="text-4xl md:text-6xl font-bold text-primary">
-                {t('home.hero.title1')}<br/>{t('home.hero.title2')}
+                Un animal heureux<br/>Un animal compris
               </h1>
               <p className="text-lg md:text-xl text-black">
-                {t('home.hero.description')}
+                Découvrez PetPulse, votre plateforme tout-en-un pour le bien-être de votre animal de compagnie. Gérez sa santé, son bonheur et sa vie sociale en un seul endroit.
               </p>
               <div className="flex flex-col gap-4 justify-center md:justify-start mt-8">
                 <motion.button
@@ -71,21 +71,21 @@ function Home() {
                   className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
-                  {t('home.hero.petsense_button')}
+                  <span>Lancer PetSense</span>
                 </motion.button>
                 <motion.button
                   onClick={() => navigate('/app/dashboard?tab=petmeet')}
                   className="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
-                  {t('home.hero.petmeet_button')}
+                  <span>Explorer PetMeet</span>
                 </motion.button>
                 <motion.button
                   onClick={() => navigate('/app/veterinaires')}
                   className="px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
-                  {t('home.hero.veterinarian_button')}
+                  <span>Trouver un vétérinaire</span>
                 </motion.button>
               </div>
             </div>
@@ -116,7 +116,7 @@ function Home() {
               className="inline-block mb-6"
             >
               <span className="bg-nature-50 text-nature-700 px-6 py-3 rounded-full text-sm font-medium tracking-wide uppercase">
-                {t('home.services.title')}
+                Nos Services
               </span>
             </motion.div>
             <motion.h2 
@@ -126,7 +126,7 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
               className="text-5xl font-bold text-gray-900 mb-6 tracking-tight"
             >
-              {t('home.services.subtitle')}
+              Pourquoi choisir PetPulse ?
             </motion.h2>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -135,7 +135,7 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
               className="text-2xl text-gray-600 max-w-3xl mx-auto font-light"
             >
-              {t('home.services.description')}
+              PetPulse offre une gamme complète de services pour prendre soin de votre compagnon à quatre pattes.
             </motion.p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -186,14 +186,14 @@ function Home() {
                 className="inline-block"
               >
                 <span className="bg-rose-100 text-rose-700 px-6 py-3 rounded-full text-sm font-medium tracking-wide uppercase">
-                  {t('home.petmeet_promo.title')}
+                  Découvrez PetMeet
                 </span>
               </motion.div>
               <h2 className="text-6xl font-bold text-rose-900 leading-tight tracking-tight">
-                {t('home.petmeet_promo.subtitle')}
+                Connectez avec d'autres passionnés d'animaux
               </h2>
               <p className="text-2xl text-rose-700 leading-relaxed font-light">
-                {t('home.petmeet_promo.description')}
+                PetMeet est la plateforme idéale pour rencontrer d'autres propriétaires, partager des expériences et organiser des rencontres pour vos compagnons.
               </p>
               <ul className="space-y-8">
                 <motion.li 
@@ -206,7 +206,7 @@ function Home() {
                   <div className="bg-rose-100 p-4 rounded-full mr-6 transform group-hover:scale-110 transition-transform duration-500">
                     <FaHeart className="w-8 h-8 text-rose-500" />
                   </div>
-                  <span>{t('home.petmeet_promo.feature1')}</span>
+                  <span>Rencontrez d'autres propriétaires d'animaux</span>
                 </motion.li>
                 <motion.li 
                   initial={{ opacity: 0, x: -20 }}
@@ -218,7 +218,7 @@ function Home() {
                   <div className="bg-rose-100 p-4 rounded-full mr-6 transform group-hover:scale-110 transition-transform duration-500">
                     <MdPets className="w-8 h-8 text-rose-500" />
                   </div>
-                  <span>{t('home.petmeet_promo.feature2')}</span>
+                  <span>Organisez des jeux et des promenades</span>
                 </motion.li>
                 <motion.li 
                   initial={{ opacity: 0, x: -20 }}
@@ -230,7 +230,7 @@ function Home() {
                   <div className="bg-rose-100 p-4 rounded-full mr-6 transform group-hover:scale-110 transition-transform duration-500">
                     <MdSecurity className="w-8 h-8 text-rose-500" />
                   </div>
-                  <span>{t('home.petmeet_promo.feature3')}</span>
+                  <span>Un environnement sûr et bienveillant</span>
                 </motion.li>
               </ul>
               <Link to="/app/dashboard?tab=petmeet">
@@ -239,7 +239,7 @@ function Home() {
                   whileTap={{ scale: 0.95 }}
                   className="bg-gradient-to-r from-rose-500 via-rose-600 to-rose-700 text-white px-10 py-5 rounded-full font-semibold hover:from-rose-600 hover:via-rose-700 hover:to-rose-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-3 text-lg"
                 >
-                  <span>{t('home.petmeet_promo.button')}</span>
+                  <span>Découvrir PetMeet</span>
                   <FaArrowRight className="w-5 h-5" />
                 </motion.button>
               </Link>
