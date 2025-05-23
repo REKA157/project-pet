@@ -40,11 +40,11 @@ function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <div className="bg-green-50 py-16 overflow-hidden">
+      <div className="bg-green-50 py-12 overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12">
             {/* Left column - Cat Illustration */}
-            <div className="flex-1 relative md:block">
+            <div className="flex-1 relative">
               <div className="w-full h-auto">
                 <img 
                   src="/images/cat_illustration.png" 
@@ -59,7 +59,7 @@ function Home() {
               <h1 className="text-4xl md:text-6xl font-bold text-primary">
                 Un animal heureux<br/>un animal compris.
               </h1>
-              <p className="text-lg md:text-xl text-gray-600">
+              <p className="text-lg md:text-xl text-black">
                 VetCare vous aide à suivre la santé de votre compagnon, comprendre ses émotions avec PetSense et lui faire rencontrer des amis compatibles grâce à PetMeet
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-8">
