@@ -6,36 +6,38 @@ import { Link } from 'react-router-dom';
 import ExternalLink from '../components/ExternalLink';
 import AIFeatures from '../components/AIFeatures';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function Home() {
   const services = [
     { 
       icon: <FaVideo className="w-8 h-8" />, 
-      title: 'Téléconsultation', 
-      description: 'Consultez un vétérinaire en ligne',
+      title: t('home.services.teleconsultation.title'), 
+      description: t('home.services.teleconsultation.description'),
       color: 'from-blue-500 to-blue-600'
     },
     { 
       icon: <FaCalendarAlt className="w-8 h-8" />, 
-      title: 'Rendez-vous', 
-      description: 'Planifiez vos visites',
+      title: t('home.services.appointments.title'), 
+      description: t('home.services.appointments.description'),
       color: 'from-green-500 to-green-600'
     },
     { 
       icon: <MdPets className="w-8 h-8" />, 
-      title: 'Dossier médical', 
-      description: 'Accédez au dossier de votre animal',
+      title: t('home.services.medical_record.title'), 
+      description: t('home.services.medical_record.description'),
       color: 'from-purple-500 to-purple-600'
     },
     { 
       icon: <FaHeart className="w-8 h-8" />, 
-      title: 'PetMeet', 
-      description: 'Rencontres pour animaux de compagnie',
+      title: t('home.services.petmeet.title'), 
+      description: t('home.services.petmeet.description'),
       color: 'from-rose-500 to-rose-600'
     }
   ];
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -57,31 +59,32 @@ function Home() {
             {/* Center column - Text and buttons */}
             <div className="flex-1 text-center md:text-left space-y-6">
               <h1 className="text-4xl md:text-6xl font-bold text-primary">
-                Un&nbsp;animal&nbsp;heureux<br/>un&nbsp;animal&nbsp;compris.
+                {t('home.hero.title1')}<br/>{t('home.hero.title2')}
               </h1>
               <p className="text-lg md:text-xl text-black">
-                VetCare vous aide à suivre la santé de votre compagnon, comprendre ses émotions avec PetSense et lui faire rencontrer des amis compatibles grâce à PetMeet
+                {t('home.hero.description')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-8">
-                <button
-                  onClick={() => navigate('/app/petsense')}
-                  className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full hover:from-pink-600 hover:to-purple-600 transition-colors"
-                >
-                  Lancer PetSense
-                </button>
                 <motion.button
-                  onClick={() => navigate('/app/petmeet')}
+                  onClick={() => navigate('/app/dashboard?tab=translator')}
+                  className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+                >
+                  {t('home.hero.petsense_button')}
+                </motion.button>
+                <motion.button
+                  onClick={() => navigate('/app/dashboard?tab=petmeet')}
                   className="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
-                  Explorer PetMeet
+                  {t('home.hero.petmeet_button')}
                 </motion.button>
                 <motion.button
                   onClick={() => navigate('/app/veterinaires')}
                   className="px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
-                  Trouver un vétérinaire
+                  {t('home.hero.veterinarian_button')}
                 </motion.button>
               </div>
             </div>
@@ -112,7 +115,7 @@ function Home() {
               className="inline-block mb-6"
             >
               <span className="bg-nature-50 text-nature-700 px-6 py-3 rounded-full text-sm font-medium tracking-wide uppercase">
-                Nos Services
+                {t('home.services.title')}
               </span>
             </motion.div>
             <motion.h2 
@@ -122,7 +125,7 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
               className="text-5xl font-bold text-gray-900 mb-6 tracking-tight"
             >
-              Solutions adaptées à vos besoins
+              {t('home.services.subtitle')}
             </motion.h2>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -131,7 +134,7 @@ function Home() {
               transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
               className="text-2xl text-gray-600 max-w-3xl mx-auto font-light"
             >
-              Une gamme complète de services pour prendre soin de votre animal
+              {t('home.services.description')}
             </motion.p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -182,15 +185,14 @@ function Home() {
                 className="inline-block"
               >
                 <span className="bg-rose-100 text-rose-700 px-6 py-3 rounded-full text-sm font-medium tracking-wide uppercase">
-                  PetMeet
+                  {t('home.petmeet_promo.title')}
                 </span>
               </motion.div>
               <h2 className="text-6xl font-bold text-rose-900 leading-tight tracking-tight">
-                Découvrez une nouvelle façon de connecter les animaux
+                {t('home.petmeet_promo.subtitle')}
               </h2>
               <p className="text-2xl text-rose-700 leading-relaxed font-light">
-                Une plateforme innovante qui permet à votre animal de trouver le compagnon idéal 
-                et de créer des liens uniques grâce à notre technologie de communication avancée.
+                {t('home.petmeet_promo.description')}
               </p>
               <ul className="space-y-8">
                 <motion.li 
@@ -203,7 +205,7 @@ function Home() {
                   <div className="bg-rose-100 p-4 rounded-full mr-6 transform group-hover:scale-110 transition-transform duration-500">
                     <FaHeart className="w-8 h-8 text-rose-500" />
                   </div>
-                  <span>Matchmaking intelligent</span>
+                  <span>{t('home.petmeet_promo.feature1')}</span>
                 </motion.li>
                 <motion.li 
                   initial={{ opacity: 0, x: -20 }}
@@ -215,7 +217,7 @@ function Home() {
                   <div className="bg-rose-100 p-4 rounded-full mr-6 transform group-hover:scale-110 transition-transform duration-500">
                     <MdPets className="w-8 h-8 text-rose-500" />
                   </div>
-                  <span>Communication par sons</span>
+                  <span>{t('home.petmeet_promo.feature2')}</span>
                 </motion.li>
                 <motion.li 
                   initial={{ opacity: 0, x: -20 }}
@@ -227,16 +229,16 @@ function Home() {
                   <div className="bg-rose-100 p-4 rounded-full mr-6 transform group-hover:scale-110 transition-transform duration-500">
                     <MdSecurity className="w-8 h-8 text-rose-500" />
                   </div>
-                  <span>Rencontres sécurisées</span>
+                  <span>{t('home.petmeet_promo.feature3')}</span>
                 </motion.li>
               </ul>
-              <Link to="/app/petmeet">
+              <Link to="/app/dashboard?tab=petmeet">
                 <motion.button
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                   whileTap={{ scale: 0.95 }}
                   className="bg-gradient-to-r from-rose-500 via-rose-600 to-rose-700 text-white px-10 py-5 rounded-full font-semibold hover:from-rose-600 hover:via-rose-700 hover:to-rose-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-3 text-lg"
                 >
-                  <span>Essayer PetMeet</span>
+                  <span>{t('home.petmeet_promo.button')}</span>
                   <FaArrowRight className="w-5 h-5" />
                 </motion.button>
               </Link>

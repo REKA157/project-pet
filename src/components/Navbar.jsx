@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { FaPaw, FaUser, FaSignOutAlt, FaHome, FaBars, FaTimes } from 'react-icons/fa';
 import { MdHealthAndSafety, MdFavorite, MdMic, MdGpsFixed, MdAssistant } from 'react-icons/md';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +11,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const userEmail = localStorage.getItem('userEmail');
+  const { i18n, t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,14 +28,17 @@ const Navbar = () => {
     navigate('/login');
   };
 
+  const handleLanguageChange = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+
   const navItems = [
-    { path: '/', label: 'Accueil', icon: <FaHome className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/dashboard', label: 'Dashboard', icon: <FaPaw className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/profile', label: 'Profil', icon: <FaUser className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/radar', label: 'Radar', icon: <MdGpsFixed className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/petmeet', label: 'PetMeet', icon: <MdFavorite className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/geotracker', label: 'Géo', icon: <MdGpsFixed className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/assistant', label: 'Assistant', icon: <MdAssistant className="w-4 h-4 sm:w-5 sm:h-5" /> }
+    { path: '/', label: t('nav.accueil'), icon: <FaHome className="w-4 h-4 sm:w-5 sm:h-5" /> },
+    { path: '/app/dashboard', label: t('nav.dashboard'), icon: <FaPaw className="w-4 h-4 sm:w-5 sm:h-5" /> },
+    { path: '/app/radar', label: t('nav.radar'), icon: <MdGpsFixed className="w-4 h-4 sm:w-5 sm:h-5" /> },
+    { path: '/app/dashboard?tab=petmeet', label: t('nav.petmeet'), icon: <MdFavorite className="w-4 h-4 sm:w-5 sm:h-5" /> },
+    { path: '/app/geotracker', label: t('nav.geo'), icon: <MdGpsFixed className="w-4 h-4 sm:w-5 sm:h-5" /> },
+    { path: '/app/assistant', label: t('nav.assistant'), icon: <MdAssistant className="w-4 h-4 sm:w-5 sm:h-5" /> }
   ];
 
   return (
@@ -89,8 +94,16 @@ const Navbar = () => {
                   <FaUser className="w-4 h-4 lg:w-5 lg:h-5 mr-1 lg:mr-2" />
                   {userEmail}
                 </Link>
-                <div className="text-gray-600 flex items-center text-sm lg:text-base">
-                  🌐
+                <div className="flex items-center space-x-1">
+                  <img src="/images/fr.png" alt="Français" className="h-5 w-7 cursor-pointer" title="Français" onClick={() => handleLanguageChange('fr')} />
+                  <img src="/images/en.png" alt="English" className="h-5 w-7 cursor-pointer" title="English" onClick={() => handleLanguageChange('en')} />
+                  <img src="/images/es.png" alt="Español" className="h-5 w-7 cursor-pointer" title="Español" onClick={() => handleLanguageChange('es')} />
+                  <img src="/images/ru.png" alt="Русский" className="h-5 w-7 cursor-pointer" title="Русский" onClick={() => handleLanguageChange('ru')} />
+                  <img src="/images/de.png" alt="Deutsch" className="h-5 w-7 cursor-pointer" title="Deutsch" onClick={() => handleLanguageChange('de')} />
+                  <img src="/images/ar.png" alt="العربية" className="h-5 w-7 cursor-pointer" title="العربية" onClick={() => handleLanguageChange('ar')} />
+                  <img src="/images/pt.png" alt="Português" className="h-5 w-7 cursor-pointer" title="Português" onClick={() => handleLanguageChange('pt')} />
+                  <img src="/images/it.png" alt="Italiano" className="h-5 w-7 cursor-pointer" title="Italiano" onClick={() => handleLanguageChange('it')} />
+                  <img src="/images/gr.png" alt="Grec" className="h-5 w-7 cursor-pointer" title="Grec" onClick={() => handleLanguageChange('el')} />
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -99,7 +112,7 @@ const Navbar = () => {
                   className="flex items-center text-gray-600 hover:text-red-600 transition-colors text-sm lg:text-base"
                 >
                   <FaSignOutAlt className="w-4 h-4 lg:w-5 lg:h-5 mr-1 lg:mr-2" />
-                  Déconnexion
+                  {t('auth.logout')}
                 </motion.button>
               </>
             ) : (
@@ -111,7 +124,7 @@ const Navbar = () => {
                     className="text-nature-600 hover:text-nature-700 transition-colors flex items-center text-sm lg:text-base"
               >
                     <FaUser className="w-4 h-4 lg:w-5 lg:h-5 mr-1 lg:mr-2" />
-                Connexion
+                {t('auth.login')}
               </motion.button>
                 </Link>
                 <Link to="/register">
@@ -121,7 +134,7 @@ const Navbar = () => {
                     className="bg-nature-600 text-white px-2 lg:px-4 py-1 lg:py-2 rounded-lg hover:bg-nature-700 transition-colors flex items-center text-sm lg:text-base"
             >
                     <FaPaw className="w-4 h-4 lg:w-5 lg:h-5 mr-1 lg:mr-2" />
-              S'inscrire
+              {t('auth.register')}
             </motion.button>
                 </Link>
               </>
@@ -184,7 +197,7 @@ const Navbar = () => {
                       className="px-3 py-2 text-gray-600 hover:text-red-600 transition-colors flex items-center text-sm"
                   >
                       <FaSignOutAlt className="w-4 h-4 mr-2" />
-                    Déconnexion
+                    {t('auth.logout')}
                   </button>
                 </>
               ) : (
@@ -192,18 +205,30 @@ const Navbar = () => {
                     <Link to="/login" onClick={() => setIsOpen(false)}>
                       <div className="px-3 py-2 text-nature-600 hover:bg-nature-50 rounded-lg flex items-center text-sm">
                         <FaUser className="w-4 h-4 mr-2" />
-                  Connexion
+                  {t('auth.login')}
                       </div>
                     </Link>
                     <Link to="/register" onClick={() => setIsOpen(false)}>
                       <div className="px-3 py-2 bg-nature-600 text-white rounded-lg hover:bg-nature-700 flex items-center text-sm">
                         <FaPaw className="w-4 h-4 mr-2" />
-                S'inscrire
+                {t('auth.register')}
             </div>
                     </Link>
                   </>
                 )}
-          </div>
+                {/* Language flags for mobile */}
+                <div className="flex items-center justify-center space-x-2 mt-4">
+                  <img src="/images/fr.png" alt="Français" className="h-5 w-7 cursor-pointer" title="Français" onClick={() => {handleLanguageChange('fr'); setIsOpen(false);}} />
+                  <img src="/images/en.png" alt="English" className="h-5 w-7 cursor-pointer" title="English" onClick={() => {handleLanguageChange('en'); setIsOpen(false);}} />
+                  <img src="/images/es.png" alt="Español" className="h-5 w-7 cursor-pointer" title="Español" onClick={() => {handleLanguageChange('es'); setIsOpen(false);}} />
+                  <img src="/images/ru.png" alt="Русский" className="h-5 w-7 cursor-pointer" title="Русский" onClick={() => {handleLanguageChange('ru'); setIsOpen(false);}} />
+                  <img src="/images/de.png" alt="Deutsch" className="h-5 w-7 cursor-pointer" title="Deutsch" onClick={() => {handleLanguageChange('de'); setIsOpen(false);}} />
+                  <img src="/images/ar.png" alt="العربية" className="h-5 w-7 cursor-pointer" title="العربية" onClick={() => {handleLanguageChange('ar'); setIsOpen(false);}} />
+                  <img src="/images/pt.png" alt="Português" className="h-5 w-7 cursor-pointer" title="Português" onClick={() => {handleLanguageChange('pt'); setIsOpen(false);}} />
+                  <img src="/images/it.png" alt="Italiano" className="h-5 w-7 cursor-pointer" title="Italiano" onClick={() => {handleLanguageChange('it'); setIsOpen(false);}} />
+                  <img src="/images/gr.png" alt="Grec" className="h-5 w-7 cursor-pointer" title="Grec" onClick={() => {handleLanguageChange('el'); setIsOpen(false);}} />
+                </div>
+              </div>
             </motion.div>
         )}
         </AnimatePresence>
