@@ -57,7 +57,7 @@ function Home() {
             {/* Center column - Text and buttons */}
             <div className="flex-1 text-center md:text-left space-y-6">
               <h1 className="text-4xl md:text-6xl font-bold text-primary">
-                Un animal heureux<br/>un animal compris.
+                Un&nbsp;animal&nbsp;heureux<br/>un&nbsp;animal&nbsp;compris.
               </h1>
               <p className="text-lg md:text-xl text-black">
                 VetCare vous aide à suivre la santé de votre compagnon, comprendre ses émotions avec PetSense et lui faire rencontrer des amis compatibles grâce à PetMeet
@@ -228,7 +228,7 @@ function Home() {
                   <span>Rencontres sécurisées</span>
                 </motion.li>
               </ul>
-              <Link to="/pet-sound-chat">
+              <Link to="/app/petmeet">
                 <motion.button
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                   whileTap={{ scale: 0.95 }}
