@@ -27,20 +27,20 @@ const App = () => {
   
   return (
     <ErrorBoundary>
-      <Router>
-        <Toaster />
-        <NotificationListener />
-        <div className="min-h-screen bg-gray-100">
-          <Navbar />
-          <main className="container mx-auto px-4 py-8">
+    <Router>
+      <Toaster />
+      <NotificationListener />
+      <div className="min-h-screen bg-gray-100">
+        <Navbar />
+        <main className="container mx-auto px-4 py-8">
             <Suspense fallback={<LoadingSpinner />}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
                 
                 {/* Routes protégées */}
-                <Route element={<PrivateRoute />}>
+            <Route element={<PrivateRoute />}>
                   <Route path="/app/dashboard" element={<Dashboard />} />
                   <Route path="/app/profile" element={<Profile />} />
                   <Route path="/app/radar" element={<Radar />} />
@@ -48,19 +48,19 @@ const App = () => {
                   <Route path="/app/upload-audio" element={<AudioUpload />} />
                   <Route path="/app/geotracker" element={<GeoTracker />} />
                   <Route path="/app/assistant" element={<SmartAssistant />} />
-                </Route>
+            </Route>
 
                 {/* Redirection par défaut */}
                 <Route path="/app" element={<Navigate to="/app/dashboard" replace />} />
                 <Route path="*" element={<NotFound />} />
-              </Routes>
+          </Routes>
             </Suspense>
-          </main>
-          <EmergencyButton />
-          <FeedbackButton />
-          <Footer />
-        </div>
-      </Router>
+        </main>
+        <EmergencyButton />
+        <FeedbackButton />
+        <Footer />
+      </div>
+    </Router>
     </ErrorBoundary>
   );
 };

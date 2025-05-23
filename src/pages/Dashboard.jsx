@@ -345,8 +345,8 @@ const Dashboard = () => {
                 {entry.healthEvent && (
                   <p className="text-sm text-pink-600">
                     {entry.healthEvent}
-                  </p>
-                )}
+            </p>
+          )}
               </div>
             </div>
           ))}

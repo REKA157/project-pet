@@ -40,36 +40,48 @@ function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-nature-700 via-nature-800 to-nature-900 text-white py-40 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] opacity-10 bg-cover bg-center animate-subtle-zoom"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-nature-900/50 to-nature-900/80"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center space-y-6">
-            <h1 className="text-4xl md:text-6xl font-bold text-primary">
-              Un animal heureux, un animal compris.
-            </h1>
-            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              VetCare vous aide à suivre la santé de votre compagnon, comprendre ses émotions avec PetSense et lui faire rencontrer des amis compatibles grâce à PetMeet
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <button
-                onClick={() => navigate('/app/petsense')}
-                className="px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
-              >
-                Lancer PetSense
-              </button>
-              <button
-                onClick={() => navigate('/app/petmeet')}
-                className="px-8 py-3 bg-secondary text-white rounded-lg hover:bg-secondary-dark transition-colors"
-              >
-                Explorer PetMeet
-              </button>
-              <button
-                onClick={() => navigate('/app/veterinaires')}
-                className="px-8 py-3 bg-accent text-white rounded-lg hover:bg-accent-dark transition-colors"
-              >
-                Trouver un vétérinaire
-              </button>
+      <div className="bg-green-50 py-20">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+            {/* Left column - Text and buttons */}
+            <div className="flex-1 text-center md:text-left space-y-6">
+              <h1 className="text-4xl md:text-6xl font-bold text-primary">
+                Un animal heureux, un animal compris.
+              </h1>
+              <p className="text-lg md:text-xl text-gray-600">
+                VetCare vous aide à suivre la santé de votre compagnon, comprendre ses émotions avec PetSense et lui faire rencontrer des amis compatibles grâce à PetMeet
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-8">
+                <button
+                  onClick={() => navigate('/app/petsense')}
+                  className="px-8 py-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                >
+                  Lancer PetSense
+                </button>
+                <button
+                  onClick={() => navigate('/app/petmeet')}
+                  className="px-8 py-3 bg-yellow-400 text-white rounded-full hover:bg-yellow-500 transition-colors"
+                >
+                  Explorer PetMeet
+                </button>
+                <button
+                  onClick={() => navigate('/app/veterinaires')}
+                  className="px-8 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-colors"
+                >
+                  Trouver un vétérinaire
+                </button>
+              </div>
+            </div>
+            
+            {/* Right column - Illustrations */}
+            <div className="flex-1 relative">
+              <div className="w-full h-auto">
+                <img 
+                  src="/images/pets-illustration.png" 
+                  alt="Illustration de chien et chat" 
+                  className="w-full h-auto object-contain"
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -69,7 +69,7 @@ const Navbar = () => {
                 {({ isActive }) => (
                   <>
                     <span className="mr-1 lg:mr-2">{item.icon}</span>
-                    {item.label}
+                {item.label}
                     {isActive && (
                       <motion.div
                         layoutId="activeTab"
@@ -103,24 +103,24 @@ const Navbar = () => {
             ) : (
               <>
                 <Link to="/login">
-                  <motion.button 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                     className="text-nature-600 hover:text-nature-700 transition-colors flex items-center text-sm lg:text-base"
-                  >
+              >
                     <FaUser className="w-4 h-4 lg:w-5 lg:h-5 mr-1 lg:mr-2" />
-                    Connexion
-                  </motion.button>
+                Connexion
+              </motion.button>
                 </Link>
                 <Link to="/register">
-                  <motion.button 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
                     className="bg-nature-600 text-white px-2 lg:px-4 py-1 lg:py-2 rounded-lg hover:bg-nature-700 transition-colors flex items-center text-sm lg:text-base"
-                  >
+            >
                     <FaPaw className="w-4 h-4 lg:w-5 lg:h-5 mr-1 lg:mr-2" />
-                    S'inscrire
-                  </motion.button>
+              S'inscrire
+            </motion.button>
                 </Link>
               </>
             )}
@@ -141,7 +141,7 @@ const Navbar = () => {
         </div>
 
         <AnimatePresence>
-          {isOpen && (
+        {isOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
@@ -149,59 +149,59 @@ const Navbar = () => {
               className="md:hidden mt-2"
             >
               <div className="flex flex-col space-y-1">
-                {navItems.map((item) => (
-                  <NavLink
-                    key={item.path}
-                    to={item.path}
-                    className={({ isActive }) =>
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  className={({ isActive }) =>
                       `px-3 py-2 rounded-lg transition-colors flex items-center text-sm ${
                         isActive 
                           ? 'text-white bg-nature-600' 
                           : 'text-nature-600 hover:bg-nature-50'
                       }`
-                    }
+                  }
                     onClick={() => setIsOpen(false)}
-                  >
+                >
                     <span className="mr-2">{item.icon}</span>
-                    {item.label}
-                  </NavLink>
-                ))}
-                {userEmail ? (
-                  <>
+                  {item.label}
+                </NavLink>
+              ))}
+              {userEmail ? (
+                <>
                     <div className="px-3 py-2 text-gray-600 flex items-center text-sm">
                       <FaUser className="w-4 h-4 mr-2" />
                       {userEmail}
                     </div>
-                    <button
+                  <button
                       onClick={() => {
                         handleLogout();
                         setIsOpen(false);
                       }}
                       className="px-3 py-2 text-gray-600 hover:text-red-600 transition-colors flex items-center text-sm"
-                    >
+                  >
                       <FaSignOutAlt className="w-4 h-4 mr-2" />
-                      Déconnexion
-                    </button>
-                  </>
-                ) : (
+                    Déconnexion
+                  </button>
+                </>
+              ) : (
                   <>
                     <Link to="/login" onClick={() => setIsOpen(false)}>
                       <div className="px-3 py-2 text-nature-600 hover:bg-nature-50 rounded-lg flex items-center text-sm">
                         <FaUser className="w-4 h-4 mr-2" />
-                        Connexion
+                  Connexion
                       </div>
                     </Link>
                     <Link to="/register" onClick={() => setIsOpen(false)}>
                       <div className="px-3 py-2 bg-nature-600 text-white rounded-lg hover:bg-nature-700 flex items-center text-sm">
                         <FaPaw className="w-4 h-4 mr-2" />
-                        S'inscrire
-                      </div>
+                S'inscrire
+            </div>
                     </Link>
                   </>
                 )}
-              </div>
+          </div>
             </motion.div>
-          )}
+        )}
         </AnimatePresence>
       </nav>
     </header>
