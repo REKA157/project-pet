@@ -59,7 +59,7 @@ function Home() {
               <h1 className="text-4xl md:text-6xl font-bold text-primary">
                 Un animal heureux, un animal compris.
               </h1>
-              <p className="text-lg md:text-xl text-gray-600">
+              <p className="text-lg md:text-xl text-white">
                 VetCare vous aide à suivre la santé de votre compagnon, comprendre ses émotions avec PetSense et lui faire rencontrer des amis compatibles grâce à PetMeet
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-8">
