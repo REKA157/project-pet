@@ -38,9 +38,9 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen">
+    <div>
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-nature-700 via-nature-800 to-nature-900 text-white py-20 overflow-hidden">
+      <div className="bg-green-50 py-16 overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12">
             {/* Left column - Cat Illustration */}
@@ -57,21 +57,21 @@ function Home() {
             {/* Center column - Text and buttons */}
             <div className="flex-1 text-center md:text-left space-y-6">
               <h1 className="text-4xl md:text-6xl font-bold text-primary">
-                Un animal heureux, un animal compris.
+                Un animal heureux<br/>un animal compris.
               </h1>
-              <p className="text-lg md:text-xl text-white">
+              <p className="text-lg md:text-xl text-gray-600">
                 VetCare vous aide à suivre la santé de votre compagnon, comprendre ses émotions avec PetSense et lui faire rencontrer des amis compatibles grâce à PetMeet
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-8">
                 <button
                   onClick={() => navigate('/app/petsense')}
-                  className="px-8 py-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                  className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full hover:from-pink-600 hover:to-purple-600 transition-colors"
                 >
                   Lancer PetSense
                 </button>
                 <button
                   onClick={() => navigate('/app/petmeet')}
-                  className="px-8 py-3 bg-yellow-400 text-white rounded-full hover:bg-yellow-500 transition-colors"
+                  className="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full hover:from-green-600 hover:to-green-700 transition-colors"
                 >
                   Explorer PetMeet
                 </button>
