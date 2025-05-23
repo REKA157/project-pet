@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare, FaTimes, FaCamera, FaVideo, FaBrain, FaFilePdf, FaSmile, FaSadTear, FaAngry, FaSurprise, FaSyringe, FaNotesMedical, FaThumbsUp } from 'react-icons/fa';
 import { MdHealthAndSafety, MdLocalHospital, MdVaccines, MdDownload, MdPets, MdFavorite, MdFavoriteBorder, MdAccessTime, MdEvent, MdPerson, MdLocationOn, MdTrendingUp, MdPhotoLibrary } from 'react-icons/md';
@@ -20,6 +20,7 @@ const Dashboard = () => {
 
   const location = useLocation();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log('Dashboard mounted');
@@ -596,7 +597,7 @@ const Dashboard = () => {
                   <h3 className="text-xl font-semibold text-gray-900">{t('dashboard.health_tab.appointments.title')}</h3>
                   <button 
                     className="bg-nature-600 text-white px-4 py-2 rounded-lg hover:bg-nature-700 transition-colors"
-                    onClick={() => alert('Fonctionnalité de prise de rendez-vous à implémenter')}
+                    onClick={() => navigate('/app/book-appointment')}
                   >
                     {t('dashboard.health_tab.appointments.new_button')}
                   </button>
@@ -635,7 +636,7 @@ const Dashboard = () => {
                   <h3 className="text-xl font-semibold text-gray-900">{t('dashboard.health_tab.teleconsultation.title')}</h3>
                   <button 
                     className="bg-nature-600 text-white px-4 py-2 rounded-lg hover:bg-nature-700 transition-colors"
-                    onClick={() => alert('Fonctionnalité de téléconsultation à implémenter')}
+                    onClick={() => navigate('/app/teleconsultation')}
                   >
                     {t('dashboard.health_tab.teleconsultation.request_button')}
                   </button>

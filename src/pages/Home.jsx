@@ -7,12 +7,13 @@ import ExternalLink from '../components/ExternalLink';
 import AIFeatures from '../components/AIFeatures';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useMemo } from 'react';
 
 function Home() {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const services = [
+  const services = useMemo(() => [
     { 
       icon: <FaVideo className="w-8 h-8" />, 
       title: t('home.services.teleconsultation.title'), 
@@ -37,7 +38,7 @@ function Home() {
       description: t('home.services.petmeet.description'),
       color: 'from-rose-500 to-rose-600'
     }
-  ];
+  ], [t]);
 
   return (
     <div>
