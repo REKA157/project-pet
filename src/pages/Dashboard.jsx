@@ -16,6 +16,7 @@ const Dashboard = () => {
   const [position, setPosition] = useState(null);
   const [nearestDog, setNearestDog] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showEmotionSelector, setShowEmotionSelector] = useState(false);
 
   const location = useLocation();
   const { t } = useTranslation();
@@ -373,11 +374,31 @@ const Dashboard = () => {
             <FaThumbsUp className="w-4 h-4" />
             <span>{t('dashboard.emotional_analysis.feedback.precise_button')}</span>
           </button>
-          <button className="flex-1 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 flex items-center justify-center space-x-2">
+          <button 
+            className="flex-1 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 flex items-center justify-center space-x-2"
+            onClick={() => setShowEmotionSelector(true)}
+          >
             <FaTimes className="w-4 h-4" />
             <span>{t('dashboard.emotional_analysis.feedback.imprecise_button')}</span>
           </button>
         </div>
+
+        {showEmotionSelector && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="mt-4 space-y-2"
+          >
+            <p className="text-sm font-semibold text-gray-700">{t('dashboard.emotional_analysis.feedback.select_correct_emotion')}</p>
+            <div className="flex flex-wrap gap-2">
+              <button className="px-3 py-1 text-sm bg-yellow-100 text-yellow-800 rounded-full hover:bg-yellow-200" onClick={() => handleEmotionFeedback('joy')}>{t('emotions.joy')}</button>
+              <button className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200" onClick={() => handleEmotionFeedback('sadness')}>{t('emotions.sadness')}</button>
+              <button className="px-3 py-1 text-sm bg-red-100 text-red-800 rounded-full hover:bg-red-200" onClick={() => handleEmotionFeedback('stress')}>{t('emotions.stress')}</button>
+              {/* Add other possible emotions as needed */}
+            </div>
+          </motion.div>
+        )}
       </div>
     </div>
   );
@@ -573,7 +594,10 @@ const Dashboard = () => {
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-xl font-semibold text-gray-900">{t('dashboard.health_tab.appointments.title')}</h3>
-                  <button className="bg-nature-600 text-white px-4 py-2 rounded-lg hover:bg-nature-700 transition-colors">
+                  <button 
+                    className="bg-nature-600 text-white px-4 py-2 rounded-lg hover:bg-nature-700 transition-colors"
+                    onClick={() => alert('Fonctionnalité de prise de rendez-vous à implémenter')}
+                  >
                     {t('dashboard.health_tab.appointments.new_button')}
                   </button>
                 </div>
@@ -609,7 +633,10 @@ const Dashboard = () => {
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-xl font-semibold text-gray-900">{t('dashboard.health_tab.teleconsultation.title')}</h3>
-                  <button className="bg-nature-600 text-white px-4 py-2 rounded-lg hover:bg-nature-700 transition-colors">
+                  <button 
+                    className="bg-nature-600 text-white px-4 py-2 rounded-lg hover:bg-nature-700 transition-colors"
+                    onClick={() => alert('Fonctionnalité de téléconsultation à implémenter')}
+                  >
                     {t('dashboard.health_tab.teleconsultation.request_button')}
                   </button>
                 </div>

@@ -9,6 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 function Home() {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const services = [
     { 
       icon: <FaVideo className="w-8 h-8" />, 
@@ -35,9 +38,6 @@ function Home() {
       color: 'from-rose-500 to-rose-600'
     }
   ];
-
-  const navigate = useNavigate();
-  const { t } = useTranslation();
 
   return (
     <div>
