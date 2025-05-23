@@ -40,7 +40,7 @@ function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="bg-green-50 py-20">
+      <div className="bg-green-700 py-20">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12">
             {/* Left column - Text and buttons */}
