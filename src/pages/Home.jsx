@@ -40,11 +40,11 @@ function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-nature-700 via-nature-800 to-nature-900 text-white py-24 overflow-hidden">
+      <div className="bg-gradient-to-br from-nature-700 via-nature-800 to-nature-900 text-white py-20 overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12">
             {/* Left column - Cat Illustration */}
-            <div className="flex-1 relative hidden md:block">
+            <div className="flex-1 relative md:block">
               <div className="w-full h-auto">
                 <img 
                   src="/images/cat_illustration.png" 
