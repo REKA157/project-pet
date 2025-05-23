@@ -1,24 +1,25 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import i18nextHttpBackend from 'i18next-http-backend';
+import HttpBackend from 'i18next-http-backend';
 
 // the translations
 // (tip: often other resources are loaded from a backend server or a file system, like cdn)
 
 i18n
-  .use(i18nextHttpBackend) // passes i18n down to react-i18next
-  .use(initReactI18next) // passes i18n down to react-i18next
+  .use(HttpBackend)
+  .use(initReactI18next)
   .init({
-    lng: "fr", // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
-    fallbackLng: "en", // fallback language is used when lng not found
-
     backend: {
-      loadPath: 'locales/{{lng}}/{{ns}}.json' // Adjusted path (removed leading slash)
+      loadPath: '/locales/{{lng}}/{{ns}}.json'
     },
-
+    debug: true,
+    lng: 'fr', // langue par défaut
+    fallbackLng: 'en', // langue de repli
     interpolation: {
-      escapeValue: false // react already safes from xss
-    }
+      escapeValue: false, // not needed for react as it escapes by default
+    },
+    ns: ['translation'], // namespace(s) to load
+    defaultNS: 'translation',
   });
 
 export default i18n; 

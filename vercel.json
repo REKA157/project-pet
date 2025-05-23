@@ -1,5 +1,12 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "framework": "vite"
+  "framework": "vite",
+  "routes": [
+    {
+      "src": "/locales/(.*)",
+      "headers": { "Cache-Control": "max-age=0" },
+      "dest": "/locales/$1"
+    }
+  ]
 } 
