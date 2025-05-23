@@ -1,0 +1,165 @@
+{
+  "welcome": "Добро пожаловать",
+  "nav.accueil": "Главная",
+  "nav.dashboard": "Панель",
+  "nav.radar": "Радар",
+  "nav.petmeet": "PetMeet",
+  "nav.geo": "Гео",
+  "nav.assistant": "Ассистент",
+  "auth.logout": "Выйти",
+  "auth.login": "Войти",
+  "auth.register": "Зарегистрироваться",
+  "moods": {
+    "joueur": "Игривый",
+    "calme": "Спокойный",
+    "énergique": "Энергичный",
+    "fatigué": "Уставший",
+    "excitée": "Возбужденный"
+  },
+  "emotions": {
+    "joy": "Радость",
+    "sadness": "Грусть",
+    "stress": "Стресс"
+  },
+  "dashboard": {
+    "title": "Панель управления",
+    "mood_label": "Настроение",
+    "tabs": {
+      "overview": "Обзор",
+      "health": "Здоровье",
+      "petmeet": "PetMeet",
+      "location": "Местоположение",
+      "translator": "PetSense"
+    },
+    "emotional_analysis": {
+      "title": "Эмоциональный анализ",
+      "export_button": "Экспорт",
+      "score": {
+        "title": "Балл PetSense",
+        "description": "На основе поведенческого и эмоционального анализа"
+      },
+      "history": {
+        "title": "История эмоций",
+        "confidence_label": "Уверенность"
+      },
+      "feedback": {
+        "title": "Помогите нам улучшить ИИ",
+        "description": "Ваш отзыв помогает нам уточнить эмоциональный анализ",
+        "precise_button": "Точный",
+        "imprecise_button": "Неточный"
+      },
+      "health_overview": {
+        "title": "Обзор здоровья",
+        "alerts": {
+          "title": "Оповещения"
+        },
+        "weight_chart": {
+          "title": "Динамика веса"
+        },
+        "activity_chart": {
+          "title": "Уровень активности"
+        },
+        "vaccinations": {
+          "title": "Вакцинация",
+          "next_due_label": "Следующее напоминание",
+          "done_label": "Сделано"
+        }
+      },
+      "health_tab": {
+        "title": "Здоровье {{petName}}",
+        "last_checkup_label": "Последний осмотр",
+        "next_vaccine_label": "Следующая вакцина",
+        "general_state_label": "Общее состояние",
+        "general_state_value": "Отличное",
+        "appointments": {
+          "title": "Медицинские приемы",
+          "new_button": "Новый прием",
+          "annual_vaccination": {
+            "title": "Ежегодная вакцинация"
+          },
+          "clinic_name": "Ветеринарная клиника",
+          "dental_checkup": {
+            "title": "Осмотр зубов"
+          },
+          "dental_practice_name": "Стоматологическая практика"
+        },
+        "teleconsultation": {
+          "title": "Телеконсультация",
+          "request_button": "Запросить консультацию",
+          "available_now": "Доступно сейчас",
+          "available_in_30min": "Доступно через 30 мин"
+        },
+        "medical_record": {
+          "title": "Медицинская карта",
+          "download_button": "Скачать карту",
+          "media": {
+            "title": "Медицинские медиа",
+            "drag_drop_text": "Перетащите сюда свои фото или видео",
+            "browse_button": "Просмотреть файлы",
+            "formats_accepted": "Принимаемые форматы: JPG, PNG, MP4, MOV (макс. 10МБ)"
+          },
+          "recent_media": {
+            "title": "Последние медиа",
+            "photo_alt": "Медицинское фото"
+          },
+          "last_updated": "Последнее обновление",
+          "vaccinations": {
+            "title": "Вакцинация"
+          },
+          "blood_tests": {
+            "title": "Анализы крови"
+          },
+          "radiographs": {
+            "title": "Рентген"
+          }
+        },
+        "health_data": {
+          "title": "Данные о здоровье",
+          "vitality": {
+            "title": "Жизнеспособность",
+            "energy_level": "Уровень энергии",
+            "sleep_quality": "Качество сна"
+          },
+          "physical_activity": {
+            "title": "Физическая активность",
+            "daily_exercise": "Ежедневные упражнения",
+            "games_activities": "Игры и занятия"
+          }
+        },
+        "ai_predictions": {
+          "title": "Прогнозы ИИ",
+          "health_title": "Здоровье",
+          "health_description": "Оптимальное состояние здоровья, продолжайте следовать хорошим привычкам!",
+          "behavior_title": "Поведение",
+          "behavior_description": "Нормальный уровень активности, признаки беспокойства не обнаружены."
+        }
+      },
+      "petmeet_tab": {
+        "recent_matches_label": "Последние совпадения",
+        "recent_matches_count": "{{count}} новых",
+        "profiles_seen_today": "Профилей просмотрено сегодня",
+        "matches_count_label": "Совпадения",
+        "upcoming_appointments_count_label": "Предстоящие встречи",
+        "discover_profiles": {
+          "title": "Найти профили",
+          "luna_description": "Луна обожает играть в парке и знакомиться с новыми друзьями. Она очень общительна и хорошо ладит с другими собаками.",
+          "max_description": "Макс очень активный пес, который любит долгие прогулки и игры с мячом. Он хорошо воспитан и общителен.",
+          "bella_description": "Белла очень умная собака, которая преуспевает в кинологических видах спорта. Она любит испытания и игры на ловкость.",
+          "intelligent": "Умный",
+          "agile": "Ловкий"
+        },
+        "recent_matches": {
+          "title": "Последние совпадения",
+          "match_time": "Совпадение {{time}} назад",
+          "send_message_button": "Отправить сообщение"
+        },
+        "upcoming_appointments": {
+          "title": "Предстоящие встречи",
+          "appointment_with": "Встреча с {{petName}}",
+          "central_park": "Центральный парк",
+          "dog_park": "Собачий парк"
+        }
+      }
+    }
+  }
+} 

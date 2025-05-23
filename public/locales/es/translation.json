@@ -1,0 +1,165 @@
+{
+  "welcome": "Bienvenido",
+  "nav.accueil": "Inicio",
+  "nav.dashboard": "Panel",
+  "nav.radar": "Radar",
+  "nav.petmeet": "PetMeet",
+  "nav.geo": "Geo",
+  "nav.assistant": "Asistente",
+  "auth.logout": "Cerrar sesión",
+  "auth.login": "Iniciar sesión",
+  "auth.register": "Registrarse",
+  "moods": {
+    "joueur": "Juguetón",
+    "calme": "Tranquilo",
+    "énergique": "Energético",
+    "fatigué": "Cansado",
+    "excitée": "Excitado"
+  },
+  "emotions": {
+    "joy": "Alegría",
+    "sadness": "Tristeza",
+    "stress": "Estrés"
+  },
+  "dashboard": {
+    "title": "Panel de control",
+    "mood_label": "Estado de ánimo",
+    "tabs": {
+      "overview": "Resumen",
+      "health": "Salud",
+      "petmeet": "PetMeet",
+      "location": "Ubicación",
+      "translator": "PetSense"
+    },
+    "emotional_analysis": {
+      "title": "Análisis emocional",
+      "export_button": "Exportar",
+      "score": {
+        "title": "Puntuación PetSense",
+        "description": "Basado en el análisis conductual y emocional"
+      },
+      "history": {
+        "title": "Historial emocional",
+        "confidence_label": "Confianza"
+      },
+      "feedback": {
+        "title": "Ayúdanos a mejorar la IA",
+        "description": "Tu feedback nos ayuda a refinar los análisis emocionales",
+        "precise_button": "Preciso",
+        "imprecise_button": "Impreciso"
+      },
+      "health_overview": {
+        "title": "Resumen de salud",
+        "alerts": {
+          "title": "Alertas"
+        },
+        "weight_chart": {
+          "title": "Evolución del peso"
+        },
+        "activity_chart": {
+          "title": "Nivel de actividad"
+        },
+        "vaccinations": {
+          "title": "Vacunaciones",
+          "next_due_label": "Próximo recordatorio",
+          "done_label": "Hecho el"
+        }
+      },
+      "health_tab": {
+        "title": "Salud de {{petName}}",
+        "last_checkup_label": "Último chequeo",
+        "next_vaccine_label": "Próxima vacuna",
+        "general_state_label": "Estado general",
+        "general_state_value": "Excelente",
+        "appointments": {
+          "title": "Citas médicas",
+          "new_button": "Nueva cita",
+          "annual_vaccination": {
+            "title": "Vacunación anual"
+          },
+          "clinic_name": "Clínica Veterinaria",
+          "dental_checkup": {
+            "title": "Revisión dental"
+          },
+          "dental_practice_name": "Consultorio Dental"
+        },
+        "teleconsultation": {
+          "title": "Teleconsulta",
+          "request_button": "Solicitar consulta",
+          "available_now": "Disponible ahora",
+          "available_in_30min": "Disponible en 30 min"
+        },
+        "medical_record": {
+          "title": "Historial médico",
+          "download_button": "Descargar historial",
+          "media": {
+            "title": "Medios médicos",
+            "drag_drop_text": "Arrastra y suelta tus fotos o videos aquí",
+            "browse_button": "Examinar archivos",
+            "formats_accepted": "Formatos aceptados: JPG, PNG, MP4, MOV (máx. 10MB)"
+          },
+          "recent_media": {
+            "title": "Medios recientes",
+            "photo_alt": "Foto médica"
+          },
+          "last_updated": "Última actualización",
+          "vaccinations": {
+            "title": "Vacunaciones"
+          },
+          "blood_tests": {
+            "title": "Análisis de sangre"
+          },
+          "radiographs": {
+            "title": "Radiografías"
+          }
+        },
+        "health_data": {
+          "title": "Datos de salud",
+          "vitality": {
+            "title": "Vitalidad",
+            "energy_level": "Nivel de energía",
+            "sleep_quality": "Calidad del sueño"
+          },
+          "physical_activity": {
+            "title": "Actividad física",
+            "daily_exercise": "Ejercicio diario",
+            "games_activities": "Juegos y actividades"
+          }
+        },
+        "ai_predictions": {
+          "title": "Predicciones de IA",
+          "health_title": "Salud",
+          "health_description": "Estado de salud óptimo, ¡continúe con los buenos hábitos!",
+          "behavior_title": "Comportamiento",
+          "behavior_description": "Nivel de actividad normal, no se detectaron signos de ansiedad."
+        }
+      },
+      "petmeet_tab": {
+        "recent_matches_label": "Coincidencias recientes",
+        "recent_matches_count": "{{count}} nuevos",
+        "profiles_seen_today": "Perfiles vistos hoy",
+        "matches_count_label": "Coincidencias",
+        "upcoming_appointments_count_label": "Próximas citas",
+        "discover_profiles": {
+          "title": "Descubrir perfiles",
+          "luna_description": "A Luna le encanta jugar en el parque y conocer nuevos amigos. Es muy sociable y se lleva bien con otros perros.",
+          "max_description": "Max es un perro muy activo al que le encantan los paseos largos y los juegos de pelota. Está bien educado y es sociable.",
+          "bella_description": "Bella es una perra muy inteligente que destaca en los deportes caninos. Le encantan los desafíos y los juegos de agilidad.",
+          "intelligent": "Inteligente",
+          "agile": "Ágil"
+        },
+        "recent_matches": {
+          "title": "Coincidencias recientes",
+          "match_time": "Coincidencia hace {{time}}",
+          "send_message_button": "Enviar mensaje"
+        },
+        "upcoming_appointments": {
+          "title": "Próximas citas",
+          "appointment_with": "Cita con {{petName}}",
+          "central_park": "Parque Central",
+          "dog_park": "Parque para perros"
+        }
+      }
+    }
+  }
+} 

@@ -1,0 +1,216 @@
+{
+  "welcome": "Bienvenue",
+  "nav.accueil": "Accueil",
+  "nav.dashboard": "Tableau de bord",
+  "nav.radar": "Radar",
+  "nav.petmeet": "PetMeet",
+  "nav.geo": "Géo",
+  "nav.assistant": "Assistant",
+  "auth.logout": "Déconnexion",
+  "auth.login": "Connexion",
+  "auth.register": "S'inscrire",
+  "moods": {
+    "joueur": "Joueur",
+    "calme": "Calme",
+    "énergique": "Énergique",
+    "fatigué": "Fatigué",
+    "excitée": "Excitée"
+  },
+  "emotions": {
+    "joy": "Joie",
+    "sadness": "Tristesse",
+    "stress": "Stress"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "mood_label": "Humeur",
+    "tabs": {
+      "overview": "Vue d'ensemble",
+      "health": "Santé",
+      "petmeet": "PetMeet",
+      "location": "Localisation",
+      "translator": "PetSense"
+    },
+    "emotional_analysis": {
+      "title": "Analyse émotionnelle",
+      "export_button": "Exporter",
+      "score": {
+        "title": "Score PetSense",
+        "description": "Basé sur l'analyse comportementale et émotionnelle"
+      },
+      "history": {
+        "title": "Historique émotionnel",
+        "confidence_label": "Confiance"
+      },
+      "feedback": {
+        "title": "Aidez-nous à améliorer l'IA",
+        "description": "Votre feedback nous aide à affiner les analyses émotionnelles",
+        "precise_button": "Précis",
+        "imprecise_button": "Imprécis"
+      },
+      "health_overview": {
+        "title": "Vue d'ensemble santé",
+        "alerts": {
+          "title": "Alertes"
+        },
+        "weight_chart": {
+          "title": "Évolution du poids"
+        },
+        "activity_chart": {
+          "title": "Niveau d'activité"
+        },
+        "vaccinations": {
+          "title": "Vaccinations",
+          "next_due_label": "Prochain rappel",
+          "done_label": "Fait le"
+        }
+      },
+      "health_tab": {
+        "title": "Santé de {{petName}}",
+        "last_checkup_label": "Dernier check-up",
+        "next_vaccine_label": "Prochain vaccin",
+        "general_state_label": "État général",
+        "general_state_value": "Excellent",
+        "appointments": {
+          "title": "Rendez-vous médicaux",
+          "new_button": "Nouveau RDV",
+          "annual_vaccination": {
+            "title": "Vaccination annuelle"
+          },
+          "clinic_name": "Clinique Vétérinaire",
+          "dental_checkup": {
+            "title": "Contrôle dentaire"
+          },
+          "dental_practice_name": "Cabinet Dentaire"
+        },
+        "teleconsultation": {
+          "title": "Téléconsultation",
+          "request_button": "Demander une consultation",
+          "available_now": "Disponible maintenant",
+          "available_in_30min": "Disponible dans 30 min"
+        },
+        "medical_record": {
+          "title": "Dossier médical",
+          "download_button": "Télécharger le dossier",
+          "media": {
+            "title": "Médias médicaux",
+            "drag_drop_text": "Glissez-déposez vos photos ou vidéos ici",
+            "browse_button": "Parcourir les fichiers",
+            "formats_accepted": "Formats acceptés : JPG, PNG, MP4, MOV (max 10MB)"
+          },
+          "recent_media": {
+            "title": "Médias récents",
+            "photo_alt": "Photo médicale"
+          },
+          "last_updated": "Dernière mise à jour",
+          "vaccinations": {
+            "title": "Vaccinations"
+          },
+          "blood_tests": {
+            "title": "Analyses sanguines"
+          },
+          "radiographs": {
+            "title": "Radiographies"
+          }
+        },
+        "health_data": {
+          "title": "Données de santé",
+          "vitality": {
+            "title": "Vitalité",
+            "energy_level": "Niveau d'énergie",
+            "sleep_quality": "Qualité du sommeil"
+          },
+          "physical_activity": {
+            "title": "Activité physique",
+            "daily_exercise": "Exercice quotidien",
+            "games_activities": "Jeux et activités"
+          }
+        },
+        "ai_predictions": {
+          "title": "Prédictions IA",
+          "health_title": "Santé",
+          "health_description": "État de santé optimal, continuez les bonnes habitudes !",
+          "behavior_title": "Comportement",
+          "behavior_description": "Niveau d'activité normal, pas de signes d'anxiété détectés."
+        }
+      },
+      "petmeet_tab": {
+        "recent_matches_label": "Matchs récents",
+        "recent_matches_count": "{{count}} nouveaux",
+        "profiles_seen_today": "Profils vus aujourd'hui",
+        "matches_count_label": "Matchs",
+        "upcoming_appointments_count_label": "Prochains rendez-vous",
+        "discover_profiles": {
+          "title": "Profils à découvrir",
+          "luna_description": "Luna adore jouer dans le parc et faire de nouvelles rencontres. Elle est très sociable et s'entend bien avec les autres chiens.",
+          "max_description": "Max est un chien très actif qui adore les longues promenades et les jeux de balle. Il est très bien éduqué et sociable.",
+          "bella_description": "Bella est une chienne très intelligente qui excelle dans les sports canins. Elle adore les défis et les jeux d'agilité.",
+          "intelligent": "Intelligent",
+          "agile": "Agile"
+        },
+        "recent_matches": {
+          "title": "Matchs récents",
+          "match_time": "Match il y a {{time}}",
+          "send_message_button": "Envoyer un message"
+        },
+        "upcoming_appointments": {
+          "title": "Prochains rendez-vous",
+          "appointment_with": "Rendez-vous avec {{petName}}",
+          "central_park": "Parc Central",
+          "dog_park": "Parc des Chiens"
+        }
+      },
+      "location_tab": {
+        "title": "Localisation",
+        "nearby_dogs_label": "Chiens à proximité",
+        "nearby_dogs_count": "{{count}} dans un rayon de {{distance}}",
+        "legend": {
+          "your_position": "Votre position",
+          "nearby_dogs": "Chiens à proximité"
+        },
+        "nearby_dogs_list": {
+          "title": "Chiens à proximité",
+          "dog_details": "{{breed}} • {{distance}}"
+        }
+      },
+      "petsense_tab": {
+        "pro_banner": {
+          "title": "PetSense Pro",
+          "description": "Accédez à toutes les fonctionnalités premium",
+          "subscribe_button": "S'abonner"
+        },
+        "features": {
+          "smart_alerts": {
+            "title": "Alertes intelligentes",
+            "description": "Détection précoce des changements de comportement",
+            "alert1": "3 changements de comportement détectés cette semaine",
+            "alert2": "Niveau de stress en augmentation"
+          },
+          "veterinary_reports": {
+            "title": "Rapports vétérinaires",
+            "description": "Export PDF détaillé pour votre vétérinaire",
+            "button": "Générer le rapport"
+          },
+          "cross_tracking": {
+            "title": "Suivi croisé",
+            "description": "Analyse comportementale et santé combinée"
+          },
+          "connected_collar": {
+            "title": "Collier connecté",
+            "description": "Suivi en temps réel de l'activité",
+            "activity_today": "Activité aujourd'hui"
+          }
+        },
+        "roadmap": {
+          "title": "Roadmap PetSense Pro",
+          "version1_title": "Version 1.0",
+          "version1_description": "Fonctionnalités de base et suivi santé",
+          "version2_title": "Version 2.0",
+          "version2_description": "IA avancée et prédictions comportementales",
+          "version3_title": "Version 3.0",
+          "version3_description": "Intégration complète avec les vétérinaires"
+        }
+      }
+    }
+  }
+} 

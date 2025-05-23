@@ -1,0 +1,139 @@
+{
+  "welcome": "أهلا بك",
+  "nav.accueil": "الصفحة الرئيسية",
+  "nav.dashboard": "لوحة القيادة",
+  "nav.radar": "رادار",
+  "nav.petmeet": "بيت ميت",
+  "nav.geo": "جيو",
+  "nav.assistant": "مساعد",
+  "auth.logout": "تسجيل خروج",
+  "auth.login": "تسجيل الدخول",
+  "auth.register": "التسجيل",
+  "moods": {
+    "joueur": "مرح",
+    "calme": "هادئ",
+    "énergique": "نشيط",
+    "fatigué": "متعب",
+    "excitée": "متحمس"
+  },
+  "emotions": {
+    "joy": "فرح",
+    "sadness": "حزن",
+    "stress": "توتر"
+  },
+  "dashboard": {
+    "title": "لوحة القيادة",
+    "mood_label": "الحالة المزاجية",
+    "tabs": {
+      "overview": "نظرة عامة",
+      "health": "الصحة",
+      "petmeet": "PetMeet",
+      "location": "الموقع",
+      "translator": "PetSense"
+    },
+    "emotional_analysis": {
+      "title": "التحليل العاطفي",
+      "export_button": "تصدير",
+      "score": {
+        "title": "نقاط PetSense",
+        "description": "بناءً على التحليل السلوكي والعاطفي"
+      },
+      "history": {
+        "title": "التاريخ العاطفي",
+        "confidence_label": "الثقة"
+      },
+      "feedback": {
+        "title": "ساعدنا في تحسين الذكاء الاصطناعي",
+        "description": "ملاحظاتك تساعدنا في تحسين التحليل العاطفي",
+        "precise_button": "دقيق",
+        "imprecise_button": "غير دقيق"
+      }
+    },
+    "health_overview": {
+      "title": "نظرة عامة على الصحة",
+      "alerts": {
+        "title": "التنبيهات"
+      },
+      "weight_chart": {
+        "title": "تطور الوزن"
+      },
+      "activity_chart": {
+        "title": "مستوى النشاط"
+      },
+      "vaccinations": {
+        "title": "التطعيمات",
+        "next_due_label": "التذكير التالي",
+        "done_label": "تم في"
+      }
+    },
+    "health_tab": {
+      "title": "صحة {{petName}}",
+      "last_checkup_label": "آخر فحص",
+      "next_vaccine_label": "اللقاح التالي",
+      "general_state_label": "الحالة العامة",
+      "general_state_value": "ممتاز",
+      "appointments": {
+        "title": "المواعيد الطبية",
+        "new_button": "موعد جديد",
+        "annual_vaccination": {
+          "title": "التطعيم السنوي"
+        },
+        "clinic_name": "عيادة بيطرية",
+        "dental_checkup": {
+          "title": "فحص الأسنان"
+        },
+        "dental_practice_name": "عيادة أسنان"
+      },
+      "teleconsultation": {
+        "title": "الاستشارة عن بعد",
+        "request_button": "طلب استشارة",
+        "available_now": "متاح الآن",
+        "available_in_30min": "متاح في 30 دقيقة"
+      },
+      "medical_record": {
+        "title": "السجل الطبي",
+        "download_button": "تحميل السجل",
+        "media": {
+          "title": "الوسائط الطبية",
+          "drag_drop_text": "اسحب وأسقط صورك أو مقاطع الفيديو هنا",
+          "browse_button": "تصفح الملفات",
+          "formats_accepted": "التنسيقات المقبولة: JPG, PNG, MP4, MOV (بحد أقصى 10 ميجابايت)"
+        },
+        "recent_media": {
+          "title": "الوسائط الأخيرة",
+          "photo_alt": "صورة طبية"
+        },
+        "last_updated": "آخر تحديث",
+        "vaccinations": {
+          "title": "التطعيمات"
+        },
+        "blood_tests": {
+          "title": "تحاليل الدم"
+        },
+        "radiographs": {
+          "title": "الأشعة السينية"
+        }
+      },
+      "health_data": {
+        "title": "بيانات الصحة",
+        "vitality": {
+          "title": "الحيوية",
+          "energy_level": "مستوى الطاقة",
+          "sleep_quality": "جودة النوم"
+        },
+        "physical_activity": {
+          "title": "النشاط البدني",
+          "daily_exercise": "التمرين اليومي",
+          "games_activities": "الألعاب والأنشطة"
+        }
+      },
+      "ai_predictions": {
+        "title": "توقعات الذكاء الاصطناعي",
+        "health_title": "الصحة",
+        "health_description": "الحالة الصحية المثلى، استمر في العادات الجيدة!",
+        "behavior_title": "السلوك",
+        "behavior_description": "مستوى النشاط الطبيعي، لم يتم اكتشاف علامات القلق."
+      }
+    }
+  }
+} 

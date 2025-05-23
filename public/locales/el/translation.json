@@ -1,0 +1,53 @@
+{
+  "welcome": "Καλώς ορίσατε",
+  "nav.accueil": "Αρχική",
+  "nav.dashboard": "Πίνακας ελέγχου",
+  "nav.radar": "Ραντάρ",
+  "nav.petmeet": "PetMeet",
+  "nav.geo": "Γεωγραφία",
+  "nav.assistant": "Βοηθός",
+  "auth.logout": "Αποσύνδεση",
+  "auth.login": "Σύνδεση",
+  "auth.register": "Εγγραφή",
+  "moods": {
+    "joueur": "Παιχνιδιάρικο",
+    "calme": "Ήρεμο",
+    "énergique": "Ενεργητικό",
+    "fatigué": "Κουρασμένο",
+    "excitée": "Ενθουσιασμένο"
+  },
+  "emotions": {
+    "joy": "Χαρά",
+    "sadness": "Λύπη",
+    "stress": "Στρες"
+  },
+  "dashboard": {
+    "title": "Πίνακας ελέγχου",
+    "mood_label": "Διάθεση",
+    "tabs": {
+      "overview": "Επισκόπηση",
+      "health": "Υγεία",
+      "petmeet": "PetMeet",
+      "location": "Τοποθεσία",
+      "translator": "PetSense"
+    },
+    "emotional_analysis": {
+      "title": "Συναισθηματική Ανάλυση",
+      "export_button": "Εξαγωγή",
+      "score": {
+        "title": "Βαθμολογία PetSense",
+        "description": "Με βάση τη συμπεριφορική και συναισθηματική ανάλυση"
+      },
+      "history": {
+        "title": "Ιστορικό Συναισθημάτων",
+        "confidence_label": "Εμπιστοσύνη"
+      },
+      "feedback": {
+        "title": "Βοηθήστε μας να βελτιώσουμε την ΤΝ",
+        "description": "Η ανατροφοδότησή σας μας βοηθά να βελτιώσουμε τη συναισθηματική ανάλυση",
+        "precise_button": "Ακριβές",
+        "imprecise_button": "Ανακριβές"
+      }
+    }
+  }
+} 

@@ -1,0 +1,216 @@
+{
+  "welcome": "Welcome",
+  "nav.accueil": "Home",
+  "nav.dashboard": "Dashboard",
+  "nav.radar": "Radar",
+  "nav.petmeet": "PetMeet",
+  "nav.geo": "Geo",
+  "nav.assistant": "Assistant",
+  "auth.logout": "Logout",
+  "auth.login": "Login",
+  "auth.register": "Sign Up",
+  "moods": {
+    "joueur": "Playful",
+    "calme": "Calm",
+    "énergique": "Energetic",
+    "fatigué": "Tired",
+    "excitée": "Excited"
+  },
+  "emotions": {
+    "joy": "Joy",
+    "sadness": "Sadness",
+    "stress": "Stress"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "mood_label": "Mood",
+    "tabs": {
+      "overview": "Overview",
+      "health": "Health",
+      "petmeet": "PetMeet",
+      "location": "Location",
+      "translator": "PetSense"
+    },
+    "emotional_analysis": {
+      "title": "Emotional Analysis",
+      "export_button": "Export",
+      "score": {
+        "title": "PetSense Score",
+        "description": "Based on behavioral and emotional analysis"
+      },
+      "history": {
+        "title": "Emotional History",
+        "confidence_label": "Confidence"
+      },
+      "feedback": {
+        "title": "Help us improve AI",
+        "description": "Your feedback helps us refine emotional analysis",
+        "precise_button": "Accurate",
+        "imprecise_button": "Inaccurate"
+      },
+      "health_overview": {
+        "title": "Health Overview",
+        "alerts": {
+          "title": "Alerts"
+        },
+        "weight_chart": {
+          "title": "Weight Evolution"
+        },
+        "activity_chart": {
+          "title": "Activity Level"
+        },
+        "vaccinations": {
+          "title": "Vaccinations",
+          "next_due_label": "Next due",
+          "done_label": "Done on"
+        }
+      },
+      "health_tab": {
+        "title": "{{petName}}'s Health",
+        "last_checkup_label": "Last Check-up",
+        "next_vaccine_label": "Next Vaccine",
+        "general_state_label": "General State",
+        "general_state_value": "Excellent",
+        "appointments": {
+          "title": "Medical Appointments",
+          "new_button": "New Appointment",
+          "annual_vaccination": {
+            "title": "Annual Vaccination"
+          },
+          "clinic_name": "Veterinary Clinic",
+          "dental_checkup": {
+            "title": "Dental Check-up"
+          },
+          "dental_practice_name": "Dental Practice"
+        },
+        "teleconsultation": {
+          "title": "Teleconsultation",
+          "request_button": "Request Consultation",
+          "available_now": "Available Now",
+          "available_in_30min": "Available in 30 min"
+        },
+        "medical_record": {
+          "title": "Medical Record",
+          "download_button": "Download Record",
+          "media": {
+            "title": "Medical Media",
+            "drag_drop_text": "Drag and drop your photos or videos here",
+            "browse_button": "Browse Files",
+            "formats_accepted": "Accepted formats: JPG, PNG, MP4, MOV (max 10MB)"
+          },
+          "recent_media": {
+            "title": "Recent Media",
+            "photo_alt": "Medical Photo"
+          },
+          "last_updated": "Last updated",
+          "vaccinations": {
+            "title": "Vaccinations"
+          },
+          "blood_tests": {
+            "title": "Blood Tests"
+          },
+          "radiographs": {
+            "title": "Radiographs"
+          }
+        },
+        "health_data": {
+          "title": "Health Data",
+          "vitality": {
+            "title": "Vitality",
+            "energy_level": "Energy Level",
+            "sleep_quality": "Sleep Quality"
+          },
+          "physical_activity": {
+            "title": "Physical Activity",
+            "daily_exercise": "Daily Exercise",
+            "games_activities": "Games and Activities"
+          }
+        },
+        "ai_predictions": {
+          "title": "AI Predictions",
+          "health_title": "Health",
+          "health_description": "Optimal health status, keep up the good habits!",
+          "behavior_title": "Behavior",
+          "behavior_description": "Normal activity level, no signs of anxiety detected."
+        }
+      },
+      "petmeet_tab": {
+        "recent_matches_label": "Recent Matches",
+        "recent_matches_count": "{{count}} new",
+        "profiles_seen_today": "Profiles seen today",
+        "matches_count_label": "Matches",
+        "upcoming_appointments_count_label": "Upcoming Appointments",
+        "discover_profiles": {
+          "title": "Discover Profiles",
+          "luna_description": "Luna loves playing in the park and meeting new friends. She is very sociable and gets along well with other dogs.",
+          "max_description": "Max is a very active dog who loves long walks and ball games. He is well-behaved and sociable.",
+          "bella_description": "Bella is a very intelligent dog who excels in canine sports. She loves challenges and agility games.",
+          "intelligent": "Intelligent",
+          "agile": "Agile"
+        },
+        "recent_matches": {
+          "title": "Recent Matches",
+          "match_time": "Match {{time}} ago",
+          "send_message_button": "Send Message"
+        },
+        "upcoming_appointments": {
+          "title": "Upcoming Appointments",
+          "appointment_with": "Appointment with {{petName}}",
+          "central_park": "Central Park",
+          "dog_park": "Dog Park"
+        }
+      },
+      "location_tab": {
+        "title": "Location",
+        "nearby_dogs_label": "Nearby Dogs",
+        "nearby_dogs_count": "{{count}} within {{distance}} radius",
+        "legend": {
+          "your_position": "Your Position",
+          "nearby_dogs": "Nearby Dogs"
+        },
+        "nearby_dogs_list": {
+          "title": "Nearby Dogs",
+          "dog_details": "{{breed}} • {{distance}}"
+        },
+        "petsense_tab": {
+          "pro_banner": {
+            "title": "PetSense Pro",
+            "description": "Access all premium features",
+            "subscribe_button": "Subscribe"
+          },
+          "features": {
+            "smart_alerts": {
+              "title": "Smart Alerts",
+              "description": "Early detection of behavioral changes",
+              "alert1": "3 behavioral changes detected this week",
+              "alert2": "Stress level increasing"
+            },
+            "veterinary_reports": {
+              "title": "Veterinary Reports",
+              "description": "Detailed PDF export for your veterinarian",
+              "button": "Generate Report"
+            },
+            "cross_tracking": {
+              "title": "Cross-tracking",
+              "description": "Combined behavioral and health analysis"
+            },
+            "connected_collar": {
+              "title": "Connected Collar",
+              "description": "Real-time activity tracking",
+              "activity_today": "Activity today"
+            }
+          },
+          "roadmap": {
+            "title": "PetSense Pro Roadmap",
+            "version1_title": "Version 1.0",
+            "version1_description": "Basic features and health tracking",
+            "version2_title": "Version 2.0",
+            "version2_description": "Advanced AI and behavioral predictions",
+            "version3_title": "Version 3.0",
+            "version3_description": "Full integration with veterinarians"
+          }
+        }
+      }
+    }
+  }
+} 

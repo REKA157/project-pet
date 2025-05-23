@@ -1,0 +1,53 @@
+{
+  "welcome": "Benvenuto",
+  "nav.accueil": "Inizio",
+  "nav.dashboard": "Cruscotto",
+  "nav.radar": "Radar",
+  "nav.petmeet": "PetMeet",
+  "nav.geo": "Geo",
+  "nav.assistant": "Assistente",
+  "auth.logout": "Disconnetti",
+  "auth.login": "Accedi",
+  "auth.register": "Registrati",
+  "moods": {
+    "joueur": "Giocoso",
+    "calme": "Calmo",
+    "énergique": "Energico",
+    "fatigué": "Stanco",
+    "excitée": "Eccitato"
+  },
+  "emotions": {
+    "joy": "Gioia",
+    "sadness": "Tristezza",
+    "stress": "Stress"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "mood_label": "Umore",
+    "tabs": {
+      "overview": "Panoramica",
+      "health": "Salute",
+      "petmeet": "PetMeet",
+      "location": "Posizione",
+      "translator": "PetSense"
+    },
+    "emotional_analysis": {
+      "title": "Analisi Emozionale",
+      "export_button": "Esporta",
+      "score": {
+        "title": "PetSense Score",
+        "description": "Basato sull'analisi comportamentale ed emozionale"
+      },
+      "history": {
+        "title": "Cronologia Emozionale",
+        "confidence_label": "Fiducia"
+      },
+      "feedback": {
+        "title": "Aiutaci a migliorare l'IA",
+        "description": "Il tuo feedback ci aiuta a perfezionare l'analisi emozionale",
+        "precise_button": "Accurato",
+        "imprecise_button": "Impreciso"
+      }
+    }
+  }
+} 
