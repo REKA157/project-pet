@@ -6,39 +6,37 @@ import { Link } from 'react-router-dom';
 import ExternalLink from '../components/ExternalLink';
 import AIFeatures from '../components/AIFeatures';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 
 function Home() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   const services = useMemo(() => [
     { 
       icon: <FaVideo className="w-8 h-8" />, 
-      title: t('home.services.teleconsultation.title'), 
-      description: t('home.services.teleconsultation.description'),
+      title: "Téléconsultation", 
+      description: "Consultez un vétérinaire à distance pour des conseils rapides et pratiques.",
       color: 'from-blue-500 to-blue-600'
     },
     { 
       icon: <FaCalendarAlt className="w-8 h-8" />, 
-      title: t('home.services.appointments.title'), 
-      description: t('home.services.appointments.description'),
+      title: "Rendez-vous", 
+      description: "Planifiez et gérez facilement tous les rendez-vous médicaux de votre animal.",
       color: 'from-green-500 to-green-600'
     },
     { 
       icon: <MdPets className="w-8 h-8" />, 
-      title: t('home.services.medical_record.title'), 
-      description: t('home.services.medical_record.description'),
+      title: "Dossier Médical", 
+      description: "Accédez au dossier de santé complet de votre compagnon à tout moment.",
       color: 'from-purple-500 to-purple-600'
     },
     { 
       icon: <FaHeart className="w-8 h-8" />, 
-      title: t('home.services.petmeet.title'), 
-      description: t('home.services.petmeet.description'),
+      title: "PetMeet", 
+      description: "Connectez avec d'autres propriétaires d'animaux près de chez vous.",
       color: 'from-rose-500 to-rose-600'
     }
-  ], [t]);
+  ], []);
 
   return (
     <div>

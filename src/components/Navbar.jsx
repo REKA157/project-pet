@@ -55,7 +55,7 @@ const Navbar = () => {
               <FaPaw className="h-6 w-6 sm:h-8 sm:w-8 text-nature-600 group-hover:text-nature-700" />
             </motion.div>
             <span className="ml-2 text-lg sm:text-xl font-bold text-nature-900 group-hover:text-nature-700 transition-colors">
-              VetCare
+              PetPulse
             </span>
           </Link>
           
