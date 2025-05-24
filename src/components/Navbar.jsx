@@ -51,23 +51,7 @@ const Navbar = () => {
     { path: '/app/radar', label: t('nav.radar'), icon: <MdGpsFixed className="w-4 h-4 sm:w-4 sm:h-4" /> },
     { path: '/app/dashboard?tab=petmeet', label: t('nav.petmeet'), icon: (
       <span className="inline-block align-middle">
-        <svg className="w-4 h-4 sm:w-4 sm:h-4" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g filter="url(#glow)">
-            <path d="M16 52V36C16 28 24 24 32 24C40 24 48 28 48 36V52" fill="#ec4899"/>
-            <path d="M24 24C24 18 28 12 32 12C36 12 40 18 40 24" fill="#ec4899"/>
-            <path d="M20 20C20 16 24 8 32 8C40 8 44 16 44 20" fill="#ec4899"/>
-            <path d="M28 20C28 16 32 10 36 10C40 10 44 16 44 20" fill="#ec4899"/>
-          </g>
-          <defs>
-            <filter id="glow" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-              <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-          </defs>
-        </svg>
+        <img src="/image/cat-dog.svg" alt="PetMeet" className="w-4 h-4 sm:w-4 sm:h-4" />
       </span>
     ) },
     { path: '/app/dashboard?tab=petsense', label: t('nav.petsense'), icon: <FaBrain className="w-4 h-4 sm:w-4 sm:h-4 text-purple-500" /> },
