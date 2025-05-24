@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { FaPaw, FaUser, FaSignOutAlt, FaHome, FaBars, FaTimes } from 'react-icons/fa';
-import { MdHealthAndSafety, MdFavorite, MdMic, MdGpsFixed, MdAssistant } from 'react-icons/md';
+import { MdHealthAndSafety, MdFavorite, MdMic, MdGpsFixed, MdAssistant, MdPets } from 'react-icons/md';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
@@ -39,7 +39,7 @@ const Navbar = () => {
     { path: '/app/dashboard', label: t('nav.dashboard'), icon: <FaPaw className="w-4 h-4 sm:w-5 sm:h-5" /> },
     { path: '/app/radar', label: t('nav.radar'), icon: <MdGpsFixed className="w-4 h-4 sm:w-5 sm:h-5" /> },
     { path: '/app/dashboard?tab=petmeet', label: t('nav.petmeet'), icon: <MdFavorite className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/geotracker', label: t('nav.geo'), icon: <MdGpsFixed className="w-4 h-4 sm:w-5 sm:h-5" /> },
+    { path: '/app/dashboard?tab=translator', label: t('nav.petsense'), icon: <MdPets className="w-4 h-4 sm:w-5 sm:h-5" /> },
     { path: '/app/assistant', label: t('nav.assistant'), icon: <MdAssistant className="w-4 h-4 sm:w-5 sm:h-5" /> }
   ];
 
