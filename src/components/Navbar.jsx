@@ -34,13 +34,32 @@ const Navbar = () => {
     setShowLanguageDropdown(false);
   };
 
+  const getIsActive = (item) => {
+    if (item.path.startsWith('/app/dashboard?tab=')) {
+      const url = new URLSearchParams(location.search);
+      const tab = url.get('tab');
+      if (item.path.includes('petmeet')) return tab === 'petmeet';
+      if (item.path.includes('petsense')) return tab === 'petsense';
+      return false;
+    }
+    return location.pathname === item.path;
+  };
+
   const navItems = [
     { path: '/', label: t('nav.accueil'), icon: <FaHome className="w-4 h-4 sm:w-4 sm:h-4" /> },
     { path: '/app/dashboard', label: t('nav.dashboard'), icon: <FaPaw className="w-4 h-4 sm:w-4 sm:h-4" /> },
     { path: '/app/radar', label: t('nav.radar'), icon: <MdGpsFixed className="w-4 h-4 sm:w-4 sm:h-4" /> },
     { path: '/app/dashboard?tab=petmeet', label: t('nav.petmeet'), icon: (
-      <span className="bg-gradient-to-r from-rose-500 to-rose-600 bg-clip-text text-transparent">
-        <MdFavorite className="w-4 h-4 sm:w-4 sm:h-4" />
+      <span className="inline-block">
+        <svg width={20} height={20} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="heartGradient" x1={0} y1={0} x2={24} y2={24} gradientUnits="userSpaceOnUse">
+              <stop stopColor="#f43f5e" />
+              <stop offset={1} stopColor="#ec4899" />
+            </linearGradient>
+          </defs>
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="url(#heartGradient)"/>
+        </svg>
       </span>
     ) },
     { path: '/app/dashboard?tab=petsense', label: t('nav.petsense'), icon: <FaBrain className="w-4 h-4 sm:w-4 sm:h-4 text-purple-500" /> },
@@ -68,26 +87,22 @@ const Navbar = () => {
               <NavLink
                 key={item.path}
                 to={item.path}
-                className={({ isActive }) =>
+                className={
                   `relative px-1.5 lg:px-2 py-1.5 text-xs lg:text-sm rounded-lg transition-colors flex items-center text-sm lg:text-base hover:scale-100 ${
-                    isActive 
-                      ? 'text-white bg-nature-600' 
+                    getIsActive(item)
+                      ? 'text-white bg-nature-600'
                       : 'text-nature-600 hover:bg-nature-50'
                   }`
                 }
               >
-                {({ isActive }) => (
-                  <>
-                    <span className="mr-1 lg:mr-2">{item.icon}</span>
+                <span className="mr-1 lg:mr-2">{item.icon}</span>
                 {item.label}
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeTab"
-                        className="absolute inset-0 bg-nature-600 rounded-lg -z-10"
-                        transition={{ type: "spring", duration: 0.5 }}
-                      />
-                    )}
-                  </>
+                {getIsActive(item) && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute inset-0 bg-nature-600 rounded-lg -z-10"
+                    transition={{ type: "spring", duration: 0.5 }}
+                  />
                 )}
               </NavLink>
             ))}
