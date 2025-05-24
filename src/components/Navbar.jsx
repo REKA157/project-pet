@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { FaPaw, FaUser, FaSignOutAlt, FaHome, FaBars, FaTimes } from 'react-icons/fa';
+import { FaPaw, FaUser, FaSignOutAlt, FaHome, FaBars, FaTimes, FaBrain } from 'react-icons/fa';
 import { MdHealthAndSafety, MdFavorite, MdMic, MdGpsFixed, MdAssistant, MdPets } from 'react-icons/md';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
@@ -35,12 +35,12 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { path: '/', label: t('nav.accueil'), icon: <FaHome className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/dashboard', label: t('nav.dashboard'), icon: <FaPaw className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/radar', label: t('nav.radar'), icon: <MdGpsFixed className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/dashboard?tab=petmeet', label: t('nav.petmeet'), icon: <MdFavorite className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/dashboard?tab=translator', label: t('nav.petsense'), icon: <MdPets className="w-4 h-4 sm:w-5 sm:h-5" /> },
-    { path: '/app/assistant', label: t('nav.assistant'), icon: <MdAssistant className="w-4 h-4 sm:w-5 sm:h-5" /> }
+    { path: '/', label: t('nav.accueil'), icon: <FaHome className="w-4 h-4 sm:w-4 sm:h-4" /> },
+    { path: '/app/dashboard', label: t('nav.dashboard'), icon: <FaPaw className="w-4 h-4 sm:w-4 sm:h-4" /> },
+    { path: '/app/radar', label: t('nav.radar'), icon: <MdGpsFixed className="w-4 h-4 sm:w-4 sm:h-4" /> },
+    { path: '/app/dashboard?tab=petmeet', label: t('nav.petmeet'), icon: <MdFavorite className="w-4 h-4 sm:w-4 sm:h-4" /> },
+    { path: '/app/dashboard?tab=translator', label: t('nav.petsense'), icon: <FaBrain className="w-4 h-4 sm:w-4 sm:h-4 text-purple-500" /> },
+    { path: '/app/assistant', label: t('nav.assistant'), icon: <MdAssistant className="w-4 h-4 sm:w-4 sm:h-4" /> }
   ];
 
   return (
@@ -65,7 +65,7 @@ const Navbar = () => {
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
-                  `relative px-2 lg:px-3 py-2 rounded-lg transition-colors flex items-center text-sm lg:text-base hover:scale-100 ${
+                  `relative px-1.5 lg:px-2 py-1.5 text-xs lg:text-sm rounded-lg transition-colors flex items-center text-sm lg:text-base hover:scale-100 ${
                     isActive 
                       ? 'text-white bg-nature-600' 
                       : 'text-nature-600 hover:bg-nature-50'

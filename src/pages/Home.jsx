@@ -56,31 +56,31 @@ function Home() {
             </div>
 
             {/* Center column - Text and buttons */}
-            <div className="w-full md:w-3/5 lg:w-2/3 text-center md:text-left space-y-6">
-              <h1 className="text-4xl md:text-6xl font-bold text-primary leading-tight">
+            <div className="w-full max-w-xl mx-auto text-center space-y-4 px-2 md:w-1/2 lg:w-2/3 md:text-left md:space-y-6">
+              <h1 className="text-3xl md:text-6xl font-bold text-primary leading-tight">
                 Un animal heureux<br/>Un animal compris
               </h1>
-              <p className="text-lg md:text-xl text-black">
-                Découvrez PetPulse, votre plateforme tout-en-un pour le bien-être de votre animal de compagnie. Gérez sa santé, son bonheur et sa vie sociale en un seul endroit.
+              <p className="text-base md:text-xl text-black break-words whitespace-pre-line">
+                Découvrez PetPulse, votre plateforme tout-en-un pour le bien-être de votre animal de compagnie.\nGérez sa santé, son bonheur et sa vie sociale en un seul endroit.
               </p>
-              <div className="flex flex-col gap-4 justify-center md:justify-start mt-8">
+              <div className="flex flex-col gap-3 md:gap-4 justify-center md:justify-start mt-6 w-full max-w-xl mx-auto">
                 <motion.button
                   onClick={() => navigate('/app/dashboard?tab=translator')}
-                  className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
                   <span>PetSense</span>
                 </motion.button>
                 <motion.button
                   onClick={() => navigate('/app/dashboard?tab=petmeet')}
-                  className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
                   <span>Explorer PetMeet</span>
                 </motion.button>
                 <motion.button
                   onClick={() => navigate('/app/veterinaires')}
-                  className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
                   <span>Trouver un vétérinaire</span>
