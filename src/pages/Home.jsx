@@ -56,8 +56,8 @@ function Home() {
             </div>
 
             {/* Center column - Text and buttons */}
-            <div className="flex-1 text-center md:text-left space-y-6">
-              <h1 className="text-4xl md:text-6xl font-bold text-primary">
+            <div className="w-full md:w-3/5 lg:w-2/3 text-center md:text-left space-y-6">
+              <h1 className="text-4xl md:text-6xl font-bold text-primary leading-tight">
                 Un animal heureux<br/>Un animal compris
               </h1>
               <p className="text-lg md:text-xl text-black">
@@ -66,21 +66,21 @@ function Home() {
               <div className="flex flex-col gap-4 justify-center md:justify-start mt-8">
                 <motion.button
                   onClick={() => navigate('/app/dashboard?tab=translator')}
-                  className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
-                  <span>Lancer PetSense</span>
+                  <span>PetSense</span>
                 </motion.button>
                 <motion.button
                   onClick={() => navigate('/app/dashboard?tab=petmeet')}
-                  className="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
                   <span>Explorer PetMeet</span>
                 </motion.button>
                 <motion.button
                   onClick={() => navigate('/app/veterinaires')}
-                  className="px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
                   <span>Trouver un vétérinaire</span>
@@ -251,7 +251,7 @@ function Home() {
             >
               <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
                 <img
-                  src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                  src="xhttps://images.unsplash.com/photo-1450778869180-41d0601e046e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
                   alt="Animaux jouant ensemble"
                   className="object-cover w-full h-full"
                 />
