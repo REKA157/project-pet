@@ -51,14 +51,22 @@ const Navbar = () => {
     { path: '/app/radar', label: t('nav.radar'), icon: <MdGpsFixed className="w-4 h-4 sm:w-4 sm:h-4" /> },
     { path: '/app/dashboard?tab=petmeet', label: t('nav.petmeet'), icon: (
       <span className="inline-block align-middle">
-        <svg className="w-4 h-4 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-4 h-4 sm:w-4 sm:h-4" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g filter="url(#glow)">
+            <path d="M16 52V36C16 28 24 24 32 24C40 24 48 28 48 36V52" fill="#ec4899"/>
+            <path d="M24 24C24 18 28 12 32 12C36 12 40 18 40 24" fill="#ec4899"/>
+            <path d="M20 20C20 16 24 8 32 8C40 8 44 16 44 20" fill="#ec4899"/>
+            <path d="M28 20C28 16 32 10 36 10C40 10 44 16 44 20" fill="#ec4899"/>
+          </g>
           <defs>
-            <linearGradient id="heartGradient" x1={0} y1={0} x2={24} y2={24} gradientUnits="userSpaceOnUse">
-              <stop stopColor="#f43f5e" />
-              <stop offset={1} stopColor="#ec4899" />
-            </linearGradient>
+            <filter id="glow" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
           </defs>
-          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="url(#heartGradient)"/>
         </svg>
       </span>
     ) },
