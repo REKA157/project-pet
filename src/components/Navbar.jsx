@@ -50,8 +50,8 @@ const Navbar = () => {
     { path: '/app/dashboard', label: t('nav.dashboard'), icon: <FaPaw className="w-4 h-4 sm:w-4 sm:h-4" /> },
     { path: '/app/radar', label: t('nav.radar'), icon: <MdGpsFixed className="w-4 h-4 sm:w-4 sm:h-4" /> },
     { path: '/app/dashboard?tab=petmeet', label: t('nav.petmeet'), icon: (
-      <span className="inline-block">
-        <svg width={20} height={20} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <span className="inline-block align-middle">
+        <svg className="w-4 h-4 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="heartGradient" x1={0} y1={0} x2={24} y2={24} gradientUnits="userSpaceOnUse">
               <stop stopColor="#f43f5e" />
