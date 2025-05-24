@@ -38,7 +38,11 @@ const Navbar = () => {
     { path: '/', label: t('nav.accueil'), icon: <FaHome className="w-4 h-4 sm:w-4 sm:h-4" /> },
     { path: '/app/dashboard', label: t('nav.dashboard'), icon: <FaPaw className="w-4 h-4 sm:w-4 sm:h-4" /> },
     { path: '/app/radar', label: t('nav.radar'), icon: <MdGpsFixed className="w-4 h-4 sm:w-4 sm:h-4" /> },
-    { path: '/app/dashboard?tab=petmeet', label: t('nav.petmeet'), icon: <MdFavorite className="w-4 h-4 sm:w-4 sm:h-4" /> },
+    { path: '/app/dashboard?tab=petmeet', label: t('nav.petmeet'), icon: (
+      <span className="bg-gradient-to-r from-rose-500 to-rose-600 bg-clip-text text-transparent">
+        <MdFavorite className="w-4 h-4 sm:w-4 sm:h-4" />
+      </span>
+    ) },
     { path: '/app/dashboard?tab=petsense', label: t('nav.petsense'), icon: <FaBrain className="w-4 h-4 sm:w-4 sm:h-4 text-purple-500" /> },
     { path: '/app/assistant', label: t('nav.assistant'), icon: <MdAssistant className="w-4 h-4 sm:w-4 sm:h-4" /> }
   ];
