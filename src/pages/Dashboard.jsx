@@ -288,18 +288,18 @@ const Dashboard = () => {
   ];
 
   const mainTabs = [
-    { id: 'overview', label: 'Aperçu', icon: FaPaw },
-    { id: 'health', label: 'Santé', icon: FaHeartbeat },
+    { id: 'overview', label: 'Aperçu', icon: (props) => <FaPaw className="w-5 h-5" style={{ color: '#475569' }} /> },
+    { id: 'health', label: 'Santé', icon: (props) => <FaHeartbeat className="w-5 h-5" style={{ color: '#475569' }} /> },
     { id: 'petmeet', label: 'PetMeet', icon: (props) => (
       <img 
         src="/images/icon_animals_placeholder.svg" 
         alt="PetMeet" 
-        className={`w-6 h-6 ${props && props.active ? '' : 'filter grayscale opacity-60'}`} 
-        style={{ display: 'inline-block', verticalAlign: 'middle' }} 
+        className="w-6 h-6" 
+        style={{ display: 'inline-block', verticalAlign: 'middle', color: '#475569', fill: '#475569', filter: 'none', opacity: 1 }} 
       />
     )},
-    { id: 'location', label: 'Localisation', icon: FaMapMarkerAlt },
-    { id: 'petsense', label: 'PetSense', icon: FaBrain }
+    { id: 'location', label: 'Localisation', icon: (props) => <FaMapMarkerAlt className="w-5 h-5" style={{ color: '#475569' }} /> },
+    { id: 'petsense', label: 'PetSense', icon: (props) => <FaBrain className="w-5 h-5" style={{ color: '#475569' }} /> },
   ];
 
   useEffect(() => {
