@@ -288,18 +288,18 @@ const Dashboard = () => {
   ];
 
   const mainTabs = [
-    { id: 'overview', label: 'Aperçu', icon: (props) => <FaPaw className="w-5 h-5" style={{ color: '#475569' }} /> },
-    { id: 'health', label: 'Santé', icon: (props) => <FaHeartbeat className="w-5 h-5" style={{ color: '#475569' }} /> },
+    { id: 'overview', label: 'Aperçu', icon: (props) => <FaPaw className="w-5 h-5" style={{ color: '#22c55e' }} /> },
+    { id: 'health', label: 'Santé', icon: (props) => <FaHeartbeat className="w-5 h-5" style={{ color: '#f97316' }} /> },
     { id: 'petmeet', label: 'PetMeet', icon: (props) => (
       <img 
         src="/images/icon_animals_placeholder.svg" 
         alt="PetMeet" 
         className="w-6 h-6" 
-        style={{ display: 'inline-block', verticalAlign: 'middle', color: props.color, fill: props.color }} 
+        style={{ display: 'inline-block', verticalAlign: 'middle', color: '#22c55e', fill: '#22c55e' }} 
       />
     )},
-    { id: 'location', label: 'Localisation', icon: (props) => <FaMapMarkerAlt className="w-5 h-5" style={{ color: '#475569' }} /> },
-    { id: 'petsense', label: 'PetSense', icon: (props) => <FaBrain className="w-5 h-5" style={{ color: '#475569' }} /> },
+    { id: 'location', label: 'Localisation', icon: (props) => <FaMapMarkerAlt className="w-5 h-5" style={{ color: '#22c55e' }} /> },
+    { id: 'petsense', label: 'PetSense', icon: (props) => <FaBrain className="w-5 h-5" style={{ color: '#7c3aed' }} /> },
   ];
 
   useEffect(() => {
