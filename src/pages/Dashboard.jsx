@@ -572,34 +572,15 @@ const Dashboard = () => {
             </div>
           )}
 
-          {activeMainTab === 'health' && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold mb-4">Rappels</h2>
-                    <FaCog className="text-gray-400 hover:text-gray-600 cursor-pointer" />
-                  </div>
-                  <Reminders />
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold mb-4">Nutrition</h2>
-                    <FaCog className="text-gray-400 hover:text-gray-600 cursor-pointer" />
-                  </div>
-                  <NutritionPanel />
-                  <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Nouveau rendez-vous</h2>
-                    <BookAppointment />
-                  </div>
-                  <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Téléconsultation</h2>
-                    <Teleconsultation />
-                  </div>
-                  <HealthMetrics />
-                  <AiPredictions />
-                </div>
-                <div></div>
-              </div>
-            </div>
+         {activeMainTab === 'health' && (
+           <div className="space-y-6">
+             <Reminders />
+             <NutritionPanel />
+            <HealthMetrics />
+            <AiPredictions />
+            <BookAppointment />
+            <Teleconsultation />
+         </div>
           )}
 
           {activeMainTab === 'petmeet' && (
@@ -1133,7 +1114,6 @@ const Dashboard = () => {
         </div>
 
         {/* Barre latérale */}
-        <div className="space-y-6">
           {/* Rappels */}
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold mb-4">Rappels</h2>
