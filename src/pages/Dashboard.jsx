@@ -856,11 +856,11 @@ const Dashboard = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="bg-pink-50 rounded-lg p-4">
                     <div className="flex items-center justify-between">
-                      <div>
+                      <div className="flex items-center space-x-2">
+                        <img src="/images/icon_animals_placeholder.svg" alt="PetMeet" className="w-6 h-6" />
                         <p className="text-sm text-gray-600">Profils vus aujourd'hui</p>
-                        <p className="text-lg font-semibold text-gray-900">12</p>
                       </div>
-                      <FaUserFriends className="w-8 h-8 text-pink-600" />
+                      <p className="text-lg font-semibold text-gray-900">12</p>
                     </div>
                   </div>
                   <div className="bg-pink-50 rounded-lg p-4">

@@ -51,7 +51,7 @@ const Navbar = () => {
     { path: '/app/radar', label: t('nav.radar'), icon: <MdGpsFixed className="w-4 h-4 sm:w-4 sm:h-4" /> },
     { path: '/app/dashboard?tab=petmeet', label: t('nav.petmeet'), icon: (
       <span className="inline-block align-middle">
-        <img src="/images/icon_animals_placeholder.svg" alt="PetMeet" className="w-4 h-4 sm:w-4 sm:h-4" style={{ background: 'none' }} />
+        <img src="/images/icon_animals_placeholder.svg" alt="PetMeet" className="w-5 h-5 sm:w-5 sm:h-5" style={{ background: 'none' }} />
       </span>
     ) },
     { path: '/app/dashboard?tab=petsense', label: t('nav.petsense'), icon: <FaBrain className="w-4 h-4 sm:w-4 sm:h-4 text-purple-500" /> },
