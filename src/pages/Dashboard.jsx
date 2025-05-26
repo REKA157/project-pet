@@ -290,7 +290,7 @@ const Dashboard = () => {
   const mainTabs = [
     { id: 'overview', label: 'Aperçu', icon: FaPaw },
     { id: 'health', label: 'Santé', icon: FaHeartbeat },
-    { id: 'petmeet', label: 'PetMeet', icon: (props) => <img src="/images/icon_animals_placeholder.svg" alt="PetMeet" className="w-5 h-5" style={{ display: 'inline-block', verticalAlign: 'middle' }} /> },
+    { id: 'petmeet', label: 'PetMeet', icon: (props) => <img src="/images/icon_animals_placeholder.svg" alt="PetMeet" className="w-6 h-6" style={{ display: 'inline-block', verticalAlign: 'middle' }} /> },
     { id: 'location', label: 'Localisation', icon: FaMapMarkerAlt },
     { id: 'petsense', label: 'PetSense', icon: FaBrain }
   ];
@@ -860,7 +860,7 @@ const Dashboard = () => {
                         <p className="text-sm text-gray-600">Profils vus aujourd'hui</p>
                         <p className="text-lg font-semibold text-gray-900">12</p>
                       </div>
-                      <img src="/images/icon_animals_placeholder.svg" alt="PetMeet" className="w-8 h-8 text-pink-600" />
+                      <img src="/images/icon_animals_placeholder.svg" alt="PetMeet" className="w-10 h-10 text-pink-600" />
                     </div>
                   </div>
                   <div className="bg-pink-50 rounded-lg p-4">
