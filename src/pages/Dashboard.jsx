@@ -12,6 +12,8 @@ import HealthMetrics from '../components/HealthMetrics';
 import AiPredictions from '../components/AiPredictions';
 import BookAppointment from '../pages/BookAppointment';
 import Teleconsultation from '../pages/Teleconsultation';
+import generatePredictions from '../lib/generatePredictions';
+
 
 const Dashboard = () => {
   console.log('Dashboard component rendering');
@@ -173,7 +175,23 @@ const Dashboard = () => {
     { date: '2024-03-13', emotion: 'joy', confidence: 88, healthEvent: null },
     { date: '2024-03-12', emotion: 'sadness', confidence: 65, healthEvent: 'Visite vétérinaire' }
   ]);
-
+useEffect(() => {
+  const result = generatePredictions({
+    animal_id: 123,
+    espece: 'chien',
+    poids: 12,
+    calories_current: nutritionData.dailyCalories,
+    calories_target: nutritionData.recommendedCalories,
+    water_current: nutritionData.waterIntake,
+    activité_min: healthData.activity[0].value,
+    sommeil_h: 9,
+    niveau_energie: 3,
+    vaccins_a_jour: true,
+    medicaments_ok: true,
+    dernier_exam: '2023-04-01'
+  });
+  setAiPredictions(result);
+}, []);
   // Configuration des couleurs pour chaque service
   const colorConfig = {
     health: {
@@ -1113,51 +1131,6 @@ const Dashboard = () => {
           )}
         </div>
 
-        {/* Barre latérale */}
-          {/* Rappels */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-semibold mb-4">Rappels</h2>
-            <div className="space-y-4">
-              {healthReminders.map((reminder) => (
-                <div
-                  key={reminder.id}
-                  className="p-4 bg-gray-50 rounded-lg flex items-center justify-between"
-                >
-                  <div>
-                    <div className="font-semibold">{reminder.type}</div>
-                    <div className="text-sm text-gray-600">{reminder.description}</div>
-                    <div className="text-xs text-gray-500">{reminder.time}</div>
-                  </div>
-                  <span
-                    className={`px-3 py-1 rounded-full ${
-                      reminder.status === 'completed'
-                        ? 'bg-green-200 text-green-800'
-                        : 'bg-yellow-200 text-yellow-800'
-                    }`}
-                  >
-                    {reminder.status === 'completed' ? 'Terminé' : 'En attente'}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Nutrition */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-semibold mb-4">Nutrition</h2>
-            <div className="space-y-4">
-              <div className="p-4 bg-blue-50 rounded-lg">
-                <div className="text-sm text-gray-600">Calories quotidiennes</div>
-                <div className="text-lg font-semibold">
-                  {nutritionData.dailyCalories} / {nutritionData.recommendedCalories} kcal
-                </div>
-              </div>
-              <div className="p-4 bg-green-50 rounded-lg">
-                <div className="text-sm text-gray-600">Consommation d'eau</div>
-                <div className="text-lg font-semibold">
-                  {nutritionData.waterIntake} / {nutritionData.recommendedWater} ml
-                </div>
-              </div>
             </div>
           </div>
         </div>
