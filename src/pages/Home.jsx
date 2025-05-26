@@ -65,7 +65,7 @@ function Home() {
               </p>
               <div className="flex flex-col gap-3 md:gap-4 justify-center md:justify-start mt-6 w-full max-w-xl mx-auto">
                 <motion.button
-                  onClick={() => navigate('/app/dashboard?tab=translator')}
+                  onClick={() => navigate('/app/dashboard?tab=petsense')}
                   className="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
@@ -79,7 +79,7 @@ function Home() {
                   <span>Explorer PetMeet</span>
                 </motion.button>
                 <motion.button
-                  onClick={() => navigate('/app/dashboard?tab=sante')}
+                  onClick={() => navigate('/app/dashboard?tab=health')}
                   className="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                 >
