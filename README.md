@@ -11,7 +11,6 @@ Application complète pour la gestion de profils canins, rencontre, chat, géolo
 - **Déploiement** : Render (backend) + Vercel (frontend)
 
 ## 🚀 Installation
-
 ### Frontend
 ```bash
 cd frontend/
