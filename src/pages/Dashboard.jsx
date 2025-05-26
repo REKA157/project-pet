@@ -290,7 +290,14 @@ const Dashboard = () => {
   const mainTabs = [
     { id: 'overview', label: 'Aperçu', icon: FaPaw },
     { id: 'health', label: 'Santé', icon: FaHeartbeat },
-    { id: 'petmeet', label: 'PetMeet', icon: (props) => <img src="/images/icon_animals_placeholder.svg" alt="PetMeet" className="w-6 h-6" style={{ display: 'inline-block', verticalAlign: 'middle' }} /> },
+    { id: 'petmeet', label: 'PetMeet', icon: (props) => (
+      <img 
+        src="/images/icon_animals_placeholder.svg" 
+        alt="PetMeet" 
+        className={`w-6 h-6 ${props && props.active ? '' : 'filter grayscale opacity-60'}`} 
+        style={{ display: 'inline-block', verticalAlign: 'middle' }} 
+      />
+    )},
     { id: 'location', label: 'Localisation', icon: FaMapMarkerAlt },
     { id: 'petsense', label: 'PetSense', icon: FaBrain }
   ];
@@ -537,7 +544,9 @@ const Dashboard = () => {
                   : 'text-gray-600 hover:bg-gray-100'
               }`}
             >
-              <tab.icon className="w-5 h-5" />
+              {typeof tab.icon === 'function'
+                ? tab.icon({ active: activeMainTab === tab.id })
+                : <tab.icon className="w-5 h-5" />}
               <span>{tab.label}</span>
             </button>
           ))}
