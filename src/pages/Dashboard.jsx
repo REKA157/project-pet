@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare, FaTimes, FaCamera, FaVideo, FaBrain, FaFilePdf, FaSmile, FaSadTear, FaAngry, FaSurprise, FaSyringe, FaNotesMedical, FaThumbsUp } from 'react-icons/fa';
+import { FaHeartbeat, FaRobot, FaAppleAlt, FaBell, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaChartLine, FaPaw, FaMapMarkerAlt, FaComments, FaUserFriends, FaHeart, FaCalendarAlt, FaStar, FaLanguage, FaMicrophone, FaFont, FaHistory, FaEdit, FaTrash, FaSearch, FaPrint, FaDownload, FaShare, FaTimes, FaCamera, FaVideo, FaBrain, FaFilePdf, FaSmile, FaSadTear, FaAngry, FaSurprise, FaSyringe, FaNotesMedical, FaThumbsUp, FaCog } from 'react-icons/fa';
 import { MdHealthAndSafety, MdLocalHospital, MdVaccines, MdDownload, MdPets, MdFavorite, MdFavoriteBorder, MdAccessTime, MdEvent, MdPerson, MdLocationOn, MdTrendingUp, MdPhotoLibrary } from 'react-icons/md';
 import ChatModal from '../components/ChatModal';
 import MapComponent from '../components/MapComponent';
@@ -10,6 +10,8 @@ import Reminders from '../components/Reminders';
 import NutritionPanel from '../components/NutritionPanel';
 import HealthMetrics from '../components/HealthMetrics';
 import AiPredictions from '../components/AiPredictions';
+import BookAppointment from '../components/BookAppointment';
+import Teleconsultation from '../components/Teleconsultation';
 
 const Dashboard = () => {
   console.log('Dashboard component rendering');
@@ -367,8 +369,8 @@ const Dashboard = () => {
                 {entry.healthEvent && (
                   <p className="text-sm text-pink-600">
                     {entry.healthEvent}
-            </p>
-          )}
+                  </p>
+                )}
               </div>
             </div>
           ))}
@@ -572,16 +574,30 @@ const Dashboard = () => {
 
           {activeMainTab === 'health' && (
             <div className="space-y-6">
-              {/* Layout santé VetCare */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold mb-4">Rappels</h2>
+                    <FaCog className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+                  </div>
                   <Reminders />
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold mb-4">Nutrition</h2>
+                    <FaCog className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+                  </div>
                   <NutritionPanel />
-                      </div>
-                <div className="space-y-6">
+                  <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Nouveau rendez-vous</h2>
+                    <BookAppointment />
+                  </div>
+                  <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Téléconsultation</h2>
+                    <Teleconsultation />
+                  </div>
                   <HealthMetrics />
                   <AiPredictions />
                 </div>
+                <div></div>
               </div>
             </div>
           )}
