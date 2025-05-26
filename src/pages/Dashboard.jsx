@@ -295,7 +295,7 @@ const Dashboard = () => {
         src="/images/icon_animals_placeholder.svg" 
         alt="PetMeet" 
         className="w-6 h-6" 
-        style={{ display: 'inline-block', verticalAlign: 'middle', color: '#475569', fill: '#475569', filter: 'none', opacity: 1 }} 
+        style={{ display: 'inline-block', verticalAlign: 'middle', color: props.color, fill: props.color }} 
       />
     )},
     { id: 'location', label: 'Localisation', icon: (props) => <FaMapMarkerAlt className="w-5 h-5" style={{ color: '#475569' }} /> },
@@ -534,22 +534,24 @@ const Dashboard = () => {
 
         {/* Version desktop */}
         <nav className="hidden lg:flex space-x-4 p-4">
-          {mainTabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveMainTab(tab.id)}
-              className={`px-4 py-2 rounded-md flex items-center space-x-2 ${
-                activeMainTab === tab.id
-                  ? 'bg-blue-600 text-white'
-                  : 'text-gray-600 hover:bg-gray-100'
-              }`}
-            >
-              {typeof tab.icon === 'function'
-                ? tab.icon({ active: activeMainTab === tab.id })
-                : <tab.icon className="w-5 h-5" />}
-              <span>{tab.label}</span>
-            </button>
-          ))}
+          {mainTabs.map((tab) => {
+            const isActive = activeMainTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveMainTab(tab.id)}
+                className={`px-4 py-2 rounded-md flex items-center space-x-2 ${
+                  isActive ? 'bg-blue-600' : ''
+                }`}
+                style={{ color: isActive ? '#fff' : '#475569' }}
+              >
+                {typeof tab.icon === 'function'
+                  ? tab.icon({ active: isActive, color: isActive ? '#fff' : '#475569' })
+                  : <tab.icon className="w-5 h-5" style={{ color: isActive ? '#fff' : '#475569' }} />}
+                <span style={{ color: isActive ? '#fff' : '#475569' }}>{tab.label}</span>
+              </button>
+            );
+          })}
         </nav>
       </div>
 
