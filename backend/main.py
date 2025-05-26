@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from routers import auth, dogs, matches, chat, location, audio
+from routers import auth, dogs, matches, chat, location, audio, predictions
 from database import engine, Base
 from config import get_settings
 import uvicorn
@@ -60,6 +60,7 @@ app.include_router(matches.router, prefix="/api", tags=["matches"])
 app.include_router(chat.router, prefix="/api", tags=["chat"])
 app.include_router(location.router, prefix="/api", tags=["location"])
 app.include_router(audio.router, prefix="/api", tags=["audio"])
+app.include_router(predictions.router, prefix="/api", tags=["predictions"])
 
 @app.get("/")
 async def root():
