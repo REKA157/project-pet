@@ -21,6 +21,8 @@ import SmartAssistant from './pages/SmartAssistant';
 import NotFound from './pages/NotFound';
 import LoadingSpinner from './components/LoadingSpinner';
 import ErrorBoundary from './components/ErrorBoundary';
+import Teleconsultation from './pages/Teleconsultation';
+import ConfirmTeleconsultation from './pages/ConfirmTeleconsultation';
 
 const App = () => {
   console.log('App component rendering');
@@ -48,6 +50,8 @@ const App = () => {
                   <Route path="/app/upload-audio" element={<AudioUpload />} />
                   <Route path="/app/geotracker" element={<GeoTracker />} />
                   <Route path="/app/assistant" element={<SmartAssistant />} />
+                  <Route path="/app/teleconsultation" element={<Teleconsultation />} />
+                  <Route path="/app/teleconsultation/confirm" element={<ConfirmTeleconsultation />} />
             </Route>
 
                 {/* Redirection par défaut */}
