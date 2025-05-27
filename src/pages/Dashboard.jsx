@@ -796,6 +796,52 @@ const Dashboard = () => {
     </div>
   );
 
+  const renderRemindersSection = () => (
+    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-xl font-bold text-gray-900">Rappels</h3>
+        <button
+          className="text-sm text-blue-600 hover:text-blue-700 flex items-center space-x-1"
+          onClick={toggleReminderForm}
+        >
+          <FaPlus className="w-4 h-4" />
+          <span>Ajouter un rappel</span>
+        </button>
+      </div>
+
+      {showReminderForm && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          className="mt-4 space-y-4"
+        >
+          <input
+            type="text"
+            placeholder="Titre du rappel"
+            className="border rounded-lg p-2 text-sm w-full"
+          />
+          <input
+            type="datetime-local"
+            className="border rounded-lg p-2 text-sm w-full"
+          />
+          <button className="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            Enregistrer
+          </button>
+        </motion.div>
+      )}
+
+      <div className="space-y-4">
+        {healthReminders.map((reminder, index) => (
+          <div key={index} className="p-4 bg-gray-50 rounded-lg">
+            <p className="font-medium text-gray-900">{reminder.description}</p>
+            <p className="text-sm text-gray-600">{reminder.time}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <div className="space-y-6" data-testid="dashboard-container">
       {/* En-tête */}
