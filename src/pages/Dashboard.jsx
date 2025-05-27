@@ -427,8 +427,9 @@ const Dashboard = () => {
     </div>
   );
 
+  // Conserving existing sections for "Aperçu de la santé"
   const renderHealthOverview = () => (
-    <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
       <h3 className="text-xl font-bold text-gray-900 mb-4">Aperçu de la santé</h3>
 
       {/* Alertes */}
@@ -538,6 +539,30 @@ const Dashboard = () => {
     setMedicalFiles((prevFiles) => [...prevFiles, ...files]);
   };
 
+  const veterinarians = [
+    { name: "Dr. Martin", clinic: "Clinique ABC", distance: "2,3 km", slots: ["9:00", "10:00"] },
+    { name: "Dr. Dubois", clinic: "Clinique XYZ", distance: "3,1 km", slots: ["11:00", "12:00"] }
+  ];
+
+  const renderVeterinarians = () => (
+    veterinarians.map((vet, index) => (
+      <div key={index} className="p-4 bg-gray-50 rounded-lg">
+        <p className="font-medium text-gray-900">{vet.name}</p>
+        <p className="text-sm text-gray-600">{vet.clinic} - {vet.distance}</p>
+        <div className="flex space-x-2 mt-2">
+          {vet.slots.map((slot, idx) => (
+            <button
+              key={idx}
+              className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200"
+            >
+              {slot}
+            </button>
+          ))}
+        </div>
+      </div>
+    ))
+  );
+
   const renderAppointmentSection = () => (
     <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
       <div className="flex justify-between items-center mb-4">
@@ -572,10 +597,7 @@ const Dashboard = () => {
           </div>
 
           <div className="space-y-4">
-            {{
-              name: "Dr. Martin", clinic: "Clinique ABC", distance: "2,3 km", slots: ["9:00", "10:00"] },
-              { name: "Dr. Dubois", clinic: "Clinique XYZ", distance: "3,1 km", slots: ["11:00", "12:00"] },
-            }.map((vet, index) => (
+            {veterinarians.map((vet, index) => (
               <div key={index} className="p-4 bg-gray-50 rounded-lg">
                 <p className="font-medium text-gray-900">{vet.name}</p>
                 <p className="text-sm text-gray-600">{vet.clinic} - {vet.distance}</p>
@@ -614,15 +636,26 @@ const Dashboard = () => {
       </div>
 
       <div className="space-y-4">
-        {{
-          name: "Dr. Martin", status: "Disponible maintenant" },
-          { name: "Dr. Dubois", status: "Disponible dans 10 minutes" },
-        }.map((vet, index) => (
-          <div key={index} className="p-4 bg-gray-50 rounded-lg">
-            <p className="font-medium text-gray-900">{vet.name}</p>
-            <p className="text-sm text-gray-600">{vet.status}</p>
-          </div>
-        ))}
+        {/*
+          Mocked list of veterinarians for teleconsultation
+          Replace with real data fetching logic as needed
+        */}
+        {/*
+          {veterinarians.map((vet, index) => (
+            <div key={index} className="p-4 bg-gray-50 rounded-lg">
+              <p className="font-medium text-gray-900">{vet.name}</p>
+              <p className="text-sm text-gray-600">{vet.status}</p>
+            </div>
+          ))}
+        */}
+        <div className="p-4 bg-gray-50 rounded-lg">
+          <p className="font-medium text-gray-900">Dr. Martin</p>
+          <p className="text-sm text-gray-600">Disponible maintenant</p>
+        </div>
+        <div className="p-4 bg-gray-50 rounded-lg">
+          <p className="font-medium text-gray-900">Dr. Dubois</p>
+          <p className="text-sm text-gray-600">Disponible dans 10 minutes</p>
+        </div>
       </div>
     </div>
   );
@@ -648,6 +681,92 @@ const Dashboard = () => {
           </div>
         ))}
       </div>
+    </div>
+  );
+
+  // Implementing "Rappels & Nutrition" section
+  const renderRemindersAndNutrition = () => (
+    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-xl font-bold text-gray-900">Rappels & Nutrition</h3>
+        <button
+          className="text-sm text-green-600 hover:text-green-700 flex items-center space-x-1"
+          onClick={() => setShowReminderForm(true)}
+        >
+          <FaPlus className="w-4 h-4" />
+          <span>Ajouter un rappel</span>
+        </button>
+        <button
+          className="text-sm text-blue-600 hover:text-blue-700 flex items-center space-x-1"
+          onClick={() => setShowNutritionForm(true)}
+        >
+          <FaPlus className="w-4 h-4" />
+          <span>Ajouter un objectif nutritionnel</span>
+        </button>
+      </div>
+
+      {showReminderForm && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          className="mt-4 space-y-4"
+        >
+          <form>
+            <input
+              type="text"
+              placeholder="Type de rappel"
+              className="border rounded-lg p-2 w-full mb-2"
+            />
+            <input
+              type="time"
+              className="border rounded-lg p-2 w-full mb-2"
+            />
+            <textarea
+              placeholder="Description"
+              className="border rounded-lg p-2 w-full mb-2"
+            ></textarea>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+            >
+              Enregistrer
+            </button>
+          </form>
+        </motion.div>
+      )}
+
+      {showNutritionForm && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          className="mt-4 space-y-4"
+        >
+          <form>
+            <input
+              type="text"
+              placeholder="Objectif nutritionnel"
+              className="border rounded-lg p-2 w-full mb-2"
+            />
+            <input
+              type="number"
+              placeholder="Calories"
+              className="border rounded-lg p-2 w-full mb-2"
+            />
+            <textarea
+              placeholder="Description"
+              className="border rounded-lg p-2 w-full mb-2"
+            ></textarea>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
+              Enregistrer
+            </button>
+          </form>
+        </motion.div>
+      )}
     </div>
   );
 
@@ -885,7 +1004,6 @@ const Dashboard = () => {
                         <p className="text-sm text-gray-600">Profils vus aujourd'hui</p>
                         <p className="text-lg font-semibold text-gray-900">12</p>
                       </div>
-                      <img src="/images/icon_animals_placeholder.svg" alt="PetMeet" className="w-10 h-10 text-pink-600" />
                     </div>
                   </div>
                   <div className="bg-pink-50 rounded-lg p-4">
