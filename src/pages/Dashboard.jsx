@@ -577,27 +577,41 @@ const Dashboard = () => {
             <div className="space-y-6">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold mb-4">Rappels</h2>
-                    <FaCog className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+                  {/* Rappels */}
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-xl font-semibold mb-4">Rappels</h2>
+                      <button><FaPlus className="text-green-600" /></button>
+                    </div>
+                    <Reminders />
                   </div>
-                  <Reminders />
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold mb-4">Nutrition</h2>
-                    <FaCog className="text-gray-400 hover:text-gray-600 cursor-pointer" />
+
+                  {/* Nutrition */}
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-xl font-semibold mb-4">Nutrition</h2>
+                      <button><FaPlus className="text-green-600" /></button>
+                    </div>
+                    <NutritionPanel />
                   </div>
-                  <NutritionPanel />
+
+                  {/* HealthMetrics et AiPredictions déplacés ici */}
+                  <HealthMetrics />
+                  <AiPredictions />
+
+                  {/* Rendez-vous */}
                   <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">Nouveau rendez-vous</h2>
                     <BookAppointment />
                   </div>
+
+                  {/* Téléconsultation */}
                   <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">Téléconsultation</h2>
                     <Teleconsultation />
                   </div>
-                  <HealthMetrics />
-                  <AiPredictions />
                 </div>
+                {/* Suppression des duplications dans la sidebar droite */}
                 <div></div>
               </div>
             </div>
