@@ -576,7 +576,7 @@ const Dashboard = () => {
           {activeMainTab === 'health' && (
             <div className="space-y-6">
               {renderHealthOverview()}
-              {/* Bloc horizontal pour Rendez-vous médicaux et Téléconsultation */}
+               
               <div className="flex flex-col lg:flex-row gap-6">
                 {/* Rendez-vous médicaux */}
                 <div className="flex-1 bg-white rounded-xl shadow-sm p-6 min-w-0 h-full flex flex-col justify-between">
