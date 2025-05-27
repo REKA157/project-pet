@@ -173,23 +173,6 @@ const Dashboard = () => {
     { date: '2024-03-13', emotion: 'joy', confidence: 88, healthEvent: null },
     { date: '2024-03-12', emotion: 'sadness', confidence: 65, healthEvent: 'Visite vétérinaire' }
   ]);
-    useEffect(() => {
-    const result = generatePredictions({
-      animal_id: 123,
-      espece: 'chien',
-      poids: 12,
-      calories_current: nutritionData.dailyCalories,
-      calories_target: nutritionData.recommendedCalories,
-      water_current: nutritionData.waterIntake,
-      activité_min: healthData.activity[0].value,
-      sommeil_h: 9,
-      niveau_energie: 3,
-      vaccins_a_jour: true,
-      medicaments_ok: true,
-      dernier_exam: '2023-04-01'
-    });
-    setAiPredictions(result);
-  }, [nutritionData, healthData]);
   // Configuration des couleurs pour chaque service
   const colorConfig = {
     health: {
@@ -1156,4 +1139,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard; 
+export default Dashboard;
