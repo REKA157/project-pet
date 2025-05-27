@@ -796,6 +796,78 @@ const Dashboard = () => {
     </div>
   );
 
+  const renderRemindersSection = () => (
+    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-xl font-bold text-gray-900">Rappels</h3>
+        <button
+          className="text-sm text-green-600 hover:text-green-700 flex items-center space-x-1"
+          onClick={() => setShowReminderForm((prev) => !prev)}
+        >
+          <FaPlus className="w-4 h-4" />
+          <span>Ajouter un rappel</span>
+        </button>
+      </div>
+
+      {/* Existing reminders */}
+      <div className="space-y-4">
+        {healthReminders.map((reminder, index) => (
+          <div key={index} className="p-4 bg-gray-50 rounded-lg flex justify-between items-center">
+            <div>
+              <p className="text-sm text-gray-900 font-medium">{reminder.type}</p>
+              <p className="text-sm text-gray-600">{reminder.description}</p>
+              <p className="text-sm text-gray-600">{reminder.time}</p>
+            </div>
+            <span className={`text-xs font-semibold ${reminder.status === 'completed' ? 'text-green-600' : 'text-yellow-600'}`}>
+              {reminder.status === 'completed' ? 'Terminé' : 'En attente'}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Reminder Form */}
+      <motion.div
+        initial={{ maxHeight: 0, opacity: 0 }}
+        animate={{ maxHeight: showReminderForm ? "500px" : 0, opacity: showReminderForm ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        className="overflow-hidden"
+      >
+        {showReminderForm && (
+          <form className="mt-4 space-y-4">
+            <input
+              type="text"
+              placeholder="Type de rappel"
+              className="border rounded-lg p-2 w-full"
+            />
+            <input
+              type="time"
+              className="border rounded-lg p-2 w-full"
+            />
+            <textarea
+              placeholder="Description"
+              className="border rounded-lg p-2 w-full"
+            ></textarea>
+            <div className="flex space-x-2">
+              <button
+                type="submit"
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+              >
+                Enregistrer
+              </button>
+              <button
+                type="button"
+                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+                onClick={() => setShowReminderForm(false)}
+              >
+                Annuler
+              </button>
+            </div>
+          </form>
+        )}
+      </motion.div>
+    </div>
+  );
+
   return (
     <div className="space-y-6" data-testid="dashboard-container">
       {/* En-tête */}
