@@ -26,6 +26,7 @@ const Dashboard = () => {
   const [showReminderForm, setShowReminderForm] = useState(false);
   const [showNutritionForm, setShowNutritionForm] = useState(false);
   const [showAppointmentForm, setShowAppointmentForm] = useState(false);
+  const [showTeleconsultationForm, setShowTeleconsultationForm] = useState(false);
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
 
@@ -522,6 +523,98 @@ const Dashboard = () => {
     // Mock filtering logic for veterinarians based on specialty
   };
 
+  const toggleAppointmentForm = () => {
+    setShowAppointmentForm((prev) => !prev);
+  };
+
+  const toggleTeleconsultationForm = () => {
+    setShowTeleconsultationForm((prev) => !prev);
+  };
+
+  const renderAppointmentSection = () => (
+    <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-xl font-bold text-gray-900">Rendez-vous médicaux</h3>
+        <button
+          className="text-sm text-blue-600 hover:text-blue-700 flex items-center space-x-1"
+          onClick={toggleAppointmentForm}
+        >
+          <FaPlus className="w-4 h-4" />
+          <span>Nouveau rendez-vous</span>
+        </button>
+      </div>
+
+      {showAppointmentForm && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          className="mt-4 space-y-4"
+        >
+          <div className="flex justify-between items-center">
+            <select
+              className="border rounded-lg p-2 text-sm w-1/3"
+              value={selectedCity}
+              onChange={(e) => setSelectedCity(e.target.value)}
+            >
+              <option value="">Choisir une ville</option>
+              <option value="Paris">Paris</option>
+              <option value="Lyon">Lyon</option>
+              <option value="Marseille">Marseille</option>
+            </select>
+          </div>
+
+          <div className="space-y-4">
+            {/*
+              Mocked list of veterinarians
+            */}
+            {showAppointmentForm && (
+              <div className="space-y-4">
+                {/*
+                  Mocked list of veterinarians
+                */}
+                <div className="border rounded-lg p-4">
+                  <p>Dr. Martin - Clinique vétérinaire - 2.3 km</p>
+                </div>
+                {/* Weekly agenda */}
+                <div className="grid grid-cols-7 gap-2">
+                  {/* Mocked time slots */}
+                  <button className="px-2 py-1 bg-gray-100 hover:bg-green-100 rounded">9:00</button>
+                  <button className="px-2 py-1 bg-gray-100 hover:bg-green-100 rounded">10:00</button>
+                </div>
+              </div>
+            )}
+          </div>
+        </motion.div>
+      )}
+    </div>
+  );
+
+  const renderTeleconsultationSection = () => (
+    <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-xl font-bold text-gray-900">Téléconsultation</h3>
+        <select
+          className="border rounded-lg p-2 text-sm w-1/3"
+          value={selectedSpecialty}
+          onChange={handleSpecialtyChange}
+        >
+          <option value="">Choisir une spécialité</option>
+          <option value="Cardiologie">Cardiologie</option>
+          <option value="Dermatologie">Dermatologie</option>
+        </select>
+      </div>
+      <div className="space-y-4">
+        {/*
+          Mocked list of veterinarians
+        */}
+        <div className="border rounded-lg p-4">
+          <p>Dr. Martin - Disponible maintenant</p>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="space-y-6" data-testid="dashboard-container">
       {/* En-tête */}
@@ -593,59 +686,10 @@ const Dashboard = () => {
               {renderHealthOverview()}
 
               {/* Rendez-vous médicaux */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">Rendez-vous médicaux</h2>
-                  <button
-                    className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
-                    onClick={() => setShowAppointmentForm(!showAppointmentForm)}
-                  >
-                    Nouveau rendez-vous
-                  </button>
-                </div>
-                <motion.div
-                  initial={{ maxHeight: 0, overflow: 'hidden' }}
-                  animate={{ maxHeight: showAppointmentForm ? '500px' : 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {showAppointmentForm && (
-                    <div className="space-y-4">
-                      {/* Mocked list of veterinarians */}
-                      <div className="border rounded-lg p-4">
-                        <p>Dr. Martin - Clinique vétérinaire - 2.3 km</p>
-                      </div>
-                      {/* Weekly agenda */}
-                      <div className="grid grid-cols-7 gap-2">
-                        {/* Mocked time slots */}
-                        <button className="px-2 py-1 bg-gray-100 hover:bg-green-100 rounded">9:00</button>
-                        <button className="px-2 py-1 bg-gray-100 hover:bg-green-100 rounded">10:00</button>
-                      </div>
-                    </div>
-                  )}
-                </motion.div>
-              </div>
+              {renderAppointmentSection()}
 
               {/* Téléconsultation */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">Téléconsultation</h2>
-                  <select
-                    className="w-44 text-sm px-2 py-1 border rounded"
-                    value={selectedSpecialty}
-                    onChange={handleSpecialtyChange}
-                  >
-                    <option value="">Spécialité</option>
-                    <option value="Cardiologie">Cardiologie</option>
-                    <option value="Dermatologie">Dermatologie</option>
-                  </select>
-                </div>
-                <div className="space-y-4">
-                  {/* Mocked list of veterinarians */}
-                  <div className="border rounded-lg p-4">
-                    <p>Dr. Martin - Disponible maintenant</p>
-                  </div>
-                </div>
-              </div>
+              {renderTeleconsultationSection()}
 
               {/* Rappels */}
               <div className="bg-white rounded-lg shadow p-6">
