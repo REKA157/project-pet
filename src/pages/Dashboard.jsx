@@ -578,10 +578,12 @@ const Dashboard = () => {
               {renderHealthOverview()}
               {/* Bloc horizontal pour Rendez-vous médicaux et Téléconsultation */}
               <div className="flex flex-col lg:flex-row gap-6">
+                {/* Rendez-vous médicaux */}
                 <div className="flex-1 bg-white rounded-xl shadow-sm p-6 min-w-0 h-full flex flex-col justify-between">
                   <h2 className="text-2xl font-bold text-gray-900 mb-4">Rendez-vous médicaux</h2>
                   <BookAppointment />
                 </div>
+                {/* Téléconsultation */}
                 <div className="flex-1 bg-white rounded-xl shadow-sm p-6 min-w-0 h-full flex flex-col justify-between">
                   <h2 className="text-2xl font-bold text-gray-900 mb-4">Téléconsultation</h2>
                   <Teleconsultation />
@@ -848,14 +850,55 @@ const Dashboard = () => {
               <h2 className="text-xl font-semibold">Rappels</h2>
               <button><FaPlus className="text-green-600" /></button>
             </div>
-            <Reminders />
+            {/* Exemples de rappels */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between bg-yellow-50 rounded-lg px-4 py-3">
+                <div>
+                  <div className="font-semibold text-gray-900">Médicament</div>
+                  <div className="text-xs text-gray-500">Antiparasitaire</div>
+                  <div className="text-xs text-gray-400">08:00</div>
+                </div>
+                <span className="px-3 py-1 rounded-full bg-yellow-200 text-yellow-800 text-xs font-medium">En attente</span>
+              </div>
+              <div className="flex items-center justify-between bg-green-50 rounded-lg px-4 py-3">
+                <div>
+                  <div className="font-semibold text-gray-900">Activité</div>
+                  <div className="text-xs text-gray-500">Séance de jeu</div>
+                  <div className="text-xs text-gray-400">17:00</div>
+                </div>
+                <span className="px-3 py-1 rounded-full bg-green-200 text-green-800 text-xs font-medium">Terminé</span>
+              </div>
+              <div className="flex items-center justify-between bg-yellow-50 rounded-lg px-4 py-3">
+                <div>
+                  <div className="font-semibold text-gray-900">Nourriture</div>
+                  <div className="text-xs text-gray-500">Repas spécial</div>
+                  <div className="text-xs text-gray-400">12:00</div>
+                </div>
+                <span className="px-3 py-1 rounded-full bg-yellow-200 text-yellow-800 text-xs font-medium">En attente</span>
+              </div>
+            </div>
           </div>
+          {/* Bloc Nutrition avec exemples */}
           <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold">Nutrition</h2>
               <button><FaPlus className="text-green-600" /></button>
             </div>
-            <NutritionPanel />
+            {/* Exemples de nutrition */}
+            <div className="space-y-3">
+              <div className="bg-blue-50 rounded-lg px-4 py-3 flex items-center justify-between">
+                <div>
+                  <div className="font-semibold text-gray-900">Calories quotidiennes</div>
+                  <div className="text-xs text-gray-500">850 / 900 kcal</div>
+                </div>
+              </div>
+              <div className="bg-green-50 rounded-lg px-4 py-3 flex items-center justify-between">
+                <div>
+                  <div className="font-semibold text-gray-900">Consommation d'eau</div>
+                  <div className="text-xs text-gray-500">500 / 600 ml</div>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="bg-white rounded-xl shadow-sm p-6">
             <h2 className="text-xl font-semibold mb-4">Données de santé</h2>
