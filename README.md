@@ -74,3 +74,59 @@ L'application est installable sur :
 - Optimisation des images
 - Mise en cache intelligente
 - Service Workers pour le mode hors ligne 
+
+# 🐶 Project PET - Instructions UI (VSCode / Copilot)
+
+## 🌐 Structure des sections
+- Chaque onglet (Santé, Nutrition, Rendez-vous, etc.) correspond à un `div` principal identifié par `activeMainTab`.
+- Les sections doivent être ajoutées dans l'ordre suivant :
+  1. Rappels
+  2. Nutrition
+  3. Données de santé
+  4. Prédictions IA
+  5. Rendez-vous médicaux
+  6. Téléconsultation
+  7. Dossier médical
+
+## ➕ Comportement des boutons "+"
+- Les boutons "+" **ne créent pas de nouvelle section.**
+- Ils ouvrent un petit formulaire inline ou une modal pour ajouter une donnée.
+- Icône : `<FaPlus />`
+- Position : en haut à droite de chaque section
+- Taille : `w-8 h-8`, `text-green-600`
+
+## 📆 Rendez-vous médicaux
+- Le bouton "Nouveau rendez-vous" doit :
+  - **agrandir verticalement la section**
+  - afficher un **agenda hebdomadaire**
+  - afficher une **liste de vétérinaires** (au moins 3 exemples)
+- Conserver le **champ “Ville”** (dropdown) visible, largeur `w-2/3`
+
+## 📡 Téléconsultation
+- Le champ “Spécialité” reste affiché en haut
+- Afficher une liste de vétérinaires avec leur statut (disponible/occupé)
+- Ne jamais remplacer ou dupliquer le composant principal
+
+## 📁 Dossier médical
+- La section **doit toujours rester présente**
+- Elle contient :
+  - Une **zone de dépôt de fichiers** (`input type="file"`)
+  - Un **bouton Télécharger**
+  - Un **aperçu des fichiers existants** (PDF, images)
+
+## ❌ Interdictions
+- Ne pas créer de nouvelles sections "Rappels" ou "Nutrition"
+- Ne pas supprimer les éléments existants
+- Ne pas redimensionner les composants sans mention explicite
+
+## 🎨 Style UI
+- Utiliser Tailwind CSS
+- Espacement : `space-y-6` entre les blocs
+- Coins : `rounded-lg`
+- Ombres : `shadow-sm` ou `shadow-lg` si accent
+- Fond : `bg-white` ou `bg-gray-50` pour les blocs secondaires
+- Titres : `text-xl font-semibold text-gray-900`
+
+---
+
+_Fichier utilisé pour guider les assistants IA dans la génération de code frontend cohérent avec l'expérience utilisateur prévue._
