@@ -10,7 +10,7 @@ import Reminders from '../components/Reminders';
 import NutritionPanel from '../components/NutritionPanel';
 import HealthMetrics from '../components/HealthMetrics';
 import AiPredictions from '../components/AiPredictions';
-import BookAppointment from '../components/BookAppointment';
+import BookAppointment from './BookAppointment';
 import Teleconsultation from '../components/Teleconsultation';
 
 const Dashboard = () => {
