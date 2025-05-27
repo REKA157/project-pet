@@ -12,6 +12,8 @@ import HealthMetrics from '../components/HealthMetrics';
 import AiPredictions from '../components/AiPredictions';
 import BookAppointment from './BookAppointment';
 import Teleconsultation from './Teleconsultation';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const Dashboard = () => {
   console.log('Dashboard component rendering');
@@ -29,6 +31,7 @@ const Dashboard = () => {
   const [showTeleconsultationForm, setShowTeleconsultationForm] = useState(false);
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
+  const [medicalFiles, setMedicalFiles] = useState([]);
 
   const location = useLocation();
   const { t } = useTranslation();
@@ -376,8 +379,8 @@ const Dashboard = () => {
                 {entry.healthEvent && (
                   <p className="text-sm text-pink-600">
                     {entry.healthEvent}
-            </p>
-          )}
+                  </p>
+                )}
               </div>
             </div>
           ))}
@@ -531,8 +534,12 @@ const Dashboard = () => {
     setShowTeleconsultationForm((prev) => !prev);
   };
 
+  const handleFileUpload = (files) => {
+    setMedicalFiles((prevFiles) => [...prevFiles, ...files]);
+  };
+
   const renderAppointmentSection = () => (
-    <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-xl font-bold text-gray-900">Rendez-vous médicaux</h3>
         <button
@@ -553,7 +560,7 @@ const Dashboard = () => {
         >
           <div className="flex justify-between items-center">
             <select
-              className="border rounded-lg p-2 text-sm w-1/3"
+              className="border rounded-lg p-2 text-sm w-2/3"
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
             >
@@ -565,25 +572,25 @@ const Dashboard = () => {
           </div>
 
           <div className="space-y-4">
-            {/*
-              Mocked list of veterinarians
-            */}
-            {showAppointmentForm && (
-              <div className="space-y-4">
-                {/*
-                  Mocked list of veterinarians
-                */}
-                <div className="border rounded-lg p-4">
-                  <p>Dr. Martin - Clinique vétérinaire - 2.3 km</p>
-                </div>
-                {/* Weekly agenda */}
-                <div className="grid grid-cols-7 gap-2">
-                  {/* Mocked time slots */}
-                  <button className="px-2 py-1 bg-gray-100 hover:bg-green-100 rounded">9:00</button>
-                  <button className="px-2 py-1 bg-gray-100 hover:bg-green-100 rounded">10:00</button>
+            {{
+              name: "Dr. Martin", clinic: "Clinique ABC", distance: "2,3 km", slots: ["9:00", "10:00"] },
+              { name: "Dr. Dubois", clinic: "Clinique XYZ", distance: "3,1 km", slots: ["11:00", "12:00"] },
+            }.map((vet, index) => (
+              <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                <p className="font-medium text-gray-900">{vet.name}</p>
+                <p className="text-sm text-gray-600">{vet.clinic} - {vet.distance}</p>
+                <div className="flex space-x-2 mt-2">
+                  {vet.slots.map((slot, idx) => (
+                    <button
+                      key={idx}
+                      className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200"
+                    >
+                      {slot}
+                    </button>
+                  ))}
                 </div>
               </div>
-            )}
+            ))}
           </div>
         </motion.div>
       )}
@@ -591,26 +598,55 @@ const Dashboard = () => {
   );
 
   const renderTeleconsultationSection = () => (
-    <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-xl font-bold text-gray-900">Téléconsultation</h3>
         <select
-          className="border rounded-lg p-2 text-sm w-1/3"
+          className="border rounded-lg p-2 text-sm w-2/3"
           value={selectedSpecialty}
-          onChange={handleSpecialtyChange}
+          onChange={(e) => setSelectedSpecialty(e.target.value)}
         >
           <option value="">Choisir une spécialité</option>
-          <option value="Cardiologie">Cardiologie</option>
-          <option value="Dermatologie">Dermatologie</option>
+          <option value="Généraliste">Généraliste</option>
+          <option value="Dentiste">Dentiste</option>
+          <option value="Nutritionniste">Nutritionniste</option>
         </select>
       </div>
+
       <div className="space-y-4">
-        {/*
-          Mocked list of veterinarians
-        */}
-        <div className="border rounded-lg p-4">
-          <p>Dr. Martin - Disponible maintenant</p>
-        </div>
+        {{
+          name: "Dr. Martin", status: "Disponible maintenant" },
+          { name: "Dr. Dubois", status: "Disponible dans 10 minutes" },
+        }.map((vet, index) => (
+          <div key={index} className="p-4 bg-gray-50 rounded-lg">
+            <p className="font-medium text-gray-900">{vet.name}</p>
+            <p className="text-sm text-gray-600">{vet.status}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderMedicalRecordsSection = () => (
+    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <h3 className="text-xl font-bold text-gray-900 mb-4">Dossier médical</h3>
+      <div className="border rounded-lg p-4 bg-gray-50">
+        <p className="text-sm text-gray-600 mb-2">Glissez-déposez ou Parcourir pour ajouter des fichiers médicaux</p>
+        <input
+          type="file"
+          multiple
+          className="border rounded-lg p-2 w-full"
+          onChange={(e) => handleFileUpload(Array.from(e.target.files))}
+        />
+      </div>
+
+      <div className="mt-4 space-y-2">
+        {medicalFiles.map((file, index) => (
+          <div key={index} className="p-4 bg-gray-50 rounded-lg flex justify-between items-center">
+            <p className="text-sm text-gray-900">{file.name}</p>
+            <button className="text-sm text-blue-600 hover:text-blue-700">Télécharger</button>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -686,10 +722,59 @@ const Dashboard = () => {
               {renderHealthOverview()}
 
               {/* Rendez-vous médicaux */}
-              {renderAppointmentSection()}
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-bold">Rendez-vous médicaux</h2>
+                  <button
+                    className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
+                    onClick={() => setShowAppointmentForm(!showAppointmentForm)}
+                  >
+                    Nouveau rendez-vous
+                  </button>
+                </div>
+                <motion.div
+                  initial={{ maxHeight: 0, overflow: 'hidden' }}
+                  animate={{ maxHeight: showAppointmentForm ? '500px' : 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {showAppointmentForm && (
+                    <div className="space-y-4">
+                      {/* Mocked list of veterinarians */}
+                      <div className="border rounded-lg p-4">
+                        <p>Dr. Martin - Clinique vétérinaire - 2.3 km</p>
+                      </div>
+                      {/* Weekly agenda */}
+                      <div className="grid grid-cols-7 gap-2">
+                        {/* Mocked time slots */}
+                        <button className="px-2 py-1 bg-gray-100 hover:bg-green-100 rounded">9:00</button>
+                        <button className="px-2 py-1 bg-gray-100 hover:bg-green-100 rounded">10:00</button>
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              </div>
 
               {/* Téléconsultation */}
-              {renderTeleconsultationSection()}
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-bold">Téléconsultation</h2>
+                  <select
+                    className="w-44 text-sm px-2 py-1 border rounded"
+                    value={selectedSpecialty}
+                    onChange={handleSpecialtyChange}
+                  >
+                    <option value="">Spécialité</option>
+                    <option value="Cardiologie">Cardiologie</option>
+                    <option value="Dermatologie">Dermatologie</option>
+                  </select>
+                </div>
+                <div className="space-y-4">
+                  {/* Mocked list of veterinarians */}
+                  <div className="border rounded-lg p-4">
+                    <p>Dr. Martin - Disponible maintenant</p>
+                  </div>
+                </div>
+              </div>
 
               {/* Rappels */}
               <div className="bg-white rounded-lg shadow p-6">
