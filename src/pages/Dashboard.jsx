@@ -11,7 +11,7 @@ import NutritionPanel from '../components/NutritionPanel';
 import HealthMetrics from '../components/HealthMetrics';
 import AiPredictions from '../components/AiPredictions';
 import BookAppointment from './BookAppointment';
-import Teleconsultation from '../components/Teleconsultation';
+import Teleconsultation from './Teleconsultation';
 
 const Dashboard = () => {
   console.log('Dashboard component rendering');
