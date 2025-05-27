@@ -299,8 +299,8 @@ const Dashboard = () => {
       <img 
         src="/images/icon_animals_placeholder.svg" 
         alt="PetMeet" 
-        className="w-6 h-6" 
-        style={{ display: 'inline-block', verticalAlign: 'middle', color: '#22c55e', fill: '#22c55e' }} 
+        className="w-6 h-6 inline-block align-middle" 
+        style={{ display: 'inline-block', verticalAlign: 'middle' }} 
       />
     )},
     { id: 'location', label: 'Localisation', icon: (props) => <FaMapMarkerAlt className="w-5 h-5" style={{ color: '#22c55e' }} /> },
