@@ -576,70 +576,102 @@ const Dashboard = () => {
           {activeMainTab === 'health' && (
             <div className="space-y-6">
               {renderHealthOverview()}
-               
-              <div className="flex flex-col lg:flex-row gap-6">
-                {/* Rendez-vous médicaux */}
-                <div className="bg-white rounded-xl shadow-sm p-6">
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-2xl font-bold text-gray-900">Rendez-vous médicaux</h2>
-                    <button className="px-4 py-2 bg-green-100 text-green-800 rounded-lg text-sm font-medium hover:bg-green-200 transition">Nouveau rendez-vous</button>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <h4 className="font-semibold text-gray-900">Vaccination annuelle</h4>
-                          <p className="text-sm text-gray-600">Dr. Martin - Clinique vétérinaire</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-sm text-gray-600">15 Avril 2024</p>
-                          <p className="text-sm text-gray-600">14:30</p>
-                        </div>
+
+              {/* Rendez-vous médicaux */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-bold">Rendez-vous médicaux</h2>
+                  <button className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600">Nouveau rendez-vous</button>
+                </div>
+                <div className="space-y-4">
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Vaccination annuelle</h4>
+                        <p className="text-sm text-gray-600">Dr. Martin - Clinique vétérinaire</p>
                       </div>
-                    </div>
-                    <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <h4 className="font-semibold text-gray-900">Contrôle dentaire</h4>
-                          <p className="text-sm text-gray-600">Dr. Dubois - Cabinet dentaire</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-sm text-gray-600">20 Avril 2024</p>
-                          <p className="text-sm text-gray-600">10:00</p>
-                        </div>
+                      <div className="text-right">
+                        <p className="text-sm text-gray-600">15 Avril 2024</p>
+                        <p className="text-sm text-gray-600">14:30</p>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div className="mt-4 flex justify-start">
+                  <select className="w-40 text-sm px-2 py-1 border rounded">
+                    <option>Ville</option>
+                    <option>Paris</option>
+                    <option>Lyon</option>
+                  </select>
+                </div>
+              </div>
 
-                {/* Téléconsultation */}
-                <div className="bg-white rounded-xl shadow-sm p-6">
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-2xl font-bold text-gray-900">Téléconsultation</h2>
-                    <button className="px-4 py-2 bg-green-100 text-green-800 rounded-lg text-sm font-medium hover:bg-green-200 transition">Demander une téléconsultation</button>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
-                          <FaShieldAlt className="text-green-600 w-6 h-6" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-900">Dr. Martin</h4>
-                          <p className="text-sm text-gray-600">Disponible maintenant</p>
-                        </div>
+              {/* Téléconsultation */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-bold">Téléconsultation</h2>
+                  <button className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600">Demander une téléconsultation</button>
+                </div>
+                <div className="space-y-4">
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Dr. Martin</h4>
+                        <p className="text-sm text-gray-600">Disponible maintenant</p>
                       </div>
+                      <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">Disponible</span>
                     </div>
-                    <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
-                          <FaShieldAlt className="text-green-600 w-6 h-6" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-900">Dr. Dubois</h4>
-                          <p className="text-sm text-gray-600">Disponible dans 30 minutes</p>
-                        </div>
+                  </div>
+                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h4 className="font-semibold text-gray-900">Dr. Dubois</h4>
+                        <p className="text-sm text-gray-600">Disponible dans 30 minutes</p>
                       </div>
+                      <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">Bientôt disponible</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 flex justify-end">
+                  <select className="w-44 text-sm px-2 py-1 border rounded">
+                    <option>Spécialité</option>
+                    <option>Cardiologie</option>
+                    <option>Dermatologie</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Dossier médical */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="mb-4">
+                  <h2 className="text-xl font-bold">Dossier médical</h2>
+                </div>
+                <div className="border-dashed border-2 border-gray-300 rounded-lg p-6 text-center text-gray-500">
+                  <p>Glissez-déposez ou</p>
+                  <button className="mt-2 bg-green-500 text-white px-4 py-1 text-sm rounded">Parcourir</button>
+                </div>
+                <div className="mt-6">
+                  <h3 className="text-lg font-semibold mb-4">Médias récemment téléchargés</h3>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="w-20 h-20 bg-gray-100 rounded shadow flex items-center justify-center">
+                      <FaVideo className="w-8 h-8 text-gray-500" />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <h3 className="text-lg font-semibold mb-4">Fichiers médicaux</h3>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <p className="text-gray-900">Vaccinations</p>
+                      <button className="text-green-600 hover:underline text-sm">
+                        <FaDownload className="inline w-4 h-4" /> Télécharger
+                      </button>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <p className="text-gray-900">Analyses</p>
+                      <button className="text-green-600 hover:underline text-sm">
+                        <FaDownload className="inline w-4 h-4" /> Télécharger
+                      </button>
                     </div>
                   </div>
                 </div>
