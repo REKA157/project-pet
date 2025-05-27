@@ -609,6 +609,14 @@ const Dashboard = () => {
                     </button>
                   ))}
                 </div>
+                <div className="flex justify-end mt-2">
+                  <button className="text-sm text-gray-600 hover:text-gray-800">
+                    <FaChevronLeft className="w-4 h-4 inline" />
+                  </button>
+                  <button className="text-sm text-gray-600 hover:text-gray-800">
+                    <FaChevronRight className="w-4 h-4 inline" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -843,32 +851,61 @@ const Dashboard = () => {
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">Rendez-vous médicaux</h2>
                   <button
-                    className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
-                    onClick={() => setShowAppointmentForm(!showAppointmentForm)}
+                    className="text-sm text-blue-600 hover:text-blue-700 flex items-center space-x-1"
+                    onClick={toggleAppointmentForm}
                   >
-                    Nouveau rendez-vous
+                    <FaPlus className="w-4 h-4" />
+                    <span>Nouveau rendez-vous</span>
                   </button>
                 </div>
-                <motion.div
-                  initial={{ maxHeight: 0, overflow: 'hidden' }}
-                  animate={{ maxHeight: showAppointmentForm ? '500px' : 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {showAppointmentForm && (
-                    <div className="space-y-4">
-                      {/* Mocked list of veterinarians */}
-                      <div className="border rounded-lg p-4">
-                        <p>Dr. Martin - Clinique vétérinaire - 2.3 km</p>
-                      </div>
-                      {/* Weekly agenda */}
-                      <div className="grid grid-cols-7 gap-2">
-                        {/* Mocked time slots */}
-                        <button className="px-2 py-1 bg-gray-100 hover:bg-green-100 rounded">9:00</button>
-                        <button className="px-2 py-1 bg-gray-100 hover:bg-green-100 rounded">10:00</button>
-                      </div>
+                {showAppointmentForm && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mt-4 space-y-4"
+                  >
+                    <div className="flex justify-between items-center">
+                      <select
+                        className="border rounded-lg p-2 text-sm w-2/3"
+                        value={selectedCity}
+                        onChange={(e) => setSelectedCity(e.target.value)}
+                      >
+                        <option value="">Choisir une ville</option>
+                        <option value="Paris">Paris</option>
+                        <option value="Lyon">Lyon</option>
+                        <option value="Marseille">Marseille</option>
+                      </select>
                     </div>
-                  )}
-                </motion.div>
+
+                    <div className="space-y-4">
+                      {veterinarians.map((vet, index) => (
+                        <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                          <p className="font-medium text-gray-900">{vet.name}</p>
+                          <p className="text-sm text-gray-600">{vet.clinic} - {vet.distance}</p>
+                          <div className="flex space-x-2 mt-2">
+                            {vet.slots.map((slot, idx) => (
+                              <button
+                                key={idx}
+                                className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200"
+                              >
+                                {slot}
+                              </button>
+                            ))}
+                          </div>
+                          <div className="flex justify-end mt-2">
+                            <button className="text-sm text-gray-600 hover:text-gray-800">
+                              <FaChevronLeft className="w-4 h-4 inline" />
+                            </button>
+                            <button className="text-sm text-gray-600 hover:text-gray-800">
+                              <FaChevronRight className="w-4 h-4 inline" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
               </div>
 
               {/* Téléconsultation */}
@@ -1238,7 +1275,12 @@ const Dashboard = () => {
           <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold">Rappels</h2>
-              <button><FaPlus className="text-green-600" /></button>
+              <button
+                onClick={() => setShowReminderForm(!showReminderForm)}
+                className="text-green-600 hover:text-green-700"
+              >
+                <FaPlus />
+              </button>
             </div>
             {/* Exemples de rappels */}
             <div className="space-y-3">
@@ -1272,7 +1314,12 @@ const Dashboard = () => {
           <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold">Nutrition</h2>
-              <button><FaPlus className="text-green-600" /></button>
+              <button
+                onClick={() => setShowNutritionForm(!showNutritionForm)}
+                className="text-green-600 hover:text-green-700"
+              >
+                <FaPlus />
+              </button>
             </div>
             {/* Exemples de nutrition */}
             <div className="space-y-3">
