@@ -997,49 +997,74 @@ const Dashboard = () => {
               </div>
 
               {/* Rappels */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">Rappels</h2>
-                  <button
-                    className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
-                    onClick={() => setShowReminderForm(!showReminderForm)}
-                  >
-                    <FaPlus />
-                  </button>
-                </div>
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: showReminderForm ? 1 : 0, height: showReminderForm ? 'auto' : 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {showReminderForm && (
-                    <form className="space-y-4">
-                      <select className="w-full px-2 py-1 border rounded">
-                        <option value="">Type</option>
-                        <option value="Médicament">Médicament</option>
-                      </select>
-                      <input
-                        type="text"
-                        placeholder="Description"
-                        className="w-full px-2 py-1 border rounded"
-                      />
-                      <input
-                        type="time"
-                        className="w-full px-2 py-1 border rounded"
-                      />
-                      <div className="flex space-x-2">
-                        <button className="px-3 py-1 bg-green-500 text-white rounded">Ajouter</button>
-                        <button
-                          className="px-3 py-1 bg-gray-300 rounded"
-                          onClick={() => setShowReminderForm(false)}
-                        >
-                          Annuler
-                        </button>
-                      </div>
-                    </form>
-                  )}
-                </motion.div>
-              </div>
+<div className="bg-white rounded-lg shadow p-6">
+  <div className="flex justify-between items-center mb-4">
+    <h2 className="text-xl font-bold">Rappels</h2>
+    <button
+      className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
+      onClick={() => setShowReminderForm(!showReminderForm)}
+    >
+      <FaPlus />
+    </button>
+  </div>
+
+  {/* Liste des rappels existants */}
+  <div className="space-y-3 mb-4">
+    {healthReminders.map((reminder) => (
+      <div
+        key={reminder.id}
+        className="flex items-center justify-between bg-yellow-50 rounded-lg px-4 py-3"
+      >
+        <div>
+          <div className="font-semibold text-gray-900">{reminder.type}</div>
+          <div className="text-xs text-gray-500">{reminder.description}</div>
+          <div className="text-xs text-gray-400">{reminder.time}</div>
+        </div>
+        <span className="px-3 py-1 rounded-full bg-yellow-200 text-yellow-800 text-xs font-medium">
+          {reminder.status === 'pending' ? 'En attente' : 'Terminé'}
+        </span>
+      </div>
+    ))}
+  </div>
+
+  {/* Formulaire d'ajout de rappel */}
+  <motion.div
+    initial={{ opacity: 0, height: 0 }}
+    animate={{ opacity: showReminderForm ? 1 : 0, height: showReminderForm ? 'auto' : 0 }}
+    transition={{ duration: 0.5 }}
+  >
+    {showReminderForm && (
+      <form className="space-y-4">
+        <select className="w-full px-2 py-1 border rounded">
+          <option value="">Type</option>
+          <option value="Médicament">Médicament</option>
+          <option value="Activité">Activité</option>
+          <option value="Nourriture">Nourriture</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Description"
+          className="w-full px-2 py-1 border rounded"
+        />
+        <input
+          type="time"
+          className="w-full px-2 py-1 border rounded"
+        />
+        <div className="flex space-x-2">
+          <button type="submit" className="px-3 py-1 bg-green-500 text-white rounded">Ajouter</button>
+          <button
+            type="button"
+            className="px-3 py-1 bg-gray-300 rounded"
+            onClick={() => setShowReminderForm(false)}
+          >
+            Annuler
+          </button>
+        </div>
+      </form>
+    )}
+  </motion.div>
+</div>
+
 
               {/* Nutrition */}
               <div className="bg-white rounded-lg shadow p-6">
