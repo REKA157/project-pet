@@ -575,44 +575,51 @@ const Dashboard = () => {
 
           {activeMainTab === 'health' && (
             <div className="space-y-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="space-y-6">
-                  {/* Rappels */}
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <h2 className="text-xl font-semibold mb-4">Rappels</h2>
-                      <button><FaPlus className="text-green-600" /></button>
-                    </div>
-                    <Reminders />
-                  </div>
-
-                  {/* Nutrition */}
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <h2 className="text-xl font-semibold mb-4">Nutrition</h2>
-                      <button><FaPlus className="text-green-600" /></button>
-                    </div>
-                    <NutritionPanel />
-                  </div>
-
-                  {/* HealthMetrics et AiPredictions déplacés ici */}
-                  <HealthMetrics />
-                  <AiPredictions />
-
-                  {/* Rendez-vous */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Colonne principale (2/3) */}
+                <div className="space-y-6 lg:col-span-2">
+                  {/* Bloc Santé de Rex / Overview santé */}
+                  {renderHealthOverview()}
+                  {/* Rendez-vous médicaux */}
                   <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Nouveau rendez-vous</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Rendez-vous médicaux</h2>
                     <BookAppointment />
                   </div>
-
                   {/* Téléconsultation */}
                   <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">Téléconsultation</h2>
                     <Teleconsultation />
                   </div>
                 </div>
-                {/* Suppression des duplications dans la sidebar droite */}
-                <div></div>
+                {/* Colonne droite (sidebar) */}
+                <div className="space-y-6">
+                  {/* Rappels */}
+                  <div className="bg-white rounded-xl shadow-sm p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h2 className="text-xl font-semibold">Rappels</h2>
+                      <button><FaPlus className="text-green-600" /></button>
+                    </div>
+                    <Reminders />
+                  </div>
+                  {/* Nutrition */}
+                  <div className="bg-white rounded-xl shadow-sm p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h2 className="text-xl font-semibold">Nutrition</h2>
+                      <button><FaPlus className="text-green-600" /></button>
+                    </div>
+                    <NutritionPanel />
+                  </div>
+                  {/* Données de santé */}
+                  <div className="bg-white rounded-xl shadow-sm p-6">
+                    <h2 className="text-xl font-semibold mb-4">Données de santé</h2>
+                    <HealthMetrics />
+                  </div>
+                  {/* Prédictions IA */}
+                  <div className="bg-white rounded-xl shadow-sm p-6">
+                    <h2 className="text-xl font-semibold mb-4">Prédictions IA</h2>
+                    <AiPredictions />
+                  </div>
+                </div>
               </div>
             </div>
           )}
