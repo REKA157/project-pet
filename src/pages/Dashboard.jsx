@@ -1394,25 +1394,7 @@ const Dashboard = () => {
                 <div>
                   <div className="font-semibold text-gray-900">Médicament</div>
                   <div className="text-xs text-gray-500">Antiparasitaire</div>
-                  <div className="text-xs text-gray-400">08:00</div>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-yellow-200 text-yellow-800 text-xs font-medium">En attente</span>
-              </div>
-              <div className="flex items-center justify-between bg-green-50 rounded-lg px-4 py-3">
-                <div>
-                  <div className="font-semibold text-gray-900">Activité</div>
-                  <div className="text-xs text-gray-500">Séance de jeu</div>
-                  <div className="text-xs text-gray-400">17:00</div>
-                </div>
-                <span className="px-3 py-1 rounded-full bg-green-200 text-green-800 text-xs font-medium">Terminé</span>
-              </div>
-              <div className="flex items-center justify-between bg-yellow-50 rounded-lg px-4 py-3">
-                <div>
-                  <div className="font-semibold text-gray-900">Nourriture</div>
-                  <div className="text-xs text-gray-500">Repas spécial</div>
-                  <div className="text-xs text-gray-400">12:00</div>
-                </div>
-                <span className="px-3 py-1 rounded-full bg-yellow-200 text-yellow-800 text-xs font-medium">En attente</span>
               </div>
             </div>
           </div>
