@@ -12,6 +12,8 @@ import HealthMetrics from '../components/HealthMetrics';
 import AiPredictions from '../components/AiPredictions';
 import BookAppointment from './BookAppointment';
 import Teleconsultation from './Teleconsultation';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const Dashboard = () => {
   console.log('Dashboard component rendering');
@@ -23,6 +25,11 @@ const Dashboard = () => {
   const [nearestDog, setNearestDog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showEmotionSelector, setShowEmotionSelector] = useState(false);
+  const [showReminderForm, setShowReminderForm] = useState(false);
+  const [showNutritionForm, setShowNutritionForm] = useState(false);
+  const [showAppointmentForm, setShowAppointmentForm] = useState(false);
+  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedSpecialty, setSelectedSpecialty] = useState('');
 
   const location = useLocation();
   const { t } = useTranslation();
@@ -507,6 +514,16 @@ const Dashboard = () => {
     </div>
   );
 
+  const handleCityChange = (e) => {
+    setSelectedCity(e.target.value);
+    // Mock filtering logic for veterinarians based on city
+  };
+
+  const handleSpecialtyChange = (e) => {
+    setSelectedSpecialty(e.target.value);
+    // Mock filtering logic for veterinarians based on specialty
+  };
+
   return (
     <div className="space-y-6" data-testid="dashboard-container">
       {/* En-tête */}
@@ -581,100 +598,143 @@ const Dashboard = () => {
               <div className="bg-white rounded-lg shadow p-6">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">Rendez-vous médicaux</h2>
-                  <button className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600">Nouveau rendez-vous</button>
+                  <button
+                    className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
+                    onClick={() => setShowAppointmentForm(!showAppointmentForm)}
+                  >
+                    Nouveau rendez-vous
+                  </button>
                 </div>
-                <div className="space-y-4">
-                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-semibold text-gray-900">Vaccination annuelle</h4>
-                        <p className="text-sm text-gray-600">Dr. Martin - Clinique vétérinaire</p>
+                <motion.div
+                  initial={{ maxHeight: 0, overflow: 'hidden' }}
+                  animate={{ maxHeight: showAppointmentForm ? '500px' : 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {showAppointmentForm && (
+                    <div className="space-y-4">
+                      {/* Mocked list of veterinarians */}
+                      <div className="border rounded-lg p-4">
+                        <p>Dr. Martin - Clinique vétérinaire - 2.3 km</p>
                       </div>
-                      <div className="text-right">
-                        <p className="text-sm text-gray-600">15 Avril 2024</p>
-                        <p className="text-sm text-gray-600">14:30</p>
+                      {/* Weekly agenda */}
+                      <div className="grid grid-cols-7 gap-2">
+                        {/* Mocked time slots */}
+                        <button className="px-2 py-1 bg-gray-100 hover:bg-green-100 rounded">9:00</button>
+                        <button className="px-2 py-1 bg-gray-100 hover:bg-green-100 rounded">10:00</button>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div className="mt-4 flex justify-start">
-                  <select className="w-40 text-sm px-2 py-1 border rounded">
-                    <option>Ville</option>
-                    <option>Paris</option>
-                    <option>Lyon</option>
-                  </select>
-                </div>
+                  )}
+                </motion.div>
               </div>
 
               {/* Téléconsultation */}
               <div className="bg-white rounded-lg shadow p-6">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">Téléconsultation</h2>
-                  <button className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600">Demander une téléconsultation</button>
+                  <select
+                    className="w-44 text-sm px-2 py-1 border rounded"
+                    value={selectedSpecialty}
+                    onChange={handleSpecialtyChange}
+                  >
+                    <option value="">Spécialité</option>
+                    <option value="Cardiologie">Cardiologie</option>
+                    <option value="Dermatologie">Dermatologie</option>
+                  </select>
                 </div>
                 <div className="space-y-4">
-                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-semibold text-gray-900">Dr. Martin</h4>
-                        <p className="text-sm text-gray-600">Disponible maintenant</p>
-                      </div>
-                      <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">Disponible</span>
-                    </div>
+                  {/* Mocked list of veterinarians */}
+                  <div className="border rounded-lg p-4">
+                    <p>Dr. Martin - Disponible maintenant</p>
                   </div>
-                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-semibold text-gray-900">Dr. Dubois</h4>
-                        <p className="text-sm text-gray-600">Disponible dans 30 minutes</p>
-                      </div>
-                      <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">Bientôt disponible</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-4 flex justify-end">
-                  <select className="w-44 text-sm px-2 py-1 border rounded">
-                    <option>Spécialité</option>
-                    <option>Cardiologie</option>
-                    <option>Dermatologie</option>
-                  </select>
                 </div>
               </div>
 
-              {/* Dossier médical */}
+              {/* Rappels */}
               <div className="bg-white rounded-lg shadow p-6">
-                <div className="mb-4">
-                  <h2 className="text-xl font-bold">Dossier médical</h2>
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-bold">Rappels</h2>
+                  <button
+                    className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
+                    onClick={() => setShowReminderForm(!showReminderForm)}
+                  >
+                    <FaPlus />
+                  </button>
                 </div>
-                <div className="border-dashed border-2 border-gray-300 rounded-lg p-6 text-center text-gray-500">
-                  <p>Glissez-déposez ou</p>
-                  <button className="mt-2 bg-green-500 text-white px-4 py-1 text-sm rounded">Parcourir</button>
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: showReminderForm ? 1 : 0, height: showReminderForm ? 'auto' : 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {showReminderForm && (
+                    <form className="space-y-4">
+                      <select className="w-full px-2 py-1 border rounded">
+                        <option value="">Type</option>
+                        <option value="Médicament">Médicament</option>
+                        <option value="Activité">Activité</option>
+                      </select>
+                      <input
+                        type="text"
+                        placeholder="Description"
+                        className="w-full px-2 py-1 border rounded"
+                      />
+                      <input
+                        type="time"
+                        className="w-full px-2 py-1 border rounded"
+                      />
+                      <div className="flex space-x-2">
+                        <button className="px-3 py-1 bg-green-500 text-white rounded">Ajouter</button>
+                        <button
+                          className="px-3 py-1 bg-gray-300 rounded"
+                          onClick={() => setShowReminderForm(false)}
+                        >
+                          Annuler
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </motion.div>
+              </div>
+
+              {/* Nutrition */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-bold">Nutrition</h2>
+                  <button
+                    className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
+                    onClick={() => setShowNutritionForm(!showNutritionForm)}
+                  >
+                    <FaPlus />
+                  </button>
                 </div>
-                <div className="mt-6">
-                  <h3 className="text-lg font-semibold mb-4">Médias récemment téléchargés</h3>
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="w-20 h-20 bg-gray-100 rounded shadow flex items-center justify-center">
-                      <FaVideo className="w-8 h-8 text-gray-500" />
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-6">
-                  <h3 className="text-lg font-semibold mb-4">Fichiers médicaux</h3>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <p className="text-gray-900">Vaccinations</p>
-                      <button className="text-green-600 hover:underline text-sm">
-                        <FaDownload className="inline w-4 h-4" /> Télécharger
-                      </button>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <p className="text-gray-900">Analyses</p>
-                      <button className="text-green-600 hover:underline text-sm">
-                        <FaDownload className="inline w-4 h-4" /> Télécharger
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: showNutritionForm ? 1 : 0, height: showNutritionForm ? 'auto' : 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {showNutritionForm && (
+                    <form className="space-y-4">
+                      <input
+                        type="text"
+                        placeholder="Nom de l'aliment"
+                        className="w-full px-2 py-1 border rounded"
+                      />
+                      <input
+                        type="number"
+                        placeholder="Calories"
+                        className="w-full px-2 py-1 border rounded"
+                      />
+                      <div className="flex space-x-2">
+                        <button className="px-3 py-1 bg-green-500 text-white rounded">Ajouter</button>
+                        <button
+                          className="px-3 py-1 bg-gray-300 rounded"
+                          onClick={() => setShowNutritionForm(false)}
+                        >
+                          Annuler
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </motion.div>
               </div>
             </div>
           )}
