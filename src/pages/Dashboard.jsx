@@ -12,8 +12,6 @@ import HealthMetrics from '../components/HealthMetrics';
 import AiPredictions from '../components/AiPredictions';
 import BookAppointment from './BookAppointment';
 import Teleconsultation from './Teleconsultation';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
 
 const Dashboard = () => {
   console.log('Dashboard component rendering');
