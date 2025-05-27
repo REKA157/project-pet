@@ -579,14 +579,69 @@ const Dashboard = () => {
                
               <div className="flex flex-col lg:flex-row gap-6">
                 {/* Rendez-vous médicaux */}
-                <div className="flex-1 bg-white rounded-xl shadow-sm p-6 min-w-0 h-full flex flex-col justify-between">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Rendez-vous médicaux</h2>
-                  <BookAppointment />
+                <div className="bg-white rounded-xl shadow-sm p-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-2xl font-bold text-gray-900">Rendez-vous médicaux</h2>
+                    <button className="px-4 py-2 bg-green-100 text-green-800 rounded-lg text-sm font-medium hover:bg-green-200 transition">Nouveau rendez-vous</button>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <h4 className="font-semibold text-gray-900">Vaccination annuelle</h4>
+                          <p className="text-sm text-gray-600">Dr. Martin - Clinique vétérinaire</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm text-gray-600">15 Avril 2024</p>
+                          <p className="text-sm text-gray-600">14:30</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <h4 className="font-semibold text-gray-900">Contrôle dentaire</h4>
+                          <p className="text-sm text-gray-600">Dr. Dubois - Cabinet dentaire</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm text-gray-600">20 Avril 2024</p>
+                          <p className="text-sm text-gray-600">10:00</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
                 {/* Téléconsultation */}
-                <div className="flex-1 bg-white rounded-xl shadow-sm p-6 min-w-0 h-full flex flex-col justify-between">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Téléconsultation</h2>
-                  <Teleconsultation />
+                <div className="bg-white rounded-xl shadow-sm p-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-2xl font-bold text-gray-900">Téléconsultation</h2>
+                    <button className="px-4 py-2 bg-green-100 text-green-800 rounded-lg text-sm font-medium hover:bg-green-200 transition">Demander une téléconsultation</button>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+                          <FaShieldAlt className="text-green-600 w-6 h-6" />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-900">Dr. Martin</h4>
+                          <p className="text-sm text-gray-600">Disponible maintenant</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+                          <FaShieldAlt className="text-green-600 w-6 h-6" />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-900">Dr. Dubois</h4>
+                          <p className="text-sm text-gray-600">Disponible dans 30 minutes</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
