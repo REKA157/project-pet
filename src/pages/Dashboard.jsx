@@ -998,6 +998,51 @@ const Dashboard = () => {
               </div>
             </div>
           )}
+              {/* Dossier médical */}
+<div className="bg-white rounded-lg shadow p-6">
+  <div className="flex justify-between items-center mb-4">
+    <h2 className="text-xl font-bold text-gray-900">Dossier médical</h2>
+    <button className="bg-green-600 text-white text-sm px-4 py-2 rounded hover:bg-green-700">
+      Télécharger
+    </button>
+  </div>
+
+  <div>
+    <p className="font-semibold text-gray-700 mb-2">Médias</p>
+    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center text-gray-500">
+      <div className="mb-2">
+        <FaCamera className="mx-auto text-2xl text-gray-400" />
+      </div>
+      <p className="text-sm mb-2">Glissez-déposez ou</p>
+
+      {/* INPUT FONCTIONNEL */}
+      <input
+        type="file"
+        multiple
+        onChange={(e) => handleFileUpload(Array.from(e.target.files))}
+        className="hidden"
+        id="upload-files"
+      />
+      <label htmlFor="upload-files">
+        <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mt-2">
+          Parcourir
+        </button>
+      </label>
+
+      <p className="text-xs text-gray-400 mt-2">Formats acceptés : JPG, PNG, MP4</p>
+    </div>
+  </div>
+
+  {/* Liste des fichiers importés */}
+  <div className="mt-4 space-y-2">
+    {medicalFiles.map((file, index) => (
+      <div key={index} className="p-4 bg-gray-50 rounded-lg flex justify-between items-center">
+        <p className="text-sm text-gray-900">{file.name}</p>
+        <button className="text-sm text-blue-600 hover:text-blue-700">Télécharger</button>
+      </div>
+    ))}
+  </div>
+</div>
 
           {activeMainTab === 'petmeet' && (
             <div className="space-y-6">
