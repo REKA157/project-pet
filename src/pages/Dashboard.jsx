@@ -12,6 +12,7 @@ import HealthMetrics from '../components/HealthMetrics';
 import AiPredictions from '../components/AiPredictions';
 import BookAppointment from './BookAppointment';
 import Teleconsultation from './Teleconsultation';
+import PetSenseTab from '../components/PetSenseTab';
 
 const Dashboard = () => {
   console.log('Dashboard component rendering');
@@ -1252,11 +1253,7 @@ const Dashboard = () => {
               {/* Location tab content */}
             </div>
           )}
-          {activeMainTab === 'petsense' && (
-            <div>
-              {/* PetSense tab content */}
-            </div>
-          )}
+          {activeMainTab === 'petsense' && <PetSenseTab petSenseScore={petSenseScore} />}
         </div>
         {/* Sidebar toujours visible à droite */}
         <div className="space-y-6">
