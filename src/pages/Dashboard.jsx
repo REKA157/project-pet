@@ -1398,16 +1398,9 @@ const Dashboard = () => {
                     </form>
                   )}
                 </motion.div>
+                
               </div>
             </div>
-          </div>
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <h2 className="text-xl font-semibold mb-4">Données de santé</h2>
-            <HealthMetrics />
-          </div>
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <h2 className="text-xl font-semibold mb-4">Prédictions IA</h2>
-            <AiPredictions />
           </div>
         </div>
     </div> /* Fin du container principal */
