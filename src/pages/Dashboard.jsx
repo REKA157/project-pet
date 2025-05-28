@@ -991,63 +991,66 @@ const Dashboard = () => {
                 </div>
                 <div className="space-y-4">
                   {/* Mocked list of veterinarians */}
-                  <div className="border rounded-lg p-4">
-                    <p>Dr. Martin - Disponible maintenant</p>
+                  {veterinarians.map((vet, index) => (
+                    <div key={index} className="border rounded-lg p-4">
+                      <p>{vet.name} - Disponible maintenant</p>
+                    </div>
+                  ))}
                   </div>
-                </div>
-              </div>
-            </div>
-          )}
-              {/* Dossier médical */}
-<div className="bg-white rounded-lg shadow p-6">
-  <div className="flex justify-between items-center mb-4">
-    <h2 className="text-xl font-bold text-gray-900">Dossier médical</h2>
-    <button className="bg-green-600 text-white text-sm px-4 py-2 rounded hover:bg-green-700">
-      Télécharger
-    </button>
-  </div>
+                  </div>
+                  </div>
+                  )}
 
-  <div>
-    <p className="font-semibold text-gray-700 mb-2">Médias</p>
-    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center text-gray-500">
-      <div className="mb-2">
-        <FaCamera className="mx-auto text-2xl text-gray-400" />
-      </div>
-      <p className="text-sm mb-2">Glissez-déposez ou</p>
+                  {/* Dossier médical */}
+                  <div className="bg-white rounded-lg shadow p-6">
+                    <div className="flex justify-between items-center mb-4">
+                      <h2 className="text-xl font-bold text-gray-900">Dossier médical</h2>
+                      <button className="bg-green-600 text-white text-sm px-4 py-2 rounded hover:bg-green-700">
+                        Télécharger
+                      </button>
+                    </div>
 
-      {/* INPUT FONCTIONNEL */}
-      <input
-        type="file"
-        multiple
-        onChange={(e) => handleFileUpload(Array.from(e.target.files))}
-        className="hidden"
-        id="upload-files"
-      />
-      <label htmlFor="upload-files">
-        <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mt-2">
-          Parcourir
-        </button>
-      </label>
+                    <div>
+                      <p className="font-semibold text-gray-700 mb-2">Médias</p>
+                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center text-gray-500">
+                        <div className="mb-2">
+                          <FaCamera className="mx-auto text-2xl text-gray-400" />
+                        </div>
+                        <p className="text-sm mb-2">Glissez-déposez ou</p>
 
-      <p className="text-xs text-gray-400 mt-2">Formats acceptés : JPG, PNG, MP4</p>
-    </div>
-  </div>
+                        {/* INPUT FONCTIONNEL */}
+                        <input
+                          type="file"
+                          multiple
+                          onChange={(e) => handleFileUpload(Array.from(e.target.files))}
+                          className="hidden"
+                          id="upload-files"
+                        />
+                        <label htmlFor="upload-files">
+                          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mt-2">
+                            Parcourir
+                          </button>
+                        </label>
 
-  {/* Liste des fichiers importés */}
-  <div className="mt-4 space-y-2">
-    {medicalFiles.map((file, index) => (
-      <div key={index} className="p-4 bg-gray-50 rounded-lg flex justify-between items-center">
-        <p className="text-sm text-gray-900">{file.name}</p>
-        <button className="text-sm text-blue-600 hover:text-blue-700">Télécharger</button>
-      </div>
-    ))}
-  </div>
-</div>
+                        <p className="text-xs text-gray-400 mt-2">Formats acceptés : JPG, PNG, MP4</p>
+                      </div>
+                    </div>
 
-          {activeMainTab === 'petmeet' && (
-            <div className="space-y-6">
-              {console.log('Rendering PetMeet tab')}
-              {/* En-tête PetMeet */}
+                    {/* Liste des fichiers importés */}
+                    <div className="mt-4 space-y-2">
+                      {medicalFiles.map((file, index) => (
+                        <div key={index} className="p-4 bg-gray-50 rounded-lg flex justify-between items-center">
+                          <p className="text-sm text-gray-900">{file.name}</p>
+                          <button className="text-sm text-blue-600 hover:text-blue-700">Télécharger</button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {activeMainTab === 'petmeet' && (
+                    <div className="space-y-6">
+                      {console.log('Rendering PetMeet tab')}
+                      {/* En-tête PetMeet */}
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-2xl font-bold text-gray-900">PetMeet</h2>
