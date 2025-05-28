@@ -310,7 +310,10 @@ const Dashboard = () => {
         className="w-6 h-6 inline-block align-middle" 
         style={{ display: 'inline-block', verticalAlign: 'middle' }} 
         loading="lazy"
-        onError={e => { e.target.style.display = 'none'; }}
+        onError={e => { 
+          console.error('Error loading PetMeet logo:', e.target.src); 
+          e.target.style.display = 'none'; 
+        }}
       />
     )},
     { id: 'location', label: 'Localisation', icon: (props) => <FaMapMarkerAlt className="w-5 h-5" style={{ color: '#22c55e' }} /> },
