@@ -1125,6 +1125,8 @@ const Dashboard = () => {
                   )}
                 </motion.div>
               </div>
+            </div>
+          )}
 
           {activeMainTab === 'petmeet' && (
             <div className="space-y-6">
@@ -1434,13 +1436,9 @@ const Dashboard = () => {
             <AiPredictions />
           </div>
         </div>
-      </div> {/* Fin de la grid principale */}
-      {/* Sidebar toujours visible à droite */}
-      {/* Si vous avez une sidebar, placez-la ici dans le JSX, par exemple :
-      <SidebarComponent />
-      */}
-    </div> {/* Fin du container principal */}
+        </div> {/* Fin de la grid principale */}
+    </div> /* Fin du container principal */
   );
-}
+};
 
 export default Dashboard;
