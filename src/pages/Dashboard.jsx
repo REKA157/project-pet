@@ -998,9 +998,6 @@ const Dashboard = () => {
                   ))}
                   </div>
                   </div>
-                  </div>
-                  )}
-
                   {/* Dossier médical */}
                   <div className="bg-white rounded-lg shadow p-6">
                     <div className="flex justify-between items-center mb-4">
@@ -1046,7 +1043,8 @@ const Dashboard = () => {
                       ))}
                     </div>
                   </div>
-
+                  </div>
+                  )}
                   {activeMainTab === 'petmeet' && (
                     <div className="space-y-6">
                       {console.log('Rendering PetMeet tab')}
