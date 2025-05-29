@@ -13,6 +13,10 @@ import AiPredictions from '../components/AiPredictions';
 import BookAppointment from './BookAppointment';
 import Teleconsultation from './Teleconsultation';
 import PetSenseTab from '../components/PetSenseTab';
+import config from '../config'; // Importing the config file
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import DogSwipe from './DogSwipe';
 
 const Dashboard = () => {
   console.log('Dashboard component rendering');
@@ -31,6 +35,7 @@ const Dashboard = () => {
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [medicalFiles, setMedicalFiles] = useState([]);
+  const [nextAppointment, setNextAppointment] = useState(null); // État pour le prochain rendez-vous
 
   const location = useLocation();
   const { t } = useTranslation();
@@ -846,6 +851,104 @@ const Dashboard = () => {
     </div>
   );
 
+  const renderMatchingAndChat = () => (
+    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <h3 className="text-xl font-bold text-gray-900 mb-4">Matching & Chat</h3>
+      <DogSwipe
+        onMatch={(matchedDog) => {
+          console.log('Matched with:', matchedDog);
+          navigate(`/chat/${matchedDog.id}`);
+        }}
+      />
+    </div>
+  );
+
+  // Fetch real data for health, dog profiles, and geolocation
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+        const [healthResponse, dogResponse, locationResponse] = await Promise.all([
+          fetch(`${config.API_BASE_URL}/api/health`, { headers }),
+          fetch(`${config.API_BASE_URL}/api/dogs/profile`, { headers }),
+          fetch(`${config.API_BASE_URL}/api/location`, { headers }),
+        ]);
+
+        const healthData = await healthResponse.json();
+        const dogData = await dogResponse.json();
+        const locationData = await locationResponse.json();
+
+        setHealthData(healthData);
+        setNearestDog(dogData);
+        setPosition(locationData);
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+  // Fetching detailed information about the dog, next appointment, and dog status
+  useEffect(() => {
+    const fetchDashboardDetails = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+        const [dogProfileResponse, nextAppointmentResponse, dogStatusResponse] = await Promise.all([
+          fetch(`${config.API_BASE_URL}/api/dogs/me`, { headers }),
+          fetch(`${config.API_BASE_URL}/api/appointments/next`, { headers }),
+          fetch(`${config.API_BASE_URL}/api/dogs/status`, { headers }),
+        ]);
+
+        const dogProfile = await dogProfileResponse.json();
+        const nextAppointment = await nextAppointmentResponse.json();
+        const dogStatus = await dogStatusResponse.json();
+
+        setDogMood(dogStatus.mood);
+        setNearestDog(dogProfile);
+        setNextAppointment(nextAppointment);
+      } catch (error) {
+        console.error('Error fetching dashboard details:', error);
+      }
+    };
+
+    fetchDashboardDetails();
+  }, []);
+
+  const renderRadarMap = () => (
+    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <h3 className="text-xl font-bold text-gray-900 mb-4">Radar GPS</h3>
+      <MapContainer
+        center={[48.8566, 2.3522]} // Paris coordinates as default
+        zoom={13}
+        style={{ height: '400px', width: '100%' }}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution="&copy; OpenStreetMap contributors"
+        />
+        {position && (
+          <Marker position={[position.latitude, position.longitude]}>
+            <Popup>Votre position actuelle</Popup>
+          </Marker>
+        )}
+        {nearestDog && (
+          <Marker position={[nearestDog.latitude, nearestDog.longitude]}>
+            <Popup>
+              {nearestDog.name} ({nearestDog.breed}) à {nearestDog.distance}
+            </Popup>
+          </Marker>
+        )}
+      </MapContainer>
+    </div>
+  );
+
   return (
     <div className="space-y-6" data-testid="dashboard-container">
       {/* En-tête */}
@@ -1065,7 +1168,7 @@ const Dashboard = () => {
                     </div>
                     ))}
                   </div>
-                  </div>
+                </div>
 
                 </div>
                 )}
