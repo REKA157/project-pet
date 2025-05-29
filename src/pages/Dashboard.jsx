@@ -37,6 +37,7 @@ const Dashboard = () => {
   const [medicalFiles, setMedicalFiles] = useState([]);
   const [nextAppointment, setNextAppointment] = useState(null); // État pour le prochain rendez-vous
 
+  
   const location = useLocation();
   const { t } = useTranslation();
   const navigate = useNavigate();
