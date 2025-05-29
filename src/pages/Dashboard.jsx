@@ -17,6 +17,7 @@ import config from '../config'; // Importing the config file
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import DogSwipe from './DogSwipe';
+import 'leaflet/dist/leaflet.css';
 
 const Dashboard = () => {
   console.log('Dashboard component rendering');

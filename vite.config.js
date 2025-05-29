@@ -7,7 +7,10 @@ export default defineConfig({
   publicDir: 'public',
   build: {
     outDir: 'dist',
-    sourcemap: true
+    sourcemap: true,
+    rollupOptions: {
+      external: ['leaflet/dist/leaflet.css']
+    }
   },
   resolve: {
     alias: {
