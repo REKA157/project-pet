@@ -9,7 +9,12 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: true,
     rollupOptions: {
-      external: ['leaflet/dist/leaflet.css']
+      external: ['leaflet/dist/leaflet.css'],
+      output: {
+        globals: {
+          'react-leaflet': 'ReactLeaflet'
+        }
+      }
     }
   },
   resolve: {
