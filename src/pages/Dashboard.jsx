@@ -19,7 +19,6 @@ import 'leaflet/dist/leaflet.css';
 import DogSwipe from './DogSwipe';
 import 'leaflet/dist/leaflet.css';
 
-
 const Dashboard = () => {
   console.log('Dashboard component rendering');
   
