@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaHeartbeat, FaNotesMedical, FaCalendarAlt, FaChartLine, FaBell, FaRobot, FaAppleAlt, FaExclamationTriangle, FaCheckCircle, FaWeight, FaUtensils, FaVial, FaClipboardList } from 'react-icons/fa';
 import { MdHealthAndSafety, MdLocalHospital, MdVaccines, MdPets } from 'react-icons/md';
+import { generatePredictions } from '../components/AiPredictions';
 
 const Health = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -125,8 +126,8 @@ const Health = () => {
     }
   ]);
 
-  const handleAnalyzeNow = () => {
-    const prediction = generatePredictions({
+  const handleAnalyzeNow = async () => {
+    const prediction = await generatePredictions({
       activity: average(activity),
       energy: nutritionData.dailyCalories / nutritionData.recommendedCalories,
       sleep: healthData.sleepHours || 5.5 // Simulé ou réel

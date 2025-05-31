@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { generatePredictions } from '../utils/predictions';
 
 const AiPredictions = ({ healthData, nutritionData }) => {
   const [predictionResult, setPredictionResult] = useState(null);
@@ -28,7 +30,7 @@ const AiPredictions = ({ healthData, nutritionData }) => {
       {predictionResult && (
         <div className="mt-4 p-4 bg-blue-50 rounded-lg">
           <h4 className="text-lg font-medium text-blue-900 mb-2">Résultats de la Prédiction</h4>
-          <p className="text-blue-700">{predictionResult}</p>
+          <p className="text-blue-700">{predictionResult.prediction}</p>
         </div>
       )}
     </div>

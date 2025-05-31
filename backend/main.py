@@ -40,7 +40,9 @@ origins = [
     "https://project-pet.vercel.app",
     "https://*.vercel.app",
     "https://*.railway.app",
-    "https://project-pet-production.up.railway.app"
+    "https://project-pet-production.up.railway.app",
+    "https://project-pet-taupe.vercel.app",  # Ajout du domaine Vercel spécifique
+    "https://project-pet-production.up.railway.app",  # Ajout du domaine Railway
 ]
 
 logger.info(f"Origines CORS configurées: {origins}")
@@ -90,4 +92,4 @@ if __name__ == "__main__":
         reload=False,
         workers=1,
         log_level="debug"
-    ) 
+    )
