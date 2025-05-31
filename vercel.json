@@ -8,5 +8,8 @@
       "headers": { "Cache-Control": "max-age=0" },
       "dest": "/locales/$1"
     }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
   ]
-} 
+}
