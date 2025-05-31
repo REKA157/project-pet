@@ -1,27 +1,19 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  publicDir: 'public',
   build: {
     outDir: 'dist',
-    sourcemap: true,
-    rollupOptions: {
-      external: ['leaflet/dist/leaflet.css'],
-      output: {
-        globals: {
-          'react-leaflet': 'ReactLeaflet'
-        }
-      }
-    }
+    sourcemap: true
+    // ❌ Pas de external ici pour le CSS
   },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
       '@pages': path.resolve(__dirname, './src/pages'),
       '@components': path.resolve(__dirname, './src/components')
-              }
-            }
+    }
+  }
 })
