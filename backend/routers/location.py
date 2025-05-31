@@ -51,4 +51,17 @@ def get_current_location(
             detail="Aucune position enregistrée"
         )
     
-    return location 
+    return location
+
+@router.get("/location", response_model=dict)
+def get_location():
+    """Fournit des données simulées de localisation"""
+    return {
+        "status": "success",
+        "data": {
+            "latitude": 48.8566,
+            "longitude": 2.3522,
+            "city": "Paris",
+            "country": "France"
+        }
+    }

@@ -91,4 +91,16 @@ def delete_dog(
     
     db.delete(dog)
     db.commit()
-    return {"message": "Chien supprimé avec succès"} 
+    return {"message": "Chien supprimé avec succès"}
+
+@router.get("/profile", response_model=dict)
+def get_dog_profile():
+    return {
+        "status": "success",
+        "data": {
+            "name": "Buddy",
+            "age": 3,
+            "breed": "Golden Retriever",
+            "health": "Excellent"
+        }
+    }

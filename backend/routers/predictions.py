@@ -35,4 +35,15 @@ def generate_prediction(data: PredictionRequest):
         alert=alert,
         recommendation=recommendation,
         date=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    ) 
+    )
+
+@router.get("/health", response_model=dict)
+def get_health_data():
+    return {
+        "status": "success",
+        "data": {
+            "activity": 85,
+            "energy": 90,
+            "sleep": 75
+        }
+    }
