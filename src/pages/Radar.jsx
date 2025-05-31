@@ -2,6 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt, FaDog, FaCat, FaInfoCircle } from 'react-icons/fa';
 import { MdMyLocation } from 'react-icons/md';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+
+// Correction des icônes Leaflet par défaut
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+});
 
 const Radar = () => {
   const [userLocation, setUserLocation] = useState(null);
@@ -29,7 +39,6 @@ const Radar = () => {
   ]);
 
   useEffect(() => {
-    // Simuler la récupération de la position de l'utilisateur
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setUserLocation({
@@ -62,6 +71,14 @@ const Radar = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="flex items-center px-4 py-2 bg-nature-600 text-white rounded-lg hover:bg-nature-700 transition-colors"
+                onClick={() => {
+                  navigator.geolocation.getCurrentPosition((position) => {
+                    setUserLocation({
+                      lat: position.coords.latitude,
+                      lng: position.coords.longitude
+                    });
+                  });
+                }}
               >
                 <MdMyLocation className="w-5 h-5 mr-2" />
                 Ma position
@@ -69,16 +86,41 @@ const Radar = () => {
             </div>
           </div>
 
-          {/* Carte et liste */}
+          {/* Carte + Liste */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
             {/* Carte */}
             <div className="lg:col-span-2 bg-gray-100 rounded-xl h-[600px] relative">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-gray-500">Carte interactive à implémenter</p>
-              </div>
+              {userLocation ? (
+                <MapContainer
+                  center={[userLocation.lat, userLocation.lng]}
+                  zoom={13}
+                  scrollWheelZoom={true}
+                  className="w-full h-full rounded-xl z-0"
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker position={[userLocation.lat, userLocation.lng]}>
+                    <Popup>Votre position</Popup>
+                  </Marker>
+                  {nearbyPets.map((pet) => (
+                    <Marker key={pet.id} position={[pet.lat, pet.lng]}>
+                      <Popup>
+                        <strong>{pet.name}</strong><br />
+                        {pet.breed} — {pet.distance} km
+                      </Popup>
+                    </Marker>
+                  ))}
+                </MapContainer>
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <p className="text-gray-500">Chargement de la carte...</p>
+                </div>
+              )}
             </div>
 
-            {/* Liste des animaux à proximité */}
+            {/* Liste animaux */}
             <div className="space-y-4">
               <h2 className="text-lg font-semibold text-gray-900">Animaux à proximité</h2>
               {nearbyPets.map((pet) => (
@@ -99,9 +141,7 @@ const Radar = () => {
                         <p className="text-sm text-gray-600">{pet.breed}</p>
                       </div>
                     </div>
-                    <button className="text-gray-400 hover:text-gray-600">
-                      <FaInfoCircle className="w-5 h-5" />
-                    </button>
+                    <FaInfoCircle className="w-5 h-5 text-gray-400" />
                   </div>
                   <div className="mt-3 flex items-center text-sm text-gray-500">
                     <FaMapMarkerAlt className="w-4 h-4 mr-1" />
@@ -120,4 +160,4 @@ const Radar = () => {
   );
 };
 
-export default Radar; 
+export default Radar;
