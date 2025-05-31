@@ -7,7 +7,6 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true
-    // ❌ Pas de external ici pour le CSS
   },
   resolve: {
     alias: {
@@ -16,4 +15,4 @@ export default defineConfig({
       '@components': path.resolve(__dirname, './src/components')
     }
   }
-})
+});

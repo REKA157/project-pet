@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import PrivateRoute from './components/PrivateRoute';
+// import PrivateRoute from './components/PrivateRoute'; // Désactivé temporairement
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -26,45 +26,43 @@ import ConfirmTeleconsultation from './pages/ConfirmTeleconsultation';
 
 const App = () => {
   console.log('App component rendering');
-  
+
   return (
     <ErrorBoundary>
-    <Router>
-      <Toaster />
-      <NotificationListener />
-      <div className="min-h-screen bg-gray-100">
-        <Navbar />
-        <main className="container mx-auto px-4 py-8">
+      <Router>
+        <Toaster />
+        <NotificationListener />
+        <div className="min-h-screen bg-gray-100">
+          <Navbar />
+          <main className="container mx-auto px-4 py-8">
             <Suspense fallback={<LoadingSpinner />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-                
-                {/* Routes protégées */}
-            <Route element={<PrivateRoute />}>
-                  <Route path="/app/dashboard" element={<Dashboard />} />
-                  <Route path="/app/profile" element={<Profile />} />
-                  <Route path="/app/radar" element={<Radar />} />
-                  <Route path="/app/meet" element={<DogSwipe />} />
-                  <Route path="/app/upload-audio" element={<AudioUpload />} />
-                  <Route path="/app/geotracker" element={<GeoTracker />} />
-                  <Route path="/app/assistant" element={<SmartAssistant />} />
-                  <Route path="/app/teleconsultation" element={<Teleconsultation />} />
-                  <Route path="/app/teleconsultation/confirm" element={<ConfirmTeleconsultation />} />
-            </Route>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+
+                {/* Routes temporairement accessibles sans authentification */}
+                <Route path="/app/dashboard" element={<Dashboard />} />
+                <Route path="/app/profile" element={<Profile />} />
+                <Route path="/app/radar" element={<Radar />} />
+                <Route path="/app/meet" element={<DogSwipe />} />
+                <Route path="/app/upload-audio" element={<AudioUpload />} />
+                <Route path="/app/geotracker" element={<GeoTracker />} />
+                <Route path="/app/assistant" element={<SmartAssistant />} />
+                <Route path="/app/teleconsultation" element={<Teleconsultation />} />
+                <Route path="/app/teleconsultation/confirm" element={<ConfirmTeleconsultation />} />
 
                 {/* Redirection par défaut */}
                 <Route path="/app" element={<Navigate to="/app/dashboard" replace />} />
                 <Route path="*" element={<NotFound />} />
-          </Routes>
+              </Routes>
             </Suspense>
-        </main>
-        <EmergencyButton />
-        <FeedbackButton />
-        <Footer />
-      </div>
-    </Router>
+          </main>
+          <EmergencyButton />
+          <FeedbackButton />
+          <Footer />
+        </div>
+      </Router>
     </ErrorBoundary>
   );
 };
