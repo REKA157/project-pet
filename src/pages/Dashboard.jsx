@@ -950,6 +950,17 @@ const Dashboard = () => {
     </div>
   );
 
+  const renderDynamicVisualization = (data) => {
+    return data.map((entry, index) => (
+      <div key={index} className="flex items-center space-x-2">
+        <span className={`text-sm ${entry.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
+          {entry.trend === 'up' ? '↗' : '↘'}
+        </span>
+        <span>{entry.value}</span>
+      </div>
+    ));
+  };
+
   return (
     <div className="space-y-6" data-testid="dashboard-container">
       {/* En-tête */}

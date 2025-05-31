@@ -62,4 +62,13 @@ const HealthMetrics = ({ data = todayData }) => {
   );
 };
 
-export default HealthMetrics; 
+const computeVitality = (averageActivity, dailyCalories, recommendedCalories, sleepHours) => {
+  const activityScore = averageActivity > 2 ? 1 : 0.5;
+  const energyScore = dailyCalories / recommendedCalories >= 0.9 ? 1 : 0.5;
+  const sleepScore = sleepHours >= 6 ? 1 : 0.5;
+
+  return ((activityScore + energyScore + sleepScore) / 3) * 100;
+};
+
+export { computeVitality };
+export default HealthMetrics;

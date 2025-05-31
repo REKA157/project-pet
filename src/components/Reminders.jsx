@@ -63,6 +63,20 @@ const Reminders = () => {
     setLoading(false);
   };
 
+  const updateReminderStatus = async (id, status) => {
+    setLoading(true);
+    const { error } = await supabase
+      .from('reminders')
+      .update({ status })
+      .eq('id', id);
+    if (!error) {
+      setReminders((prev) =>
+        prev.map((r) => (r.id === id ? { ...r, status } : r))
+      );
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="relative bg-white border rounded-xl p-6 shadow-sm mb-6">
       <div className="flex items-center justify-between mb-4">
@@ -120,9 +134,19 @@ const Reminders = () => {
               <span className="font-medium text-gray-800">{reminder.label}</span>
               <span className="ml-2 text-gray-500">{reminder.time}</span>
             </div>
-            <span className="text-xs px-2 py-1 rounded bg-yellow-100 text-yellow-700">
-              {reminder.status}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs px-2 py-1 rounded bg-yellow-100 text-yellow-700">
+                {reminder.status}
+              </span>
+              {reminder.status !== 'done' && (
+                <button
+                  onClick={() => updateReminderStatus(reminder.id, 'done')}
+                  className="text-sm text-green-600"
+                >
+                  Marquer comme fait
+                </button>
+              )}
+            </div>
           </div>
         ))}
       </div>
@@ -139,4 +163,4 @@ const Reminders = () => {
   );
 };
 
-export default Reminders; 
+export default Reminders;

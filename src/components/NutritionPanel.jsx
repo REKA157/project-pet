@@ -60,6 +60,10 @@ const NutritionPanel = () => {
     setLoading(false);
   };
 
+  const calculateEnergyPercentage = (dailyCalories, recommendedCalories) => {
+    return ((dailyCalories / recommendedCalories) * 100).toFixed(2);
+  };
+
   return (
     <div className="relative bg-white border rounded-xl p-6 shadow-sm mb-6 max-w-md mx-auto">
       <div className="flex items-center justify-between mb-4">
@@ -81,6 +85,12 @@ const NutritionPanel = () => {
           <div>
             <span className="font-medium text-gray-700">Eau&nbsp;:</span>
             <span className="ml-2 text-gray-900">{nutrition?.water_target || '—'} ml</span>
+          </div>
+          <div>
+            <span className="font-medium text-gray-700">Énergie&nbsp;:</span>
+            <span className="ml-2 text-gray-900">
+              {calculateEnergyPercentage(nutrition?.calories_target, 2000)}%
+            </span>
           </div>
         </div>
       )}
@@ -143,4 +153,4 @@ const NutritionPanel = () => {
   );
 };
 
-export default NutritionPanel; 
+export default NutritionPanel;

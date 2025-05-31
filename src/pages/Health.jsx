@@ -17,7 +17,8 @@ const Health = () => {
     dietStatus: 'Équilibré',
     hydrationLevel: 'Bon',
     sleepQuality: 'Excellent',
-    stressLevel: 'Faible'
+    stressLevel: 'Faible',
+    sleepHours: 6 // Ajouté pour le suivi du sommeil
   });
 
   // Données de prédiction IA
@@ -123,6 +124,15 @@ const Health = () => {
       status: 'pending'
     }
   ]);
+
+  const handleAnalyzeNow = () => {
+    const prediction = generatePredictions({
+      activity: average(activity),
+      energy: nutritionData.dailyCalories / nutritionData.recommendedCalories,
+      sleep: healthData.sleepHours || 5.5 // Simulé ou réel
+    });
+    setAiPredictions(prediction);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -309,6 +319,13 @@ const Health = () => {
                   ))}
                 </div>
               </div>
+
+              <button
+                onClick={handleAnalyzeNow}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              >
+                Analyser maintenant
+              </button>
             </motion.div>
           )}
 
@@ -523,4 +540,4 @@ const Health = () => {
   );
 };
 
-export default Health; 
+export default Health;
