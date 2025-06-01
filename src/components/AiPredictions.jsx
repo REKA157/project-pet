@@ -8,11 +8,14 @@ const AiPredictions = ({ healthData, nutritionData }) => {
   const [predictionResult, setPredictionResult] = useState(null);
 
   useEffect(() => {
+    if (!healthData || !nutritionData) return;
+
     const prediction = generatePredictions({
-      activity: average(healthData.activity),
+      activity: average(healthData.activity.map(a => a.value)),
       energy: nutritionData.dailyCalories / nutritionData.recommendedCalories,
       sleep: healthData.sleepHours || 5.5 // Simulé ou réel
     });
+
     setPredictionResult(prediction);
   }, [healthData, nutritionData]);
 

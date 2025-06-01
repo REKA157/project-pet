@@ -52,8 +52,9 @@ logger.info(f"Origines CORS configurées: {origins}")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://project-pet-taupe.vercel.app",
         "https://project-pet-3b5a.vercel.app",
+        "https://project-pet-taupe.vercel.app",
+        "https://project-pet-3b5a-git-main-riks-projects-6e9c5d05.vercel.app",
         "http://localhost:3000"
     ],
     allow_credentials=True,
