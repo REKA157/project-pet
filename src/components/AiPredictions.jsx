@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { generatePredictions } from '../utils/predictions';
 
-const average = (arr) => arr.reduce((a, b) => a + b, 0) / arr.length;
+const average = (arr) => arr && arr.length > 0 ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
 
 const AiPredictions = ({ healthData, nutritionData }) => {
   const [predictionResult, setPredictionResult] = useState(null);
 
   useEffect(() => {
-    if (!healthData || !nutritionData) return;
+    if (!healthData?.activity || !nutritionData?.dailyCalories || !nutritionData?.recommendedCalories) return;
 
     const prediction = generatePredictions({
-      activity: average(healthData.activity.map(a => a.value)),
+      activity: average(healthData.activity.map((a) => a.value)),
       energy: nutritionData.dailyCalories / nutritionData.recommendedCalories,
-      sleep: healthData.sleepHours || 5.5 // Simulé ou réel
+      sleep: 5.5 // valeur simulée ou à connecter à healthData.sleep
     });
 
     setPredictionResult(prediction);

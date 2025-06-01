@@ -18,6 +18,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import DogSwipe from './DogSwipe';
 import 'leaflet/dist/leaflet.css';
+import { Button } from 'react-bootstrap'; // Importing Button from react-bootstrap
 
 
 const Dashboard = () => {
