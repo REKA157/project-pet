@@ -18,7 +18,6 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import DogSwipe from './DogSwipe';
 import 'leaflet/dist/leaflet.css';
-import { Button } from 'react-bootstrap'; // Importing Button from react-bootstrap
 
 
 const Dashboard = () => {
@@ -444,7 +443,7 @@ const Dashboard = () => {
       <h3 className="text-xl font-bold text-gray-900 mb-4">Aperçu de la santé</h3>
 
       {/* Bouton pour déclencher l'analyse prédictive */}
-      <Button
+      <button
         onClick={() => {
           if (!healthData || !nutritionData || !healthData.activity) return;
 
@@ -459,7 +458,7 @@ const Dashboard = () => {
         className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
       >
         Analyser maintenant
-      </Button>
+      </button>
 
       {/* Résultat de la prédiction */}
       {predictionResult && (
