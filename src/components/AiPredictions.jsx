@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { generatePredictions } from '../utils/predictions';
 
+const average = (arr) => arr.reduce((a, b) => a + b, 0) / arr.length;
+
 const AiPredictions = ({ healthData, nutritionData }) => {
   const [predictionResult, setPredictionResult] = useState(null);
 
   useEffect(() => {
     const prediction = generatePredictions({
-      activity: average(activity),
+      activity: average(healthData.activity),
       energy: nutritionData.dailyCalories / nutritionData.recommendedCalories,
       sleep: healthData.sleepHours || 5.5 // Simulé ou réel
     });
