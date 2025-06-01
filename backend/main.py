@@ -44,6 +44,7 @@ origins = [
     "https://project-pet-taupe.vercel.app",  # Ajout du domaine Vercel spécifique
     "https://project-pet-production.up.railway.app",  # Ajout du domaine Railway
     "https://project-pet-3b5a.vercel.app",  # Ajout de l'origine Vercel spécifique
+    "http://localhost:3000"  # Ajout de l'origine localhost
 ]
 
 logger.info(f"Origines CORS configurées: {origins}")
