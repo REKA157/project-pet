@@ -48,31 +48,40 @@ const AiPredictions = ({ healthData, nutritionData }) => {
     setLoading(false);
   };
 
+  const handlePredictionClick = () => {
+    console.log('Analyse IA Santé déclenchée');
+    handleAnalyze();
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-sm p-6 space-y-4">
-      <div className="flex justify-between items-center">
-        <h3 className="text-xl font-bold text-gray-900 flex items-center space-x-2">
-          <FaRobot className="text-indigo-600" />
-          <span>Analyse IA de la santé</span>
-        </h3>
-
-        <label className="text-sm text-gray-700 flex items-center space-x-2">
-          <input
-            type="checkbox"
-            checked={useCollar}
-            onChange={(e) => setUseCollar(e.target.checked)}
-            className="rounded border-gray-300"
+      <div className="flex flex-col items-center mb-4">
+        <div className="flex items-center justify-between w-full">
+          <img
+            src="/images/button_IA_santé.png"
+            alt="Analyse IA Santé"
+            className="w-24 h-24 object-contain"
           />
-          <span>Collier connecté</span>
-        </label>
+          <div className="flex items-center ml-4">
+            <input
+              type="checkbox"
+              id="collar-connected"
+              checked={useCollar}
+              onChange={(e) => setUseCollar(e.target.checked)}
+              className="mr-2 rounded border-gray-300"
+            />
+            <label htmlFor="collar-connected" className="text-sm text-gray-600">
+              Collier connecté
+            </label>
+          </div>
+        </div>
       </div>
 
       <button
-        onClick={handleAnalyze}
-        disabled={loading}
-        className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+        onClick={handlePredictionClick}
+        className="mt-4 px-6 py-2 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700 transition"
       >
-        {loading ? "Analyse en cours..." : "Analyse IA"}
+        {loading ? "Analyse en cours..." : "Analyse IA Santé"}
       </button>
 
       {predictionResult && (
