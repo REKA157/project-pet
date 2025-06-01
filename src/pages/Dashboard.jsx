@@ -38,6 +38,7 @@ const Dashboard = () => {
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [medicalFiles, setMedicalFiles] = useState([]);
   const [nextAppointment, setNextAppointment] = useState(null); // État pour le prochain rendez-vous
+  const [predictionResult, setPredictionResult] = useState(null);
   
   const location = useLocation();
   const { t } = useTranslation();
@@ -440,6 +441,32 @@ const Dashboard = () => {
   const renderHealthOverview = () => (
     <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
       <h3 className="text-xl font-bold text-gray-900 mb-4">Aperçu de la santé</h3>
+
+      {/* Bouton pour déclencher l'analyse prédictive */}
+      <Button
+        onClick={() => {
+          if (!healthData || !nutritionData || !healthData.activity) return;
+
+          const prediction = generatePredictions({
+            activity: average(healthData.activity.map(a => a.value)),
+            energy: nutritionData.dailyCalories / nutritionData.recommendedCalories,
+            sleep: 5.5, // remplacer si tu as la donnée
+          });
+
+          setPredictionResult(prediction);
+        }}
+        className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+      >
+        Analyser maintenant
+      </Button>
+
+      {/* Résultat de la prédiction */}
+      {predictionResult && (
+        <div className="mt-4 p-4 bg-gray-100 rounded">
+          <h4 className="text-lg font-semibold">Résultat de l'analyse</h4>
+          <pre className="text-sm text-gray-700">{JSON.stringify(predictionResult, null, 2)}</pre>
+        </div>
+      )}
 
       {/* Alertes */}
       {healthData.alerts.length > 0 && (
