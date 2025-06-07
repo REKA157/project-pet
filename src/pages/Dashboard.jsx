@@ -18,6 +18,13 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import DogSwipe from './DogSwipe';
 import 'leaflet/dist/leaflet.css';
+import WeightChart from '../components/WeightChart';
+import ActivityChart from '../components/ActivityChart';
+import { detectAlerts } from '../utils/alerts';
+import HealthOverview from '../components/health/HealthOverview';
+import sampleData from '../components/health/sampleData';
+import VaccineInfoModal from '../components/VaccineInfoModal';
+import MedicalRecords from '../components/MedicalRecords'; // Import MedicalRecords component
 
 
 const Dashboard = () => {
@@ -39,6 +46,10 @@ const Dashboard = () => {
   const [medicalFiles, setMedicalFiles] = useState([]);
   const [nextAppointment, setNextAppointment] = useState(null); // État pour le prochain rendez-vous
   const [predictionResult, setPredictionResult] = useState(null);
+  const [healthData, setHealthData] = useState(null);
+  const [range, setRange] = useState(7);
+  const [showHealthDetails, setShowHealthDetails] = useState(false);
+  const [selectedVaccine, setSelectedVaccine] = useState(null);
   
   const location = useLocation();
   const { t } = useTranslation();
@@ -56,27 +67,11 @@ const Dashboard = () => {
     }
   }, [location.search]);
 
-  // Données de santé simulées
-  const [healthData, setHealthData] = useState({
-    weight: [
-      { date: '2024-03-01', value: 12.5 },
-      { date: '2024-03-08', value: 12.8 },
-      { date: '2024-03-15', value: 13.0 }
-    ],
-    activity: [
-      { date: '2024-03-15', value: 85 },
-      { date: '2024-03-14', value: 75 },
-      { date: '2024-03-13', value: 90 }
-    ],
-    vaccinations: [
-      { name: 'Rage', date: '2024-03-15', nextDue: '2025-03-15' },
-      { name: 'CHPL', date: '2024-02-01', nextDue: '2024-08-01' }
-    ],
-    alerts: [
-      { type: 'stress', message: '3 jours consécutifs de stress détecté', severity: 'high' },
-      { type: 'weight', message: 'Prise de poids rapide détectée', severity: 'medium' }
-    ]
-  });
+  useEffect(() => {
+    fetch(`${config.API_BASE_URL}/health-data?petId=rex123`)
+      .then(res => res.json())
+      .then(data => { console.log("API Response:", data); setHealthData(data); });
+  }, []);
 
   // Données de prédiction IA
   const [aiPredictions, setAiPredictions] = useState({
@@ -313,7 +308,7 @@ const Dashboard = () => {
     { id: 'health', label: 'Santé', icon: (props) => <FaHeartbeat className="w-5 h-5" style={{ color: '#f97316' }} /> },
     { id: 'petmeet', label: 'PetMeet', icon: (props) => (
       <img 
-        src="/images/icon_animals_placeholder.svg" 
+        src="/images/icon_petmeet.png" 
         alt="PetMeet" 
         className="w-6 h-6 inline-block align-middle" 
         style={{ display: 'inline-block', verticalAlign: 'middle' }} 
@@ -331,6 +326,11 @@ const Dashboard = () => {
   useEffect(() => {
     console.log('Active tab changed:', activeMainTab);
   }, [activeMainTab]);
+
+  // Set the default tab to 'health' for testing purposes
+  useEffect(() => {
+    setActiveMainTab('health');
+  }, []);
 
   const getCurrentColorConfig = () => {
     return colorConfig[activeMainTab] || colorConfig.overview;
@@ -438,120 +438,66 @@ const Dashboard = () => {
   );
 
   // Conserving existing sections for "Aperçu de la santé"
-  const renderHealthOverview = () => (
-    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-      <h3 className="text-xl font-bold text-gray-900 mb-4">Aperçu de la santé</h3>
+  const renderHealthOverview = () => {
+    const fallbackData = {
+        activityData: [
+            { date: "Lun", value: 3 },
+            { date: "Mar", value: 2 },
+            { date: "Mer", value: 1 },
+            { date: "Jeu", value: 4 },
+            { date: "Ven", value: 2.5 },
+            { date: "Sam", value: 3 },
+            { date: "Dim", value: 2 }
+        ],
+        weightData: [
+            { date: "Lun", value: 20.5 },
+            { date: "Dim", value: 19.2 }
+        ],
+        sleepData: [
+            { date: "Lun", value: 8 },
+            { date: "Dim", value: 4 }
+        ],
+        alerts: [
+            { message: "Sommeil insuffisant", severity: "medium" },
+            { message: "Perte de poids détectée", severity: "high" }
+        ]
+    };
 
-      {/* Bouton pour déclencher l'analyse prédictive */}
-      <button
-        onClick={() => {
-          if (!healthData || !nutritionData || !healthData.activity) return;
+    const dataToUse = healthData && healthData.activityData ? healthData : fallbackData;
 
-          const prediction = generatePredictions({
-            activity: average(healthData.activity.map(a => a.value)),
-            energy: nutritionData.dailyCalories / nutritionData.recommendedCalories,
-            sleep: 5.5, // remplacer si tu as la donnée
-          });
-
-          setPredictionResult(prediction);
-        }}
-        className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
-      >
-        Analyser maintenant
-      </button>
-
-      {/* Résultat de la prédiction */}
-      {predictionResult && (
-        <div className="mt-4 p-4 bg-gray-100 rounded">
-          <h4 className="text-lg font-semibold">Résultat de l'analyse</h4>
-          <pre className="text-sm text-gray-700">{JSON.stringify(predictionResult, null, 2)}</pre>
-        </div>
-      )}
-
-      {/* Alertes */}
-      {healthData.alerts.length > 0 && (
-        <div className="mb-6">
-          <div className="flex items-center space-x-2 mb-4">
-            <FaExclamationTriangle className="w-5 h-5 text-red-500" />
-            <h4 className="font-semibold text-gray-900">Alertes</h4>
-          </div>
-          <div className="space-y-2">
-            {healthData.alerts.map((alert, index) => (
-              <div key={index} className={`p-3 rounded-lg ${
-                alert.severity === 'high' ? 'bg-red-50 text-red-700' : 'bg-yellow-50 text-yellow-700'
-              }`}>
-                <p className="text-sm">{alert.message}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Graphiques de suivi */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div className="bg-gray-50 rounded-lg p-4">
-          <div className="flex items-center space-x-2 mb-4">
-            <FaWeight className="w-5 h-5 text-blue-500" />
-            <h4 className="font-semibold text-gray-900">Suivi du poids</h4>
-          </div>
-          <div className="h-32 bg-white rounded-lg p-2">
-            <div className="h-full flex items-end space-x-1">
-              {healthData.weight.map((entry, index) => (
-                <div 
-                  key={index}
-                  className="flex-1 bg-blue-500 rounded-t"
-                  style={{ height: `${(entry.value / 15) * 100}%` }}
-                ></div>
-              ))}
+    return (
+        <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold text-gray-900">Aperçu de la santé</h3>
+                <button
+                    onClick={() => setShowHealthDetails(prev => !prev)}
+                    className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded hover:bg-blue-200 transition"
+                >
+                    {showHealthDetails ? "Masquer les graphiques" : "Afficher les graphiques"}
+                </button>
             </div>
-          </div>
-        </div>
 
-        <div className="bg-gray-50 rounded-lg p-4">
-          <div className="flex items-center space-x-2 mb-4">
-            <FaChartLine className="w-5 h-5 text-green-500" />
-            <h4 className="font-semibold text-gray-900">Suivi de l'activité</h4>
-          </div>
-          <div className="h-32 bg-white rounded-lg p-2">
-            <div className="h-full flex items-end space-x-1">
-              {healthData.activity.map((entry, index) => (
-                <div 
-                  key={index}
-                  className="flex-1 bg-green-500 rounded-t"
-                  style={{ height: `${entry.value}%` }}
-                ></div>
-              ))}
+            {/* Résumé synthétique */}
+            <div className="mb-2 text-sm text-gray-600">
+                {dataToUse.alerts.length} alerte(s) détectée(s) - Dernière mise à jour hebdomadaire
             </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Vaccinations */}
-      <div className="bg-gray-50 rounded-lg p-4">
-        <div className="flex items-center space-x-2 mb-4">
-          <FaSyringe className="w-5 h-5 text-purple-500" />
-          <h4 className="font-semibold text-gray-900">Vaccinations</h4>
+            {/* Section détaillée animée */}
+            <AnimatePresence initial={false}>
+                {showHealthDetails && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.4 }}
+                    >
+                        <HealthOverview data={dataToUse} />
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
-        <div className="space-y-3">
-          {healthData.vaccinations.map((vaccine, index) => (
-            <div key={index} className="flex justify-between items-center p-3 bg-white rounded-lg">
-              <div>
-                <p className="font-medium text-gray-900">{vaccine.name}</p>
-                <p className="text-sm text-gray-600">
-                  Prochaine échéance : {new Date(vaccine.nextDue).toLocaleDateString()}
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-sm text-gray-600">
-                  Dernière vaccination : {new Date(vaccine.date).toLocaleDateString()}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+    );
+  };
 
   const handleCityChange = (e) => {
     setSelectedCity(e.target.value);
@@ -573,6 +519,25 @@ const Dashboard = () => {
 
   const handleFileUpload = (files) => {
     setMedicalFiles((prevFiles) => [...prevFiles, ...files]);
+  };
+
+  const handleUploadFiles = (newFiles) => {
+    const filesWithDownload = newFiles.map((file) => ({
+      name: file.name,
+      download: () => {
+        const url = URL.createObjectURL(file);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+      },
+    }));
+    setMedicalFiles((prev) => [...prev, ...filesWithDownload]);
+  };
+
+  const handleDownloadAll = () => {
+    medicalFiles.forEach((file) => file.download());
   };
 
   const veterinarians = [
@@ -646,14 +611,6 @@ const Dashboard = () => {
                       {slot}
                     </button>
                   ))}
-                </div>
-                <div className="flex justify-end mt-2">
-                  <button className="text-sm text-gray-600 hover:text-gray-800">
-                    <FaChevronLeft className="w-4 h-4 inline" />
-                  </button>
-                  <button className="text-sm text-gray-600 hover:text-gray-800">
-                    <FaChevronRight className="w-4 h-4 inline" />
-                  </button>
                 </div>
               </div>
             ))}
@@ -989,6 +946,51 @@ const Dashboard = () => {
     ));
   };
 
+  // Filter healthData based on selected range
+  const filteredData = healthData ? healthData.filter(item => {
+    const today = new Date();
+    const itemDate = new Date(item.date);
+    return (today - itemDate) / (1000 * 60 * 60 * 24) <= range;
+  }) : [];
+
+  // Vaccination state management
+  const [vaccinations, setVaccinations] = useState([
+    { id: 1, name: 'Rage', date: '2025-05-01', status: 'Completed' },
+    { id: 2, name: 'Leptospirose', date: '2025-06-15', status: 'Pending' }
+  ]);
+
+  const handleAddVaccine = (newVaccine) => {
+    setVaccinations((prevVaccinations) => [...prevVaccinations, newVaccine]);
+  };
+
+  const VaccinationSection = () => (
+    <div className="vaccination-section">
+      <h2>{t('vaccinations.title')}</h2>
+      <ul>
+        {vaccinations.map((vaccine) => (
+          <li key={vaccine.id}>
+            <span>{vaccine.name}</span> - <span>{vaccine.date}</span> - <span>{vaccine.status}</span>
+          </li>
+        ))}
+      </ul>
+      <button
+        onClick={() => {
+          const newVaccine = {
+            id: vaccinations.length + 1,
+            name: prompt('Nom de la vaccination :'),
+            date: prompt('Date de la vaccination :'),
+            status: 'Pending',
+          };
+          handleAddVaccine(newVaccine);
+        }}
+        className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-full text-sm hover:bg-blue-700 transition"
+      >
+        <FaPlus className="mr-2" />
+        Ajouter une vaccination
+      </button>
+    </div>
+  );
+
   return (
     <div className="space-y-6" data-testid="dashboard-container">
       {/* En-tête */}
@@ -1026,10 +1028,10 @@ const Dashboard = () => {
           {mainTabs.map((tab) => {
             const isActive = activeMainTab === tab.id;
             return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveMainTab(tab.id)}
-              className={`px-4 py-2 rounded-md flex items-center space-x-2 ${
+              <button
+                key={tab.id}
+                onClick={() => setActiveMainTab(tab.id)}
+                className={`px-4 py-2 rounded-md flex items-center space-x-2 ${
                   isActive ? 'bg-blue-600' : ''
                 }`}
                 style={{ color: isActive ? '#fff' : '#475569' }}
@@ -1038,7 +1040,7 @@ const Dashboard = () => {
                   ? tab.icon({ active: isActive, color: isActive ? '#fff' : '#475569' })
                   : <tab.icon className="w-5 h-5" style={{ color: isActive ? '#fff' : '#475569' }} />}
                 <span style={{ color: isActive ? '#fff' : '#475569' }}>{tab.label}</span>
-            </button>
+              </button>
             );
           })}
         </nav>
@@ -1057,165 +1059,67 @@ const Dashboard = () => {
 
           {activeMainTab === 'health' && (
             <div className="space-y-6">
-              {renderHealthOverview()}
-
-              {/* Rendez-vous médicaux */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">Rendez-vous médicaux</h2>
-                  <button
-                    className="text-sm text-blue-600 hover:text-blue-700 flex items-center space-x-1"
-                    onClick={toggleAppointmentForm}
-                  >
-                    <FaPlus className="w-4 h-4" />
-                    <span>Nouveau rendez-vous</span>
-                  </button>
-                </div>
-                {showAppointmentForm && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="mt-4 space-y-4"
-                  >
-                    <div className="flex justify-between items-center">
-                      <select
-                        className="border rounded-lg p-2 text-sm w-2/3"
-                        value={selectedCity}
-                        onChange={(e) => setSelectedCity(e.target.value)}
-                      >
-                        <option value="">Choisir une ville</option>
-                        <option value="Paris">Paris</option>
-                        <option value="Lyon">Lyon</option>
-                        <option value="Marseille">Marseille</option>
-                      </select>
-                    </div>
-
-                    <div className="space-y-4">
-                      {veterinarians.map((vet, index) => (
-                        <div key={index} className="p-4 bg-gray-50 rounded-lg">
-                          <p className="font-medium text-gray-900">{vet.name}</p>
-                          <p className="text-sm text-gray-600">{vet.clinic} - {vet.distance}</p>
-                          <div className="flex space-x-2 mt-2">
-                            {vet.slots.map((slot, idx) => (
-                              <button
-                                key={idx}
-                                className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200"
-                              >
-                                {slot}
-                              </button>
-                            ))}
-                          </div>
-                          <div className="flex justify-end mt-2">
-                            <button className="text-sm text-gray-600 hover:text-gray-800">
-                              <FaChevronLeft className="w-4 h-4 inline" />
-                            </button>
-                            <button className="text-sm text-gray-600 hover:text-gray-800">
-                              <FaChevronRight className="w-4 h-4 inline" />
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
+              {renderAppointmentSection()}
+              {renderTeleconsultationSection()}
+              <div className="bg-white rounded-lg shadow p-6 mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Dossier médical</h2>
+                <MedicalRecords
+                  files={medicalFiles}
+                  onUpload={handleUploadFiles}
+                  onDownloadAll={handleDownloadAll}
+                />
               </div>
 
-              {/* Téléconsultation */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">Téléconsultation</h2>
-                  <select
-                    className="w-44 text-sm px-2 py-1 border rounded"
-                    value={selectedSpecialty}
-                    onChange={handleSpecialtyChange}
-                  >
-                    <option value="">Spécialité</option>
-                    <option value="Cardiologie">Cardiologie</option>
-                    <option value="Dermatologie">Dermatologie</option>
-                  </select>
-                </div>
+              {/* Vaccination Section */}
+              <div className="bg-white rounded-lg shadow p-6 mb-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Vaccinations</h3>
                 <div className="space-y-4">
-                    {/* Mocked list of veterinarians */}
-                    {veterinarians.map((vet, index) => (
-                    <div key={index} className="border rounded-lg p-4">
-                      <p>{vet.name} - Disponible maintenant</p>
-                    </div>
-                    ))}
-                  </div>
-                  </div>
-                  {/* Dossier médical */}
-                  <div className="bg-white rounded-lg shadow p-6">
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-bold text-gray-900">Dossier médical</h2>
-                    {/* Téléchargement global (optionnel) */}
-                    <button
-                    onClick={() => {
-                      medicalFiles.forEach((file) => {
-                      const link = document.createElement("a");
-                      link.href = URL.createObjectURL(file);
-                      link.download = file.name;
-                      link.click();
-                      });
-                    }}
-                    className="bg-green-600 text-white text-sm px-4 py-2 rounded hover:bg-green-700"
-                    >
-                    Télécharger tout
-                    </button>
-                  </div>
-
-                  <div>
-                    <p className="font-semibold text-gray-700 mb-2">Médias</p>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center text-gray-500">
-                    <div className="mb-2">
-                      <FaCamera className="mx-auto text-2xl text-gray-400" />
-                    </div>
-                    <p className="text-sm mb-2">Glissez-déposez ou</p>
-
-                    {/* INPUT FONCTIONNEL */}
-                    <input
-                      type="file"
-                      multiple
-                      onChange={(e) => handleFileUpload(Array.from(e.target.files))}
-                      className="hidden"
-                      id="upload-files"
-                    />
-                    <label htmlFor="upload-files">
-                      <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mt-2">
-                      Parcourir
-                      </button>
-                    </label>
-
-                    <p className="text-xs text-gray-400 mt-2">Formats acceptés : JPG, PNG, MP4</p>
-                    </div>
-                  </div>
-
-                  {/* Liste des fichiers importés */}
-                  <div className="mt-4 space-y-2">
-                    {medicalFiles.map((file, index) => (
-                    <div
-                      key={index}
-                      className="p-4 bg-gray-50 rounded-lg flex justify-between items-center"
-                    >
-                      <p className="text-sm text-gray-900">{file.name}</p>
-                      <a
-                      href={URL.createObjectURL(file)}
-                      download={file.name}
-                      className="text-sm text-blue-600 hover:text-blue-700"
+                  {vaccinations.map((vaccine) => (
+                    <div key={vaccine.id} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                      <div className="flex-1">
+                        <p className="font-medium text-gray-900">{vaccine.name}</p>
+                        <p className="text-sm text-gray-600">{vaccine.date}</p>
+                      </div>
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${vaccine.status === 'Completed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
+                        {vaccine.status}
+                      </span>
+                      <button
+                        className="ml-4 text-sm text-blue-600 hover:underline"
+                        onClick={() => setSelectedVaccine(vaccine)}
                       >
-                      Télécharger
-                      </a>
+                        Détails
+                      </button>
                     </div>
-                    ))}
-                  </div>
+                  ))}
                 </div>
 
-                </div>
-                )}
-                {activeMainTab === 'petmeet' && (
-                <div className="space-y-6">
-                  {console.log('Rendering PetMeet tab')}
-                  {/* En-tête PetMeet */}
+                <button
+                  onClick={() => {
+                    const newVaccine = {
+                      id: vaccinations.length + 1,
+                      name: prompt('Nom de la vaccination :'),
+                      date: prompt('Date de la vaccination :'),
+                      status: 'Pending',
+                    };
+                    handleAddVaccine(newVaccine);
+                  }}
+                  className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-full text-sm hover:bg-blue-700 transition"
+                >
+                  <FaPlus className="mr-2" />
+                  Ajouter une vaccination
+                </button>
+              </div>
+            </div>
+          )}
+          {activeMainTab === 'location' && (
+            <div>
+              {/* Location tab content */}
+            </div>
+          )}
+          {activeMainTab === 'petsense' && <PetSenseTab petSenseScore={petSenseScore} />}
+          {activeMainTab === 'petmeet' && (
+            <div className="space-y-6">
+              {/* En-tête PetMeet */}
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-2xl font-bold text-gray-900">PetMeet</h2>
@@ -1258,95 +1162,55 @@ const Dashboard = () => {
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Profils à découvrir</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {/* Carte de profil 1 */}
-                  <div className="bg-white border rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                    <div className="relative h-64 bg-gray-200">
-                      <img 
-                        src="https://images.unsplash.com/photo-1543466835-00a7907e9de1" 
-                        alt="Luna" 
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
-                        <h4 className="text-white text-xl font-bold">Luna</h4>
-                        <p className="text-white/90">Golden Retriever, 2 ans</p>
+                  {[{
+                    name: 'Luna',
+                    breed: 'Golden Retriever, 2 ans',
+                    image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1',
+                    tags: ['Joueur', 'Calme'],
+                    description: "Luna est une chienne joyeuse et énergique qui adore jouer avec ses amis à quatre pattes. Elle est également très calme et affectionnée."
+                  }, {
+                    name: 'Max',
+                    breed: 'Labrador, 3 ans',
+                    image: 'https://images.unsplash.com/photo-1517423440428-a5a00ad493e8',
+                    tags: ['Énergique', 'Intelligent'],
+                    description: "Max est un labrador intelligent et plein d'énergie. Il adore les longues promenades et apprendre de nouveaux tours."
+                  }, {
+                    name: 'Bella',
+                    breed: 'Border Collie, 1 an',
+                    image: 'https://images.unsplash.com/photo-1507146426996-ef05306b995a',
+                    tags: ['Joueur', 'Affectueux'],
+                    description: "Bella est une jeune Border Collie affectueuse et joueuse. Elle aime courir et jouer à la balle."
+                  }].map((profile, index) => (
+                    <div key={index} className="bg-white border rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                      <div className="relative h-64 bg-gray-200">
+                        <img 
+                          src={profile.image} 
+                          alt={profile.name} 
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                          <h4 className="text-white text-xl font-bold">{profile.name}</h4>
+                          <p className="text-white/90">{profile.breed}</p>
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        <div className="flex items-center space-x-2 mb-2">
+                          {profile.tags.map((tag, idx) => (
+                            <span key={idx} className={`px-2 py-1 bg-${tag === 'Joueur' ? 'pink' : 'blue'}-100 text-${tag === 'Joueur' ? 'pink' : 'blue'}-800 rounded-full text-sm`}>{tag}</span>
+                          ))}
+                        </div>
+                        <p className="text-gray-600 text-sm mb-4">{profile.description}</p>
+                        <div className="flex justify-between">
+                          <button className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors">
+                            <FaTimes className="w-6 h-6" />
+                          </button>
+                          <button className="p-2 rounded-full bg-green-100 text-green-600 hover:bg-green-200 transition-colors">
+                            <FaHeart className="w-6 h-6" />
+                          </button>
+                        </div>
                       </div>
                     </div>
-                    <div className="p-4">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <span className="px-2 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Joueur</span>
-                        <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Calme</span>
-                      </div>
-                      <p className="text-gray-600 text-sm mb-4">Luna est une chienne joyeuse et énergique qui adore jouer avec ses amis à quatre pattes. Elle est également très calme et affectionnée.</p>
-                      <div className="flex justify-between">
-                        <button className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors">
-                          <FaTimes className="w-6 h-6" />
-                        </button>
-                        <button className="p-2 rounded-full bg-green-100 text-green-600 hover:bg-green-200 transition-colors">
-                          <FaHeart className="w-6 h-6" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Carte de profil 2 */}
-                  <div className="bg-white border rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                    <div className="relative h-64 bg-gray-200">
-                      <img 
-                        src="https://images.unsplash.com/photo-1517849845537-4d257902454a" 
-                        alt="Max" 
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
-                        <h4 className="text-white text-xl font-bold">Max</h4>
-                        <p className="text-white/90">Labrador, 3 ans</p>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <span className="px-2 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Énergique</span>
-                        <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Intelligent</span>
-                      </div>
-                      <p className="text-gray-600 text-sm mb-4">Max est un chien actif et intelligent qui aime les défis. Il est très loyal envers ses maîtres et adore les activités en plein air.</p>
-                      <div className="flex justify-between">
-                        <button className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors">
-                          <FaTimes className="w-6 h-6" />
-                        </button>
-                        <button className="p-2 rounded-full bg-green-100 text-green-600 hover:bg-green-200 transition-colors">
-                          <FaHeart className="w-6 h-6" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Carte de profil 3 */}
-                  <div className="bg-white border rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                    <div className="relative h-64 bg-gray-200">
-                      <img 
-                        src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e" 
-                        alt="Bella" 
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
-                        <h4 className="text-white text-xl font-bold">Bella</h4>
-                        <p className="text-white/90">Border Collie, 1 an</p>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <span className="px-2 py-1 bg-pink-100 text-pink-800 rounded-full text-sm">Intelligent</span>
-                        <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Agile</span>
-                      </div>
-                      <p className="text-gray-600 text-sm mb-4">Bella est une chienne intelligente et agile qui aime les défis. Elle est très attachée à ses maîtres et adore les activités en plein air.</p>
-                      <div className="flex justify-between">
-                        <button className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors">
-                          <FaTimes className="w-6 h-6" />
-                        </button>
-                        <button className="p-2 rounded-full bg-green-100 text-green-600 hover:bg-green-200 transition-colors">
-                          <FaHeart className="w-6 h-6" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
 
@@ -1366,42 +1230,6 @@ const Dashboard = () => {
                       <div>
                         <h4 className="font-semibold text-gray-900">Luna</h4>
                         <p className="text-sm text-gray-600">Il y a 2 heures</p>
-                        <button className="mt-2 text-sm text-pink-600 hover:text-pink-700">
-                          Envoyer un message
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-16 h-16 rounded-full overflow-hidden">
-                        <img 
-                          src="https://images.unsplash.com/photo-1517849845537-4d257902454a" 
-                          alt="Max" 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900">Max</h4>
-                        <p className="text-sm text-gray-600">Il y a 5 heures</p>
-                        <button className="mt-2 text-sm text-pink-600 hover:text-pink-700">
-                          Envoyer un message
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-16 h-16 rounded-full overflow-hidden">
-                        <img 
-                          src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e" 
-                          alt="Bella" 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900">Bella</h4>
-                        <p className="text-sm text-gray-600">Il y a 1 jour</p>
                         <button className="mt-2 text-sm text-pink-600 hover:text-pink-700">
                           Envoyer un message
                         </button>
@@ -1436,37 +1264,10 @@ const Dashboard = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-12 h-12 rounded-full overflow-hidden">
-                          <img 
-                            src="https://images.unsplash.com/photo-1517849845537-4d257902454a" 
-                            alt="Max" 
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-900">Rendez-vous avec Max</h4>
-                          <p className="text-sm text-gray-600">Parc pour chiens</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-sm text-gray-600">Samedi</p>
-                        <p className="text-sm text-gray-600">10:00</p>
-                      </div>
-                    </div>
-                  </div>
+                </div>
               </div>
             </div>
-          </div>
           )}
-          {activeMainTab === 'location' && (
-            <div>
-              {/* Location tab content */}
-            </div>
-          )}
-          {activeMainTab === 'petsense' && <PetSenseTab petSenseScore={petSenseScore} />}
         </div>
         {/* Sidebar toujours visible à droite */}
         <div className="space-y-6">
@@ -1480,74 +1281,74 @@ const Dashboard = () => {
                 <FaPlus />
               </button>
             </div>
-             {/* Rappels */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">Rappels</h2>
-                  <button
-                    className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
-                    onClick={() => setShowReminderForm(!showReminderForm)}
-                  >
-                    <FaPlus />
-                  </button>
-                </div>
-
-                {/* Liste des rappels existants */}
-                <div className="space-y-3 mb-4">
-                  {healthReminders.map((reminder) => (
-                    <div
-                      key={reminder.id}
-                      className="flex items-center justify-between bg-yellow-50 rounded-lg px-4 py-3"
-                    >
-                      <div>
-                        <div className="font-semibold text-gray-900">{reminder.type}</div>
-                        <div className="text-xs text-gray-500">{reminder.description}</div>
-                        <div className="text-xs text-gray-400">{reminder.time}</div>
-                      </div>
-                      <span className="px-3 py-1 rounded-full bg-yellow-200 text-yellow-800 text-xs font-medium">
-                        {reminder.status === 'pending' ? 'En attente' : 'Terminé'}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Formulaire d'ajout de rappel */}
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: showReminderForm ? 1 : 0, height: showReminderForm ? 'auto' : 0 }}
-                  transition={{ duration: 0.5 }}
+            {/* Rappels */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold">Rappels</h2>
+                <button
+                  className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
+                  onClick={() => setShowReminderForm(!showReminderForm)}
                 >
-                  {showReminderForm && (
-                    <form className="space-y-4">
-                      <select className="w-full px-2 py-1 border rounded">
-                        <option value="">Type</option>
-                        <option value="Médicament">Médicament</option>
-                        <option value="Activité">Activité</option>
-                        <option value="Nourriture">Nourriture</option>
-                      </select>
-                      <input
-                        type="text"
-                        placeholder="Description"
-                        className="w-full px-2 py-1 border rounded"
-                      />
-                      <input
-                        type="time"
-                        className="w-full px-2 py-1 border rounded"
-                      />
-                      <div className="flex space-x-2">
-                        <button type="submit" className="px-3 py-1 bg-green-500 text-white rounded">Ajouter</button>
-                        <button
-                          type="button"
-                          className="px-3 py-1 bg-gray-300 rounded"
-                          onClick={() => setShowReminderForm(false)}
-                        >
-                          Annuler
-                        </button>
-                      </div>
-                    </form>
-                  )}
-                </motion.div>
+                  <FaPlus />
+                </button>
               </div>
+
+              {/* Liste des rappels existants */}
+              <div className="space-y-3 mb-4">
+                {healthReminders.map((reminder) => (
+                  <div
+                    key={reminder.id}
+                    className="flex items-center justify-between bg-yellow-50 rounded-lg px-4 py-3"
+                  >
+                    <div>
+                      <div className="font-semibold text-gray-900">{reminder.type}</div>
+                      <div className="text-xs text-gray-500">{reminder.description}</div>
+                      <div className="text-xs text-gray-400">{reminder.time}</div>
+                    </div>
+                    <span className="px-3 py-1 rounded-full bg-yellow-200 text-yellow-800 text-xs font-medium">
+                      {reminder.status === 'pending' ? 'En attente' : 'Terminé'}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Formulaire d'ajout de rappel */}
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: showReminderForm ? 1 : 0, height: showReminderForm ? 'auto' : 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                {showReminderForm && (
+                  <form className="space-y-4">
+                    <select className="w-full px-2 py-1 border rounded">
+                      <option value="">Type</option>
+                      <option value="Médicament">Médicament</option>
+                      <option value="Activité">Activité</option>
+                      <option value="Nourriture">Nourriture</option>
+                    </select>
+                    <input
+                      type="text"
+                      placeholder="Description"
+                      className="w-full px-2 py-1 border rounded"
+                    />
+                    <input
+                      type="time"
+                      className="w-full px-2 py-1 border rounded"
+                    />
+                    <div className="flex space-x-2">
+                      <button type="submit" className="px-3 py-1 bg-green-500 text-white rounded">Ajouter</button>
+                      <button
+                        type="button"
+                        className="px-3 py-1 bg-gray-300 rounded"
+                        onClick={() => setShowReminderForm(false)}
+                      >
+                        Annuler
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </motion.div>
+            </div>
 
           {/* Nutrition */}
               <div className="bg-white rounded-lg shadow p-6">
@@ -1608,19 +1409,28 @@ const Dashboard = () => {
                     </form>
                   )}
                 </motion.div>
-                    <div className="bg-white rounded-xl shadow-sm p-6">
-            <h2 className="text-xl font-semibold mb-4">Données de santé</h2>
-            <HealthMetrics />
-          </div>
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <h2 className="text-xl font-semibold mb-4">Prédictions IA</h2>
-            <AiPredictions />
-          </div>
+              </div>
+
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <h2 className="text-xl font-semibold mb-4">Données de santé</h2>
+                <HealthMetrics />
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg p-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Prédictions de santé IA</h2>
+                <AiPredictions />
               </div>
             </div>
           </div>
         </div>
-    </div> /* Fin du container principal */
+      {/* Section for AI Predictions */}
+      {selectedVaccine && (
+        <VaccineInfoModal
+          vaccine={selectedVaccine}
+          onClose={() => setSelectedVaccine(null)}
+        />
+      )}
+    </div>
   );
 };
 
